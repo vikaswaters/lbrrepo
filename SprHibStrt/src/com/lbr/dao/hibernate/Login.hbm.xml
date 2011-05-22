@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="true" default-lazy="false">
+
+<class 
+    name="com.lbr.dao.hibernate.domain.Login" 
+    table="login"
+>
+
+    <id
+        name="id"
+        type="java.lang.Integer"
+        column="id"
+    >
+        <generator class="increment" />
+    </id>
+
+    <property
+        name="loginid"
+        type="java.lang.String"
+        column="loginid"
+        not-null="true"
+        unique="true"
+        length="20"
+    />
+    <property
+        name="password"
+        type="java.lang.String"
+        column="password"
+        not-null="true"
+        length="20"
+    />
+    
+     <property
+        name="email"
+        type="java.lang.String"
+        column="email"
+        not-null="false"
+        length="30"
+    />
+    <property
+        name="address"
+        type="java.lang.String"
+        column="address"
+        not-null="false"
+        length="60"
+    />
+
+  <property
+        name="phno"
+        type="int"
+        column="phno"
+        not-null="false"
+        length="11"
+    />
+  
+
+</class>
+</hibernate-mapping>

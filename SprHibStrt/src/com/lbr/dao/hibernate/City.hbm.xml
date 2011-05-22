@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 23, 2011 12:34:52 PM by Hibernate Tools 3.4.0.Beta1 -->
+<hibernate-mapping>
+    <class name="com.lbr.dao.hibernate.domain.City" table="city" catalog="eyakshur_lbr">
+        <id name="cityId" type="java.lang.Integer">
+            <column name="cityID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="state" class="com.lbr.dao.hibernate.domain.State"  lazy="false" fetch="select">
+            <column name="stateID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="district" class="com.lbr.dao.hibernate.domain.District" lazy="false" fetch="select">
+            <column name="districtID" not-null="true" />
+        </many-to-one>
+        <property name="cityName" type="string">
+            <column name="cityName" length="25" not-null="true" />
+        </property>
+        <set name="locationses" table="locations" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="cityID" />
+            </key>
+            <one-to-many class="com.lbr.dao.hibernate.domain.Locations" />
+        </set>
+    </class>
+</hibernate-mapping>

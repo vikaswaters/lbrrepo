@@ -1,0 +1,272 @@
+.hidden {display: none;}
+
+#collapsingBoxes .dataSet {
+	position: relative;
+	}
+	#collapsingBoxes .dataSet h2 {
+		border-bottom: none;
+		padding-left: 12px;
+		}
+		#collapsingBoxes .dataSet h2 em {
+			font: 10px Verdana, Arial, Helvetica, sans-serif;
+			color: #3c3c3c;
+			font-weight: normal;
+			margin-left: 21px;
+		}
+	#collapsingBoxes h4 {
+		font: 10px Verdana, Arial, Helvetica, sans-serif;
+		color: #3C3C3C;
+		font-weight: bold;
+		margin: 0 0 7px 4px;
+	}
+		.collapseControls {
+			position: absolute;
+			top: 5px;
+			right: 10px;
+			height: 18px;
+			width: 300px;
+			text-align: right;
+			font: 10px Verdana, Arial, Helvetica, sans-serif;
+			color: #3c3c3c;
+			}
+			.collapseControls select {
+				border: 1px solid #7f9db9;
+				margin-left: 5px;
+				vertical-align: middle;
+			}
+			.collapseControls img {
+				position: relative;
+				top: -1px;
+				margin-left: 14px;
+				vertical-align: middle;
+				cursor: pointer;
+				*cursor: hand;
+			}
+			
+	#threeMonthCalendarBox {
+		position: relative;
+		background: #f6f7f9;
+		width: 998px;
+		height: 268px;
+		padding: 11px 211px 4px 35px;
+		border-top: 1px solid #9d9d9d;
+		w\idth: 752px;
+		he\ight: 252px;
+		}
+		#monthControl {
+			position: absolute;
+			top: 7px;
+			left: 312px;
+			width: 300px;
+			}
+			#monthControl select {margin-left: 5px;}
+		
+			.bigCalendar {
+				float: left;
+				width: 245px;
+				height: 210px;
+				margin-left: 4px;
+				border: 1px solid #6e6e6e;
+				w\idth: 243px;
+				he\ight: 208px;
+				}
+				#currentMonth {border: 1px solid #292929;}
+				.bigCalendar h3 {
+					height: 18px;
+					border-bottom: 1px solid #6e6e6e;
+					padding: 2px 0 0 9px;
+					margin: 0;
+					he\ight: 16px;
+					background: url(../img/calendars/bg-month-name.jpg) left top no-repeat;
+					font: 11px Verdana, Arial, Helvetica, sans-serif;
+					color: #fff;
+					font-weight: bold;
+				}
+				#currentMonth h3 {
+					border-bottom: 1px solid #292929;
+					background: url(../img/calendars/bg-month-name-current.jpg) left top no-repeat;
+				}
+		
+		#threeMonthLegend {
+			clear: both;
+			text-align: center;
+			color: #353423;
+			font-weight: bold;
+			}
+			html>body #threeMonthLegend {padding-top: 8px;}
+			#threeMonthLegend img {
+				vertical-align: -70%;
+				margin: 0 3px 0 10px;
+			}
+			
+		#calendarShiftBack {
+			position: absolute;
+			top: 105px;
+			left: 10px;
+			width: 25px;
+			height: 56px;
+		}
+		
+		#calendarShiftForward {
+			position: absolute;
+			top: 105px;
+			left: 789px;
+			*left: 793px;
+			width: 25px;
+			height: 56px;
+		}
+		
+		#threeMonthCalendarBox #controlPanel {
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 172px;
+			height: 267px;
+			*height: 270px;
+			padding: 10px 5px 0 11px;
+			w\idth: 156px;
+			he\ight: 257px;
+			*he\ight: 260px;
+			background: #dfe9eb;
+			border-left: 1px solid #bababa;
+			}
+			#controlPanel h4 {
+				margin-left: 0;
+				margin-bottom: 15px;
+			}
+			#controlPanel label {
+				display: block;
+				padding: 0;
+				margin: 0 0 2px 0;
+			}
+			/* Calendar icons */
+			#controlPanel img {
+				margin-left: 6px;
+				vertical-align: -60%;
+				*vertical-align: -45%;
+			}
+			#threeMonthCalendarBox #controlPanel input {
+				width: 80px;
+				padding-left: 2px;
+				border: 1px solid #6e6e6e;
+			}
+			#threeMonthCalendarBox #controlPanel p {
+				margin: 0 0 15px 0;
+			}
+	
+	/* START tab-switched graph and table views */
+	
+	/* 
+	Have to redo construction of tabs due to IE bug wherein position: relative 
+	elements are disappearing when the large boxes are opened and closed.
+	*/
+	#collapsingBoxes #graphs {
+		margin-top: 24px;
+		}
+		#resultsTableBox .graphTabs {
+			position: absolute;
+			top: 27px;
+			left: 10px;
+			*top: 28px;
+			left: 0;
+			z-index: 3;
+		}
+	#collapsingBoxes #graphs #resultsGraph {
+		position: absolute;
+		top: 51px;
+		*top: 52px;
+		left: 0;
+		*left: 1px;
+		background: #f6f7f9;
+		width: 997px;
+		padding: 0;
+	}
+	
+	
+	#collapsingBoxes #graphs table, #collapsingBoxes #graphs caption {
+		background: #f6f7f9;
+		font: 10px Verdana, Arial, Helvetica, sans-serif;
+		}
+		#graphs caption {
+			text-align: left;
+			padding: 12px 0 12px 23px;
+		}
+		#graphs table th {
+			background: #013c71;
+			color: #fff;
+			border-right: 1px solid #fff;
+			font-weight: bold;
+			padding: 7px 5px 5px 5px;
+		}
+		#graphs table td {
+			text-align: right;
+			border-right: 1px solid #bababa;
+			padding: 4px 10px 3px 22px;
+		}
+		#graphs table tr.alternate td {background: #dddee0;}
+		#graphs table tr.totals td {
+			background: #cbdae7;
+			font-weight: bold;
+			border-top: 1px solid #9d9d9d;
+			}
+			#graphs table tr.totals td.firstColumn {padding-left: 5px;}
+			#graphs table tr.totals td img {
+				margin-right: 6px;
+				cursor: pointer;
+				*cursor: hand;
+				}
+		#graphs table tr .firstColumn {text-align: left;}
+		#graphs table tr .lastColumn {border-right: none;}
+		
+		/* Collapsable Rows */
+		#collapsingBoxes .tableSubset {
+			display: none;
+			border-top: 1px solid #9d9d9d;
+		}
+		/* END tab-switched graph and table views */
+		
+/* START Table Widths */
+
+/* Business Analysis  -- adds up to 993px */
+.soldLabel {
+	width: 112px;
+	*w\idth: 97px;
+}
+.soldLast {
+	width: 94px;
+	*w\idth: 62px;
+}
+.soldOnBooks {
+	width: 86px;
+	*w\idth: 54px;
+}
+.soldChange {
+	width: 70px;
+	*w\idth: 38px;
+}
+.occForecast {
+	width: 90px;
+	*w\idth: 58px;
+}
+.soldToDate {
+	width: 84px;
+	*w\idth: 52px;
+}
+.occForecastRemainder {
+	width: 194px;
+	*w\idth: 162px;
+}
+.adrLastYear {
+	width: 82px;
+	*w\idth: 50px;
+}
+.adrNow {
+	width: 67px;
+	*w\idth: 35px;
+}
+.adrChange {
+	width: 114px;
+	*w\idth: 82px;
+}
+
+/* END Table Widths */

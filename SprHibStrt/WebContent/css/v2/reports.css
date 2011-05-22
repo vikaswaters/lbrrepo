@@ -1,0 +1,48 @@
+body.report { background: darkgray; }
+
+.reportHead         { background: #00325d; width: 100%; height: 64px; }	
+.reportHead IMG     { position: absolute; left: 8px; top: 8px; }
+.reportHead P       { position: absolute; left: 64px; width: 780px; color: white; }
+.reportHead .title0 { font-size: 14pt; top: 6px; color:#FFCC33;}
+.reportHead .title1 { font-size: 13pt; top: 28px; }
+.reportHead .title2 { font-size: 8pt; top: 50px; }
+.reportHead A       { color: white; }
+	
+.reportHead .close     { float: right; margin: 18px 6px 0 0;}
+.reportHead .close IMG { position: relative; top: 0; left: 0;}
+.reportHead .close P   { position: relative; width: auto; display: inline; left: 0; padding-right: 6px; top: -2px;}
+
+.reportCriteria { position: relative; margin: 3px 3px 0 3px; padding: 0 0 3px 0; background: #dfe9eb; }
+
+.reportCriteria .error     { position: relative; display: none; width: 100%; margin: 4px; background: white; border: solid 1pt silver; }
+.reportCriteria .error IMG { margin: 10px 0 0 10px; vertical-align: top; }
+.reportCriteria .error DIV { display: inline; margin: 6pt; width: 680px; }
+.reportCriteria .error P   { font-size: 10pt; font-weight: bold; }
+.reportCriteria .error UL  { font-size: 8pt; font-weight: bold; height: auto; margin: -15px 0 0 20px; padding: 0;}
+.reportCriteria .error LI  { margin: 0 0 4px 0; padding: 0; }
+
+.reportCriteria .collapseCriteria     { width: 100%; font-size: 11px; font-weight: bold; color: #3c3c3c; margin: 0; padding: 0;}
+.reportCriteria .collapseCriteria img { margin: 4px 4px 2px 8px; cursor: pointer; float: right; }
+.reportCriteria .collapseCriteria p   { padding: 5px 0 0 6px; }
+
+.reportCriteria .label { color: black; font-weight: normal; }
+.reportCriteria .lbler { color: red;   font-weight: bold;   background: url(../../images/errArrow.gif) no-repeat; padding-left: 20px; }
+
+.datenav { clear: both; height: 26px; background-color: #EEEEF0; border-top: solid 1pt darkgray; margin: 0 3px 0 3px; padding-top: 4px;}
+.datenav P { float: left; padding: 2px 5px 0 4px; font-weight: bold;}
+
+#rptParams { padding: 0; height: 0; }
+#rptParams FORM { margin: 0; }
+
+iframe  { margin-left: 3px; margin-top: 3px;}
+#rwin   { width: 792px; height: 438px; }
+.widget { float: left; padding: 0 16px 8px 4px; width: auto; margin-left: 2px; position: relative;}
+.widget P { padding: 0; margin: 0; width: auto;}
+
+SELECT.dateEntrydd {
+	position: absolute;
+	left: expression(previousSibling.offsetLeft);
+	top: expression(previousSibling.offsetTop);
+	width:132;
+	clip:rect(2px 130px 17px 113px);
+	}

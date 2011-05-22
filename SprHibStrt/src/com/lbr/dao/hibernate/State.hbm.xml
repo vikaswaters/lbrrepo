@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 23, 2011 12:34:52 PM by Hibernate Tools 3.4.0.Beta1 -->
+<hibernate-mapping>
+    <class name="com.lbr.dao.hibernate.domain.State" table="state" catalog="eyakshur_lbr">
+        <id name="stateId" type="java.lang.Integer">
+            <column name="stateID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="country" class="com.lbr.dao.hibernate.domain.Country" fetch="select">
+            <column name="countryID" not-null="true" />
+        </many-to-one>
+        <property name="stateName" type="string">
+            <column name="stateName" length="20" not-null="true" />
+        </property>
+        <set name="districts" table="district" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="stateID" not-null="true" />
+            </key>
+            <one-to-many class="com.lbr.dao.hibernate.domain.District" />
+        </set>
+        <set name="cities" table="city" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="stateID" not-null="true" />
+            </key>
+            <one-to-many class="com.lbr.dao.hibernate.domain.City" />
+        </set>
+    </class>
+</hibernate-mapping>

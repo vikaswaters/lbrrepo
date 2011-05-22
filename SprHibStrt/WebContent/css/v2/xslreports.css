@@ -1,0 +1,93 @@
+body {
+	background-color: silver;
+    font-size: 8pt;
+	}
+
+table {
+    font-family: verdana; font-size: 8pt;
+    border: none;
+    border-collapse: true;
+    }
+
+td {
+    margin:0; padding:4; border: none;
+    }
+
+span.rbody {
+  overflow: scroll;
+}
+
+div.rpage {
+    position: absolute; left: 0px; top: 0px;  width: 990px;
+	background-color: white;
+	border-left: solid 1pt black;
+	border-top: solid 1pt black;
+	border-right: solid 2pt black;
+	border-bottom: solid 2pt black;
+    }
+
+TABLE.rsummary TH {
+    border: solid 1pt black;
+}
+
+TABLE.rsummary TD {
+  border: 1pt solid black;
+}
+
+TABLE.rsummary TD.pct {
+  text-align: right;
+  padding-right: 10px;
+}
+
+TABLE.rsummary TD.ctr {
+  text-align: center;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+div.rdetail {
+  margin: 10px 30px 5x 30px;
+}
+
+div.rdetail *.c1 { width:350px; display: inline;  padding: 0; clear: right;   }
+div.rdetail *.c2 { width:125px; display: inline;  padding-right: 15px; text-align: right;}
+div.rdetail *.c3 { width:100px; display: inline;  padding: 0; text-align: center; }
+div.rdetail *.c4 { width:125px; display: inline;  padding: 0; text-align: right; }
+
+div.rdetail .hdrLine1 {
+  font-weight: bold;
+}
+
+div.rdetail .hdrLine2 {
+  margin-left: -10px;
+  padding-left: 10px;
+  border-top: 1pt solid black;
+  border-bottom: 1pt solid black;
+  background-color: #D3D3D3;
+  width: 720px;
+}
+
+div.rdetail div.hdrLine2 div {
+ display: inline
+ }
+
+div.rdetail div.detFloor0 {
+  padding: 8px 0 0 0;
+  font-weight: bold;
+}
+
+div.rdetail div.detDoor0 {
+  padding: 0 0 0 0px;
+  font-weight: normal;
+}
+
+span.el {
+    width: 100%; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;
+    }
+
+a.expIcon {
+    }
+
+img.exportIcon {
+    }
+

@@ -1,0 +1,159 @@
+/* START Top Navigation */
+#envNavigation {
+	border-bottom: 6px solid #eebd1d;
+	background: url(../../images/art/bg-navigation.jpg) left top no-repeat;
+}
+#navigation {
+	width: 1004px;
+	position: relative;
+	height: 74px;
+	he\ight: 23px;
+	padding-top: 51px;
+	z-index: 2;
+	}
+	#logo {
+		position: absolute;
+		top: 13px;
+		left: 15px;
+	}
+	#constants {
+		position: absolute;
+		top: 10px;
+		left: 394px;
+		width: 600px;
+		text-align: right;
+		color: #ccd2e6;
+		}
+		#constants a {
+			font-weight: bold;
+			color: #fff;
+			border-right: 1px solid #5a80a3;
+			padding-bottom: 1px;
+			padding-right: 9px;
+			margin-right: 9px;
+			}
+			#constants a:hover, #constants a:active {text-decoration: underline;}
+			#constants a#lastConstant {
+				border: none;
+				padding-right: 0;
+				margin-right: 0;
+			}
+			
+	/* Level One Nav */
+	#levelOneStart {
+		position: absolute;
+		top: 52px;
+		left: 99px;
+		height: 22px;
+		width: 1px;
+		background: url(../../images/nav/bg-l1-start.gif) left top no-repeat;
+	}
+	/* Button Container */
+	#levelOnes {
+		margin-left: 100px;
+		padding: 0 0 0 1px;
+		height: 23px;
+		background: url(../../images/nav/bg-l1-full.gif) left bottom no-repeat;
+		color: #fff;
+		}
+		/* Basic Link Styles */
+		#levelOnes a {
+			color: #fff;
+			font-weight: bold;
+			}
+			#levelOnes a:hover, #levelOnes a:active {text-decoration: none;}
+		/* Begin defining l1 button characteristics */
+		#levelOnes ul, #levelTwos ul {
+			margin: 0;
+   			padding: 0;
+    		list-style: none;
+			}
+			#levelOnes ul li, #levelTwos ul li {
+				float: left;
+				margin: 0;
+   				padding: 0;
+				}
+				#levelOnes ul li#levelOneOn {
+					padding-left: 2px;
+					background: url(../../images/nav/l1-btnon-left.gif) left top no-repeat;
+				}
+				#levelOnes ul li a {
+					float: left;
+					display: block;
+					margin-top: 1px;
+					padding: 4px 20px 2px 20px;
+					height: 22px;
+					he\ight: 16px;
+					background: url(../../images/nav/l1-btn-0.gif) right top repeat-x;
+					}
+					#levelOnes ul li#levelOneOn a {
+						margin-top: 0;
+						height: 23px;
+						he\ight: 16px;
+						padding-top: 5px;
+						padding-left: 18px;
+						background: url(../../images/nav/l1-btnon-right.gif) right top no-repeat;
+						color: #002b50;
+					}
+					#levelOnes ul li a:hover, #levelOnes ul li a:active {
+						background: url(../../images/nav/l1-btn-r.gif) right top repeat-x;
+					}
+		/* End L1 button characteristics */			
+	
+#levelTwos {
+	background: #f0be1d;
+	padding-left: 92px;
+	height: 13px;
+	}
+	#levelTwos ul {
+		position: relative;
+		top: -2px;
+		*margin-top: -2px;
+		}
+		#levelTwos ul li {
+			display: inline;
+			}
+			#levelTwos ul li a {
+				display: block;
+				float: left;
+				color: #00325d;
+				margin-right: 13px;
+				padding-left: 7px;
+				font-weight: bold;
+				}
+				#levelTwos ul li a#l2On {
+					background: url(../../images/nav/bg-l2.gif) 0 3px no-repeat;
+					text-decoration: underline;
+				}
+			#levelTwos ul li a.disabled {
+				font-weight: normal;
+				cursor: default;
+				}
+				#levelTwos ul li a.disabled:hover, #levelTwos ul li a.disabled:active {
+					text-decoration: none;
+				}
+
+/* END Top Navigation */
+
+/* START DHTML */
+.dhtmlMenu {
+	position: absolute;
+	visibility: hidden;
+	border-left: 1px solid #00325d;
+	border-right: 1px solid #00325d;
+	background: #c8c9cb;
+	z-index: 100;
+	}
+	.dhtmlMenu a {
+		display: block;
+		border-bottom: 1px solid #00325d;
+		color: #353423;
+		padding: 3px 20px 3px 20px;
+		}
+		.dhtmlMenu a:hover, .dhtmlMenu a:active {
+			color: #fff;
+			background: #094a83;
+			text-decoration: none;
+		}
+
+/* END DHTML */

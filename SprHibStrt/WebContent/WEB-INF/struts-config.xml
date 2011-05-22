@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+<struts-config>
+  <!-- ============================================ Data Source Configuration  ================================================ Form Bean Definitions -->
+  <form-beans>
+    <form-bean name="UserLoginForm" type="com.lbr.web.struts.form.UserLoginForm"/>
+    <form-bean name="UserRegisterForm" type="com.lbr.web.struts.form.UserRegisterForm"/>
+    <form-bean name="UserForgetPasswordForm" type="com.lbr.web.struts.form.UserForgetPasswordForm"/>
+    <form-bean name="UserPreferenceForm" type="com.lbr.web.struts.form.UserPreferenceForm"/>
+    <form-bean name="UserLocationForm" type="com.lbr.web.struts.form.UserLocationForm"/>
+    <form-bean name="EventsForm" type="com.lbr.web.struts.form.EventsForm"/>
+  </form-beans>
+  <!-- ========================================= Global Exception Definitions -->
+  <global-exceptions>
+  </global-exceptions>
+  <!--
+  sample exception handler
+            <exception
+                key="expired.password"
+                type="app.ExpiredPasswordException"
+                path="/changePassword.jsp"/>
+            end sample  =========================================== Global Forward Definitions
+  -->
+  <global-forwards>
+	    <!-- welcome is simply the login JSP page -->  
+	    <forward name="userLoginJsp" path="/UserLoginJsp.do"/>
+	    <!-- login jsp via the action -->    
+	    <forward name="userLogin" path="/UserLogin.do"/>
+	    <!-- Go to UserHomeJSP without executing the action -->    
+	    <forward name="userHomeJSP" path="/UserHomeJSP.do"/>
+	    <!--  Go to UserHomeJSP after executing the action -->
+	    <forward name="userHome" path="/UserPreference.do"/>
+	    
+	    <!--  Go to Events page after executing the action -->
+	    <forward name="eventsHome" path="/Events.do"/>	    
+  </global-forwards>
+  
+  <!--  =========================================== Action Mapping Definitions -->
+  <action-mappings>
+    <!-- Default "Welcome" action  Forwards to Welcome.jsp -->
+    <action path="/UserLoginJsp" forward="/pages/user/userlogin.jsp">
+    </action>
+    <action path="/UserHomeJSP" forward="/pages/Welcome.jsp">
+    </action>
+    <action path="/Logout" type="com.lbr.web.struts.action.Logout">
+      <forward name="success" path="/"/>
+    </action>
+    <action path="/UserLogin" name="UserLoginForm" type="com.lbr.web.struts.action.UserLoginAction" scope="request" validate="true" input="/pages/user/userlogin.jsp">
+      <forward name="failure" path="/pages/user/userlogin.jsp"/>
+    </action>
+    <action path="/UserRegister" name="UserRegisterForm" type="com.lbr.web.struts.action.UserRegisterAction" scope="request" validate="true" input="/pages/user/userRegister.jsp">
+      <forward name="success" path="/pages/user/registersuccess.jsp"/>
+      <forward name="input" path="/pages/user/userRegister.jsp"/>
+    </action>
+    <action path="/UserForgetPassword" name="UserForgetPasswordForm" type="com.lbr.web.struts.action.UserForgetPasswordAction" scope="request" validate="true" input="/pages/user/forgetpassword.jsp">
+      <forward name="success" path="/pages/user/passwordSend.jsp"/>
+      <forward name="failure" path="/pages/user/forgetpassword.jsp"/>
+    </action>
+    <action path="/UserPreference" name="UserPreferenceForm" type="com.lbr.web.struts.action.UserPreferenceAction" scope="session" validate="true" input="/pages/Welcome.jsp">
+      <forward name="location" path="/UserLocation"/>
+      <forward name="failure" path="/pages/Welcome.jsp"/>
+    </action>
+    <action path="/UserLocation" name="UserLocationForm" type="com.lbr.web.struts.action.UserLocationAction" scope="session" validate="true" input="/pages/user/userLocation.jsp">
+      <forward name="success" path="/pages/user/userLocation.jsp"/>
+      <forward name="failure" path="/pages/user/userLocation.jsp"/>
+      <forward name="helpSearch" path="/pages/events.jsp"/>
+    </action>
+    <action path="/Events" name="EventsForm" type="com.lbr.web.struts.action.EventsAction" scope="session" validate="true" input="/pages/events.jsp">
+      <forward name="success" path="/pages/events.jsp"/>
+      <forward name="helpLocation" path="/pages/user/userLocation.jsp?fromEvents=true"/>
+      <forward name="retrieveEvent" path="/pages/events.jsp?modifyEvent=true"/>
+      <forward name="failure" path="/pages/events.jsp"/>
+    </action>    
+  </action-mappings>
+  <!-- ============================================= Controller Configuration -->
+  <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
+  <!-- ======================================== Message Resources Definitions -->
+  <message-resources parameter="MessageResources"/>
+  <!--
+  =============================================== Plug Ins Configuration  ======================================================= Tiles plugin 
+         This plugin initialize Tiles definition factory. This later can takes some
+    	 parameters explained here after. The plugin first read parameters from
+    	 web.xml, thenoverload them with parameters defined here. All parameters
+    	 are optional.
+         The plugin should be declared in each struts-config file.
+           - definitions-config: (optional)
+                Specify configuration file names. There can be several comma
+    		    separated file names (default: ?? )
+           - moduleAware: (optional - struts1.1)
+                Specify if the Tiles definition factory is module aware. If true
+                (default), there will be one factory for each Struts module.
+    			If false, there will be one common factory for all module. In this
+                later case, it is still needed to declare one plugin per module.
+                The factory will be initialized with parameters found in the first
+                initialized plugin (generally the one associated with the default
+                module).
+    			  true : One factory per module. (default)
+    			  false : one single shared factory for all modules
+    	   - definitions-parser-validate: (optional)
+    	        Specify if xml parser should validate the Tiles configuration file.
+    			  true : validate. DTD should be specified in file header (default)
+    			  false : no validation
+    
+    	  Paths found in Tiles definitions are relative to the main context.
+  -->
+  <plug-in className="org.apache.struts.tiles.TilesPlugin">
+    <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml"/>
+    <set-property property="moduleAware" value="true"/>
+  </plug-in>
+  
+<!--  Validator plugin -->
+<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+          <set-property
+            property="pathnames"
+           value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml"/>
+</plug-in>  
+</struts-config>

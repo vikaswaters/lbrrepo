@@ -1,0 +1,54 @@
+			.reportCategories {
+				position: absolute;
+				margin: 0 0 0 0;
+				left:-1;
+				top: 30x;
+				width: 172px;
+				height: 419px;
+				background: #d9dadc;
+				border-left: 1px solid #6e6e6e;
+				border-bottom: 1px solid #6e6e6e;
+				}
+
+			.reportCategories DIV {
+				font-size: 7.5pt;
+				color: #002b50;
+				font-weight: bold;
+				height: 21px;
+				padding: 8px 0 0 12px;
+			}
+						
+			.reportCategories .category {
+				background: #edeef0;
+				border-left: 1px solid #6e6e6e;
+				border-bottom: 1px solid #6e6e6e;
+				border-right: 1px solid #6e6e6e;
+				margin-left: 8px;
+				cursor: pointer;
+				padding-top: 10px;
+				padding-bottom: 10px;
+			}
+
+			.reportCategories .categoryOn {
+				background: #f6f7f9 url(../images/nav/bg-l2.gif) 4px 12px no-repeat;
+				border-left: 1px solid #6e6e6e;
+				border-bottom: 1px solid #6e6e6e;
+				border-top: 1px solid #6e6e6e;
+				border-right: 0px solid #6e6e6e;
+				margin-left: 8px;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				cursor: pointer;
+			}
+
+
+			.categoryFill {
+				height: 360px;
+				background: #f6f7f9;
+				border-right: 1px solid #6e6e6e;
+				padding-top: 15px;
+			}
+
+			.reportCategories a {
+				color: #4e4e4e;
+			}

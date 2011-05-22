@@ -1,0 +1,273 @@
+/*
+START
+Calendar Controls
+*/
+.calendarBox {
+	position: absolute;
+	top: 30px;
+	right: 0;
+	width: 216px;
+	border-left: 1px solid #6e6e6e;
+	}
+	.calendar ul, .bigCalendar ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		}
+	#calendarHead {
+		position: relative;
+		height: 25px;
+		background: url(../images/interface/bg-calendar-head.jpg) left top no-repeat;
+		}
+		/* START Month Selector Arrows */
+		.calendarArrows {
+			position: absolute;
+			top: 6px;
+			z-index: 1;
+			}
+			.calendarArrows img {margin-right: 6px;}
+		#calendarArrowsBack {left: 14px;}
+		#calendarArrowsForward {left: 172px;}
+		/* END Month Selector Arrows */
+		
+		/* START Dropdown Selector for Months */
+		#dropMonthSelector {
+			position: absolute;
+			top: 3px;
+			left: 55px;
+			width: 107px;
+			border-top: 1px solid #406971;
+		}
+		#calendarHead ul {
+			background: #fff;
+			border: 1px solid #406971;
+			border-top: none;
+			cursor: pointer;
+			*cursor: hand;
+			z-index: 2;
+			}
+			#calendarHead ul.dropdownMenu li.firstItem a,
+			#calendarHead ul.dropdownMenu li.firstItem a:hover,
+			#calendarHead ul.dropdownMenu li.firstItem a:active {
+				color: #4e4e4e;
+				background: #fff url(../images/forms/bg-dropdown-calendar.gif) right top no-repeat;
+				}
+				#calendarHead ul.dropdownMenu li a:hover, 
+				#calendarHead ul.dropdownMenu li a:active {
+					background: #cadbdd;
+					color: #006a77;
+				}
+		/* END Dropdown Selector for Months */
+	
+		/* START Calendar boxes */
+		.calendar ul li, .bigCalendar ul li {
+			float: left;
+			height: 24px;
+			width: 24px;
+			padding-top: 6px;
+			text-align: center;
+			background: #fff;
+			border-left: 1px solid #949494;
+			border-top: 1px solid #949494;
+			}
+			.calendar ul.calendarCaption li, .bigCalendar ul.calendarCaption li {
+				height: 18px;
+				padding-top: 3px;
+				width: 24px;
+				border-left: 1px solid #6e6e6e;
+				border-top: 1px solid #6e6e6e;
+				background: #a6c4ca;
+				color: #4e4e4e;
+				font-weight: bold;
+				}
+				ul.calendarCaption li.week, .bigCalendar ul.calendarCaption li.week {
+					width: 47px;
+				}
+				
+			ul#selectedWeek-true li {background: #fae8ad;}
+				ul#selectedWeek-true li a {font-weight: bold;}
+				
+			.calendar ul li a, .bigCalendar ul li a {color: #900;}
+			
+			ul li#selectedDay, li#selectedDay-true {background: #fae8ad;}
+				ul li#selectedDay a, li#selectedDay-true a {font-weight: bold;}
+				
+			ul li.week, .bigCalendar ul li.week {
+				width: 47px;
+				background: #cadbdd;
+				border-left: none;
+				border-top: 1px solid #a1a3a8;
+				}
+				ul li.week a {font-weight: bold;}
+			ul li.otherMonth, ul.otherMonth li {background: #ebeded;}
+				ul li.otherMonth a {color: #676767;}
+		/* END Calendar boxes */
+		
+/*
+END
+Calendar Controls
+*/
+/* START Big Calendar overrides */
+		.bigCalendar ul li {
+			position: relative;
+			height: 28px;
+			width: 28px;
+			padding-top: 7px;
+			}
+		
+		.bigCalendar ul.calendarCaption li {
+			height: 20px;
+			width: 28px;
+			}
+			
+		/* Corners */
+		.bigCalendar ul li div {
+			margin: 0;
+			padding: 0;
+		}
+		.bigCalendar ul li .cAlert {
+			position: absolute;
+			bottom: 0;
+			*bottom: -1px;
+			left: 0;
+			width: 8px;
+			height: 8px;
+			background: url(../images/calendars/corner-alert.gif) top left no-repeat;
+		}
+		.bigCalendar ul li .cLowOccupancy {
+			position: absolute;
+			bottom: 0;
+			*bottom: -1px;
+			right: 0;
+			*right: -1px;
+			width: 8px;
+			height: 8px;
+			background: url(../images/calendars/corner-low-occupancy.gif) top left no-repeat;
+		}
+		.bigCalendar ul li .cHighOccupancy {
+			position: absolute;
+			top: 0;
+			right: 0;
+			*right: -1px;
+			width: 8px;
+			height: 8px;
+			background: url(../images/calendars/corner-high-occupancy.gif) top left no-repeat;
+		}
+		.bigCalendar ul li .cSpecialEvent {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 8px;
+			height: 8px;
+			background: url(../images/calendars/corner-special-event.gif) top left no-repeat;
+		}
+		.bigCalendar ul li a.cSystemOverride {
+			background: yellow;
+			padding: 1 1 1 1;
+			border:1px solid black;
+		}
+		/* END Big Calendar overrides */
+
+	#threeMonthCalendarBox {
+		position: relative;
+		background: #f6f7f9;
+		width: 810px;
+		height: 268px;
+		/*pkunte changing left padding from 28 to 26*/
+		padding: 11px 1px 4px 26px;
+		border-top: 1px solid #9d9d9d;
+		}
+		#monthControl {
+			position: absolute;
+			top: 7px;
+			left: 312px;
+			width: 300px;
+			}
+			#monthControl select {margin-left: 5px;}
+		
+			.bigCalendar {
+				float: left;
+				width: 245px;
+				height: 208px;
+				margin-left: 4px;
+				border: 1px solid #6e6e6e;
+				}
+				#currentMonth {border: 1px solid #292929;}
+				.bigCalendar h3 {
+					height: 18px;
+					border-bottom: 1px solid #6e6e6e;
+					padding: 2px 0 0 9px;
+					margin: 0;
+					background: url(../images/calendars/bg-month-name.jpg) left top no-repeat;
+					font: 11px Verdana, Arial, Helvetica, sans-serif;
+					color: #fff;
+					font-weight: bold;
+				}
+				#currentMonth h3 {
+					border-bottom: 1px solid #292929;
+					background: url(../images/calendars/bg-month-name-current.jpg) left top no-repeat;
+				}
+		
+		#threeMonthLegend {
+			clear: both;
+			text-align: center;
+			color: #353423;
+			font-weight: bold;
+			}
+			html>body #threeMonthLegend {padding-top: 8px;}
+			#threeMonthLegend img {
+				vertical-align: -70%;
+				margin: 0 3px 0 10px;
+			}
+			
+		#calendarShiftBack {
+			position: absolute;
+			top: 105px;
+/*pkunte changing left position from 10 to 1*/
+			left: 1px;
+			width: 25px;
+			height: 56px;
+		}
+		
+		#calendarShiftForward {
+			position: absolute;
+			top: 105px;
+			left: 785px;
+			width: 25px;
+			height: 56px;
+		}
+		
+		#threeMonthCalendarBox #controlPanel {
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 172px;
+			height: 267px;
+			*height: 270px;
+			padding: 10px 5px 0 11px;
+			background: #dfe9eb;
+			border-left: 1px solid #bababa;
+			}
+			#controlPanel h4 {
+				margin-left: 0;
+				margin-bottom: 15px;
+			}
+			#controlPanel label {
+				display: block;
+				padding: 0;
+				margin: 0 0 2px 0;
+			}
+			/* Calendar icons */
+			#controlPanel img {
+				margin-left: 6px;
+				vertical-align: -60%;
+				*vertical-align: -45%;
+			}
+			#threeMonthCalendarBox #controlPanel input {
+				width: 80px;
+				padding-left: 2px;
+				border: 1px solid #6e6e6e;
+			}
+			#threeMonthCalendarBox #controlPanel p {
+				margin: 0 0 15px 0;
+			}

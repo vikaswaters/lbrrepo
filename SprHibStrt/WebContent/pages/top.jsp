@@ -1,0 +1,75 @@
+<%@ taglib uri="/tags/struts-bean" prefix="bean" %>
+<%@ taglib uri="/tags/struts-html" prefix="html" %>
+<%@page import="com.lbr.dao.hibernate.domain.*"%>          
+          
+<LINK rel="stylesheet" type="text/css" name="style" href="<html:rewrite page='/css/style.css'/>">
+<LINK rel="stylesheet" type="text/css" name="base" href="<html:rewrite page='/css/base.css'/>">
+
+<table class="headerTable"> 
+		<tr>
+			<td align="left" colspan="4" width="100%">
+					<h1 style="color: #660033"><font size="4" face="Monotype Corsiva">Location Based Recommendation System</font></h1>	
+					<!--  
+					<p style="color: #660033"><font size="8" face="Monotype Corsiva">Location Based Recommendation System</font></p>
+					-->	
+			</td>			     
+ 		</tr>
+ 		<% 
+ 		Users user =(Users)session.getAttribute("USERVO");
+ 		%>
+ 		<% if(user== null) {%>
+          <tr>
+                <td class="headerTableRowData">
+                       <html:link styleClass="headerTableRowDataLink" page="/pages/user/userRegister.jsp">Register</html:link>
+				</td>
+			    <td class="headerTableRowData" colspan="2">
+                     <html:link styleClass="headerTableRowDataLink" page="/pages/user/forgetpassword.jsp">Forget Password</html:link>
+				</td>
+				<td class="headerTableRowData">
+					<html:link styleClass="headerTableRowDataLink" page="/pages/user/userlogin.jsp">Login</html:link>
+				</td>
+        </tr>
+         <%} else {%>
+          <tr>
+		          <% if(user.getUserpermissions().getBasicModulePermission().booleanValue()) {%>
+					    <td class="headerTableRowData">
+							<html:link styleClass="headerTableRowDataLink" page="/UserPreference.do">Home</html:link>
+						</td>
+		                <td class="headerTableRowData">
+		                       <html:link styleClass="headerTableRowDataLink" page="/pages/user/userRegister.jsp">Register</html:link>
+						</td>						
+		                <td class="headerTableRowData">
+							 	<html:link styleClass="headerTableRowDataLink" page="/UserRegister.do?action=update">Update Profile</html:link> 
+						</td>
+						<td class="headerTableRowData">
+		                      		<html:link styleClass="headerTableRowDataLink" page="/Logout.do">Logout</html:link> 
+						</td>						
+				  <% } else { %>		
+		                <td class="headerTableRowData"  colspan="2">
+							 	<html:link styleClass="headerTableRowDataLink" page="/UserRegister.do?action=update">Update Profile</html:link> 
+						</td>
+						<td class="headerTableRowData" colspan="2">
+		                      		<html:link styleClass="headerTableRowDataLink" page="/Logout.do">Logout</html:link> 
+						</td>
+				 <% } %>	
+        </tr>        
+         <% } %>
+       
+		<% if(user!=null && user.getUserpermissions().getEventsModulePermission().booleanValue()) {%>		
+			 <tr> 		
+				<td class="eventheaderTableRowData" colspan="2">
+					<html:link styleClass="headerTableRowDataLink" page="/Events.do">Add Events</html:link>
+				</td>
+				<td class="eventheaderTableRowData" colspan="2">
+				<%--
+				<html:link styleClass="headerTableRowDataLink" page="/pages/events.jsp?modifyEvent=true">Modify Events</html:link>
+				 --%>
+					<html:link styleClass="headerTableRowDataLink" page="/Events.do?modifyEvent=true">Modify Events</html:link>
+				</td>	
+			</tr>			
+		<% } %>			        
+              
+		<tr> <td colspan="4">&nbsp;</td></tr>
+</table>
+  
+	  

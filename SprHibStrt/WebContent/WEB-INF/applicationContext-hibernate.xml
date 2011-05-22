@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--
+  - Application context definition for LBR Login Application on Hibernate.
+	-->
+<beans>
+
+	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
+  
+	<!-- Configurer that replaces ${...} placeholders with values from a properties file -->
+	<!-- (in this case, JDBC-related settings for the dataSource definition below) -->
+	
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location"><value>/WEB-INF/jdbc.properties</value></property>
+	</bean>
+	
+
+	<!-- Local DataSource that works in any environment -->
+	<!-- Note that DriverManagerDataSource does not pool; it is not intended for production -->
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"><value>${jdbc.driverClassName}</value></property>
+		<property name="url"><value>${jdbc.url}</value></property>
+		<property name="username"><value>${jdbc.username}</value></property>
+		<property name="password"><value>${jdbc.password}</value></property>
+	</bean>
+
+	<!-- JNDI DataSource for J2EE environments -->
+
+	<!-- Hibernate SessionFactory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+ 
+
+		<property name="dataSource"><ref local="dataSource"/></property>
+		<property name="mappingResources">
+		<list>
+			<value>com/lbr/dao/hibernate/Login.hbm.xml</value>
+			<value>com/lbr/dao/hibernate/Users.hbm.xml</value>
+			<value>com/lbr/dao/hibernate/Category.hbm.xml</value>
+			<value>com/lbr/dao/hibernate/Subcategory.hbm.xml</value>
+			<value>com/lbr/dao/hibernate/State.hbm.xml</value>
+			<value>com/lbr/dao/hibernate/City.hbm.xml</value>
+			<value>com/lbr/dao/hibernate/Events.hbm.xml</value>
+			<value>com/lbr/dao/hibernate/Locations.hbm.xml</value>
+		    <value>com/lbr/dao/hibernate/District.hbm.xml</value>
+			<value>com/lbr/dao/hibernate/Country.hbm.xml</value>
+			<value>com/lbr/dao/hibernate/Userpermissions.hbm.xml</value>
+			<value>com/lbr/dao/hibernate/Missinglocations.hbm.xml</value>
+		</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+			<!--
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				-->
+				<prop key="hibernate.current_session_context_class">thread</prop>
+				<prop key="current_session_context_class">thread</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLMyISAMDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory"><ref local="sessionFactory"/></property>
+	</bean>
+
+
+	<!-- ========================= BUSINESS OBJECT DEFINITIONS ========================= -->
+
+	<!--
+	 Data access object: Hibernate implementation.
+    -->
+
+	<bean id="HibernateSpringDaoTarget" class="com.lbr.dao.SpringHibernateDAOImpl">
+		<property name="sessionFactory"><ref local="sessionFactory"/></property>
+	</bean>
+
+	<!--
+		- Transactional proxy for Login Application central data access object.
+		-
+		- Defines specific transaction attributes with "readOnly" markers,
+		- which is an optimization that is particularly valuable with Hibernate
+		- (to suppress unnecessary flush attempts for read-only operations).
+		-
+		- Note that in a real-life app with multiple transaction proxies,
+		- you will probably want to use parent and child bean definitions
+		- as described in the manual, to reduce duplication.
+    -->
+
+	<bean id="SpringHibernateDao" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager"><ref local="transactionManager"/></property>
+		<property name="target"><ref local="HibernateSpringDaoTarget"/></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="store*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- Email Service-->
+	<bean id="mailbean" class="com.lbr.web.common.SendMail">
+		<property name="strSmtp"><value>65.54.31.248</value></property>
+	</bean>
+	
+	<bean id="applicationContextProvider" class="com.lbr.utils.ApplicationContextProvider"></bean>
+
+
+<bean id="categoryDao" class="com.lbr.dao.genericdao.impl.GenericDaoHibernateImpl">
+        <constructor-arg>
+            <value>com.lbr.dao.hibernate.domain.Category</value>
+        </constructor-arg>
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+</bean>
+
+<bean id="subcategoryDao" class="com.lbr.dao.genericdao.impl.GenericDaoHibernateImpl">
+        <constructor-arg>
+            <value>com.lbr.dao.hibernate.domain.Subcategory</value>
+        </constructor-arg>
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+</bean>
+
+<bean id="eventsDao" class="com.lbr.dao.genericdao.impl.GenericDaoHibernateImpl">
+        <constructor-arg>
+            <value>com.lbr.dao.hibernate.domain.Events</value>
+        </constructor-arg>
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+</bean>
+
+<bean id="usersDao" class="com.lbr.dao.genericdao.impl.GenericDaoHibernateImpl">
+        <constructor-arg>
+            <value>com.lbr.dao.hibernate.domain.Users</value>
+        </constructor-arg>
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+</bean>
+<bean id="locationsDao" class="com.lbr.dao.genericdao.impl.GenericDaoHibernateImpl">
+        <constructor-arg>
+            <value>com.lbr.dao.hibernate.domain.Locations</value>
+        </constructor-arg>
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+</bean>
+<bean id="cityDao" class="com.lbr.dao.genericdao.impl.GenericDaoHibernateImpl">
+        <constructor-arg>
+            <value>com.lbr.dao.hibernate.domain.City</value>
+        </constructor-arg>
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+</bean>
+<bean id="stateDao" class="com.lbr.dao.genericdao.impl.GenericDaoHibernateImpl">
+        <constructor-arg>
+            <value>com.lbr.dao.hibernate.domain.State</value>
+        </constructor-arg>
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+</bean>
+<bean id="userpermissionsDao" class="com.lbr.dao.genericdao.impl.GenericDaoHibernateImpl">
+        <constructor-arg>
+            <value>com.lbr.dao.hibernate.domain.Userpermissions</value>
+        </constructor-arg>
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+</bean>
+
+<bean id="missinglocationsDao" class="com.lbr.dao.genericdao.impl.GenericDaoHibernateImpl">
+        <constructor-arg>
+            <value>com.lbr.dao.hibernate.domain.Missinglocations</value>
+        </constructor-arg>
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+</bean>
+
+</beans>

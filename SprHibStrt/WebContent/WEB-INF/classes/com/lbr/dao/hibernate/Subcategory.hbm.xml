@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 07-Mar-2011 11:48:20 by Hibernate Tools 3.4.0.Beta1 -->
+<hibernate-mapping>
+    <class name="com.lbr.dao.hibernate.domain.Subcategory" table="subcategory" catalog="eyakshur_lbr">
+        <id name="subCatId" type="java.lang.Integer">
+            <column name="subCatID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="category" class="com.lbr.dao.hibernate.domain.Category" lazy="false" fetch="select">
+            <column name="catID" not-null="true" />
+        </many-to-one>
+        <property name="subCatName" type="string">
+            <column name="subCatName" length="40" not-null="true" />
+        </property>
+        <property name="type" type="java.lang.Boolean">
+            <column name="type">
+                <comment>Static --&gt; 0 Dynamic /time bound events -&gt; 1</comment>
+            </column>
+        </property>
+        <set name="eventses" table="events" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="subCatID" />
+            </key>
+            <one-to-many class="com.lbr.dao.hibernate.domain.Events" />
+        </set>
+    </class>
+</hibernate-mapping>

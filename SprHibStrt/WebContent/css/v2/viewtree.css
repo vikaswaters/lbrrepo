@@ -1,0 +1,141 @@
+div.o {	
+	position: absolute; 
+	top: 0; 
+	left: 0px; 
+	height: 100%; 
+	width: 225px; 
+	border-right: 1pt solid #6e6e6e; 
+	padding: 8px; 4px 4px 4px;
+	}
+				
+div.c {	
+	position: absolute; 
+	top: 0; 
+	left: 225px; 
+	height: 100%; 
+	width: 100%; 
+	border: 0;
+	padding: 8px; 4px 4px 4px;
+	float: left;
+	}
+		 		
+div.s {	
+	display:none
+	}
+
+div.m { 
+	border: null;
+	margin-right: 0px; margin-left: 10px; margin-top: 0; margin-bottom: 0px;
+	padding: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	}
+
+div.q { 
+	border: null;
+	margin-right: 0px; margin-left: 10px; margin-top: 0; margin-bottom: 0px;
+	padding: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	}
+				
+#pvheader {
+	width: 550px;
+	position: relative;
+	color: #e3e8ec;
+	z-index: 1;
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+	background: #00325d;
+	height: 40px;	
+	}
+
+#pvheader h1 {
+		font: 16px Verdana, Arial, Helvetica, sans-serif;
+		color: #fff;
+		font-weight: normal;
+		margin: 8px 0 2px 25px;
+		padding: 4px; 0 0 8px;
+	}
+
+#pvheader a, #pvheader a:hover, #pvheader a:active  {
+	text-decoration: none;
+	color: #fff;
+	cursor: default;
+	}
+
+
+
+#pvinfo {
+	background-color: #e0e0e2;
+	border: solid 1px #6e6e6e;
+	padding: 10px 10px 10px 10px;
+	margin: 4px 4px 0 4px;
+	height: 48px;
+	width: 100%;
+	}
+	
+#pvseldiv {
+	background-color: #d9dadc;
+	border: solid 1px #6e6e6e;
+	font-weight: bolder;
+	padding: 3px;
+	border-top: 0;
+	margin: 0 4px 4px 4px;
+	height: 26px;
+	width: 100%;
+	}
+
+.pvbody1 P {
+	padding: 2px 0 0 0;
+	}
+
+.pvbody1 {
+	position: relative;
+	font-weight: bolder;
+	background-color: #c8c9cb;
+	border: solid 1px #6e6e6e;
+	padding: 3px;
+	margin: 0 4px 0 4px;
+	height: 28px;
+	width: 100%;
+	}
+
+.pvbody2 {
+	position: relative;
+	background-color: #e0e0e2;
+	border-left: solid 1px #6e6e6e;
+	border-right: solid 1px #6e6e6e;
+	padding: 3px;
+	margin: 0 4px 0 4px;
+	height: 288px;
+	width: 100%;
+	}
+
+.pvbody1 INPUT {
+	height: 16px;
+	}
+
+.pvbody1 P {
+	font-size: 10pt;
+	font-weight: bolder;
+	color: #002b50;
+	padding: 2px 0 0 0;
+	}
+	
+#pselector {
+	overflow: auto; 
+	height: 218px;
+	width: 305px;
+	}
+
+.pvbody1 DIV.btnData {
+	margin-left: 10px;
+	cursor: hand;
+	}
+	
+.pvbody1 DIV.btnData A.dim {
+	color: darkgray;
+	}

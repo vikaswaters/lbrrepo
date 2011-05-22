@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 07-Mar-2011 11:48:20 by Hibernate Tools 3.4.0.Beta1 -->
+<hibernate-mapping>
+    <class name="com.lbr.dao.hibernate.domain.Userpermissions" table="userpermissions" catalog="eyakshur_lbr">
+        <id name="userTypeId" type="int">
+            <column name="userTypeID" />
+            <generator class="assigned" />
+        </id>
+        <property name="userTypeName" type="string">
+            <column name="userTypeName" length="20" />
+        </property>
+        <property name="basicModulePermission" type="java.lang.Boolean">
+            <column name="basicModulePermission" />
+        </property>
+        <property name="eventsModulePermission" type="java.lang.Boolean">
+            <column name="eventsModulePermission" />
+        </property>
+        <property name="locationModulePermission" type="java.lang.Boolean">
+            <column name="locationModulePermission" />
+        </property>
+        <property name="categoryModulePermission" type="java.lang.Boolean">
+            <column name="categoryModulePermission" />
+        </property>
+        <property name="purgeModulePermission" type="java.lang.Boolean">
+            <column name="purgeModulePermission" />
+        </property>
+        <property name="dbUser" type="string">
+            <column name="dbUser" length="20" />
+        </property>
+        <set name="userses" table="users" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userTypeID" />
+            </key>
+            <one-to-many class="com.lbr.dao.hibernate.domain.Users" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+  PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+  "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+  <display-name>Location Based Reco Application</display-name>
+  
+
+	<!-- Spring context Configuration Begins-->
+    <context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>/WEB-INF/log4j.properties</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/applicationContext-hibernate.xml</param-value>
+	</context-param>
+
+
+  <listener>
+    <listener-class>com.lbr.LbrInitializer</listener-class>
+  </listener>
+  
+	<servlet>
+	  <servlet-name>context</servlet-name>
+	  <servlet-class>
+		 org.springframework.web.context.ContextLoaderServlet
+	  </servlet-class>
+	<load-on-startup>1</load-on-startup>
+	</servlet>
+    <!-- Spring context loading ends-->
+
+  <!-- Standard Action Servlet Configuration (with debugging) -->
+  <servlet>
+    <servlet-name>action</servlet-name>
+    <servlet-class>com.lbr.web.struts.ApplicationActionServlet</servlet-class>
+    <init-param>
+      <param-name>config</param-name>
+      <param-value>/WEB-INF/struts-config.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    <init-param>
+      <param-name>detail</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+
+
+  <!-- Standard Action Servlet Mapping -->
+  <servlet-mapping>
+    <servlet-name>action</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+
+
+  <!-- The Usual Welcome File List -->
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+	
+  </welcome-file-list>
+
+
+  <!-- Struts Tag Library Descriptors -->
+  <taglib>
+    <taglib-uri>/tags/struts-bean</taglib-uri>
+    <taglib-location>/WEB-INF/struts-bean.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/tags/struts-html</taglib-uri>
+    <taglib-location>/WEB-INF/struts-html.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/tags/struts-logic</taglib-uri>
+    <taglib-location>/WEB-INF/struts-logic.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/tags/struts-nested</taglib-uri>
+    <taglib-location>/WEB-INF/struts-nested.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/tags/struts-tiles</taglib-uri>
+    <taglib-location>/WEB-INF/struts-tiles.tld</taglib-location>
+  </taglib>
+
+ 
+<!--<security-constraint>
+	<web-resource-collection>
+		<web-resource-name>SprHibStrt</web-resource-name>
+		<url-pattern>/*</url-pattern>
+	</web-resource-collection>
+	<user-data-constraint>
+		<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+	</user-data-constraint>
+</security-constraint>
+--></web-app>

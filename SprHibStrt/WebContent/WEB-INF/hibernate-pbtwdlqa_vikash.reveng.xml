@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-catalog="pbtwdlqa_vikash" match-name="country"/>
+  <table-filter match-catalog="pbtwdlqa_vikash" match-name="state"/>
+  <table-filter match-catalog="pbtwdlqa_vikash" match-name="district"/>
+  <table-filter match-catalog="pbtwdlqa_vikash" match-name="city"/>
+  <table-filter match-catalog="pbtwdlqa_vikash" match-name="locations"/>
+  <table-filter match-catalog="pbtwdlqa_vikash" match-name="userpermissions"/>
+  
+  <table-filter match-catalog="pbtwdlqa_vikash" match-name="category"/>
+  <table-filter match-catalog="pbtwdlqa_vikash" match-name="events"/>
+  <table-filter match-catalog="pbtwdlqa_vikash" match-name="subcategory"/>
+  <table-filter match-catalog="pbtwdlqa_vikash" match-name="users"/>
+
+  <table-filter match-catalog="pbtwdlqa_vikash" match-name="missinglocations"/>
+</hibernate-reverse-engineering>

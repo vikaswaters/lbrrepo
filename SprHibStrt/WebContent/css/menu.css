@@ -1,0 +1,105 @@
+body.Application{background-color:#ffffff;margin-left:0;margin-top:0;margin-right:0;margin-bottom:0;}
+
+.Menu{background-color:#FFCC33;height:100%;border:Navy;}
+a.subMenuFont{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;}
+a.subMenuHighFont{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:#408080;}
+.subMenuFont{font-Family:Verdana;font-Size:10;font-Weight:Bold;color:Navy;}
+a.subMenuTitleFont{text-decoration:none;font-Family:Verdana;font-Size:10;font-Weight:Bold;color:White;}
+a.mainMenuFont{text-decoration:none;font-Family:Verdana;font-Size:10;font-Weight:Bold;color:Navy;}
+a.mainMenuHighFont{text-decoration:none;font-Family:Verdana;font-Size:10;font-Weight:Bold;color:#408080;}
+.loginFont{font-Family:Bookman;font-Size:13;font-Weight:Bold;color:White;}
+.propertyFont{font-Family:Bookman;font-Size:26;font-Weight:Bold;color:#FFCC33;}
+table.subMenu{text-indent:0}
+.Separator{background-color:Navy;}
+
+.Header{width:100%;background-color:Navy;}
+.headerFont{font-Family:Verdana;font-Size:12;font-Weight:Bold;color:White;}
+a.headerFont{font-Family:Verdana;font-Size:10;font-Weight:Bold;color:Navy;}
+a:hover{color:Red;font-Weight:Bold;}
+
+.Logo{background-color:Navy;font-Family:Verdana;font-Size:12;font-Weight:Bold;color:White;}
+
+.HelpArea{background-color:white;width:100%;margin-left:5;}
+.helpFont{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;}
+
+.HowtoArea{background-color:#f3e3a3;z-index:10;border:thin outset black;}
+.howtoFont{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;}
+
+.DataArea{}
+
+.ErrorsArea{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;}
+.ErrorsAreaInverse{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Red;}
+.ErrorOnImage{font-Family:Verdana;font-Size:11;font-Weight:Normal;color:Red;background-color:White;}
+table.subMenuName{font-Family:Verdana;font-Size:11;font-Weight:Bold;color:White;background-color:Navy;}
+
+input.TextEntry{font-Family:Verdana;font-Size:10;font-Weight:Normal;background-color:white;color:Navy;border-style:solid;border-width:1;border-color:#686868;}
+input.NumericalTextEntry{font-Family:Verdana;font-Size:10;font-Weight:Normal;background-color:white;color:Navy;border-style:solid;border-width:1;border-color:#686868;text-align:right;}
+input.ReadOnlyTextEntry{font-Family:Verdana;font-Size:10;font-Weight:Normal;background-color:#e2e2e2;color:Navy;border-style:solid;border-width:1;border-color:#e2e2e2;}
+password.TextEntry{font-Family:Verdana;font-Size:10;font-Weight:Normal;background-color:white;color:Navy;border-style:solid;border-width:1;border-color:#686868;}
+textarea.TextAreaEntry{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;border-style:solid;border-width:1;border-color:#686868}
+select.OptionEntry{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;border-style:solid;border-width:1;border-color:#686868}
+input.SubmitControl{font-Family:Verdana;font-Size:10;font-Weight:Normal;background-color:Navy;color:white;border-style:solid;border-width:1;border-color:navy;cursor:hand;}
+input.LoginSubmitControl{font-Family:Bookman;font-Size:13;font-Weight:Normal;background-color:Navy;color:white;border-style:solid;border-width:1;border-color:white;cursor:hand;}
+input.FileControl{font-Family:Verdana;font-Size:10;font-Weight:Normal;background-color:White;color:Navy;border-style:solid;border-width:1;border-color:navy;}
+input.DisabledSubmitControl{font-Family:Verdana;font-Size:10;font-Weight:Normal;background-color:#e2e2e2;color:Navy;border-style:solid;border-width:1;border-color:navy;}
+
+table.Heading{background-color:white;color:navy;}
+table.Data{background-color:navy;}
+table.ChartData{background-color:Navy}
+thead.Data{background-color:#cecfff;font-Family:Verdana;font-Size:10;font-Weight:Bold;color:Navy;}
+tfoot.Data{background-color:#cecfff;font-Family:Verdana;font-Size:10;font-Weight:Bold;color:Navy;}
+tbody.Data{background-color:#e2e2e2;font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;}
+tbody th{text-align:left;font-Family:Verdana;font-Size:10;font-Weight:bold;color:Navy;}
+
+tr.SelectedRow{font-Weight:Normal;color:Navy;background-color:#e2e2b8;}
+tr.SelectedRowToday{font-Weight:Bold;color:White;background-color:navy;}
+
+tbody.Filter{font-Family:Verdana;font-Size:10;font-Weight:Bold;color:Navy;}
+select.Filter{font-Family:Verdana;font-Size:10;font-Weight:Bold;color:Navy;}
+
+table.ReportData{background-color:white;}
+tbody.ReportData{background-color:white;font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;}
+
+tbody.Calendar{background-color:white;}
+tbody a.CalendarYearlyData{font-Family:Verdana;font-Size:10;font-Weight:bold;color:firebrick;}
+tbody a.CalendarYearlyHeader{text-decoration:none;font-Family:Verdana;font-Size:10;font-Weight:bold;color:Navy;}
+th.CalendarMonthlyHeader{font-Family:Verdana;font-Size:11;font-Weight:Bold;color:White;background-color:#aaa371;}
+th a.CalendarMonthlyHeader{text-decoration:none;font-Family:Verdana;font-Size:11;font-Weight:Bold;color:White;background-color:#aaa371;}
+td.CalendarWeekHeader{font-Family:Verdana;font-Size:11;font-Weight:Normal;color:White;background-color:#aaa371;}
+a.CalendarWeekHeader{text-decoration:none;font-Family:Verdana;font-Size:10;font-Weight:Normal;color:White;}
+tbody a.CalendarMonthlyData{text-decoration:none;font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;}
+td.CalendarPrevious{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;background-color:#e2e2e2;}
+td.CalendarMonthlyData{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;background-color:white;}
+td.CalendarWeekend{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;background-color:#9bbfbf;}
+td.CalendarToday{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;border-style:solid;border-width:1;border-color:black;}
+td.CalendarSelected{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;background-color:#cecfff;}
+td.CalendarSelectedToday{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;background-color:#cecfff;border-style:solid;border-width:1;border-color:black;}
+
+font.hintFont{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;}
+
+th a.ScrollCalendarMonthlyHeader{text-decoration:none;font-Family:Verdana;font-Size:11;font-Weight:Bold;color:Navy;background-color:#cecfff;}
+a.ScrollCalendarWeekHeader{text-decoration:none;font-Family:Verdana;font-Size:10;font-Weight:Bold;color:Navy;}
+th.ScrollCalendarWeekend{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;background-color:#9bbfbf;width:15;text-align:center;}
+th.ScrollCalendarWeekday{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;background-color:white;width:15;text-align:center;}
+td.ScrollCalendarPrevious{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;background-color:#e2e2e2;width:15;text-align:center;}
+a.ScrollCalendarMonthlyData{text-decoration:none;font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;}
+td.ScrollCalendarSelected{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;background-color:#ffffaf;text-align:center;}
+.ScrollCalendar{height:61;overflow-y:auto;scrollbar-face-color:#cecfff;scrollbar-darkshadow-color:Navy;scrollbar-arrow-color:Navy;scrollbar-track-color:#e2e2e2;}
+
+tr.SummaryRowLevel0{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;background-color:#e2d2f2;}
+tr.SummaryRowLevel1{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;background-color:#e2e2e2;}
+tr.SummaryRowLevel2{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;background-color:#e2e2e2;}
+tr.SummaryRowLevel3{font-Family:Verdana;font-Size:10;font-Weight:Normal;color:Navy;background-color:#ffffff;}
+
+td.SummaryRowLevel0{text-indent:1;}
+td.SummaryRowLevel1{text-indent:5;}
+td.SummaryRowLevel2{text-indent:10;}
+td.SummaryRowLevel3{text-indent:35;}
+
+select.time{font:normal 10px verdana;color: navy; border: black 1px solid;}
+input.dateentry{font:normal 10px verdana;color: navy; border: solid inactivecaption 1px; height: 17.25px; width: 90px; position: relative; top: -1px; background-color: white;}
+image.dateentry{position: relative; top: 2px; left: 2px;}
+a.icon{font-family: wingdings; font-size=12pt; color: navy; font-weight: normal; text-decoration: none;}
+a.icon:visited{font-family: wingdings; font-size=12pt; color: navy; font-weight: normal; text-decoration: none;}
+a.icon:hover{font-family: wingdings; font-size=12pt; color: navy; font-weight: normal; text-decoration: none;}
+option.rpr{font-Family:Verdana;font-Size:10;font-Weight:Bold;color:Navy;}

@@ -1,0 +1,165 @@
+/*
+Personalization section provides styles for My Links and My News Sections and
+their respective dropdown boxes
+*/
+#personalization {
+	position: absolute;
+	top: 53px;
+	left: 722px;
+	height: 22px;
+	width: 282px;
+	text-align: right;
+	z-index: 5;
+	}
+	/* START Defining styles for the dropdown buttons themselves */
+	/* Class name "personOff" is called by a JavaScript function when resetting
+	the button's style when a user clicks it off */
+	#personalization a, #personalization a.personOff {
+		display: block;
+		float: right;
+		position: relative;
+		height: 22px;
+		font-weight: bold;
+		color: #fff;
+		z-index: 5;
+		}
+		#personalization a:hover, #personalization a:active {text-decoration: underline;}
+		#personalization a.myLinkson {
+			display: block !important;
+			background: #00325D url(../images/interface/bg-my-links-on.gif) left top no-repeat !important;
+		}
+		#personalization a.myNewson {
+			display: block !important;
+			background: #00325D url(../images/interface/bg-my-news-on.gif) left top no-repeat !important;
+		}
+		#personalization a.myLinksoff {
+			background: url(../images/interface/bg-my-links.gif) 18px 10px no-repeat;
+		}
+		#personalization a.myNewsoff {
+			background: url(../images/interface/bg-my-news.gif) left top no-repeat;
+		}
+		#personalization a#myLinks {
+			padding: 5px 15px 0 29px;
+			background: url(../images/interface/bg-my-links.gif) 18px 10px no-repeat;
+			margin-right: -1px;
+		}
+		#personalization a#myNews {
+			padding: 5px 9px 0 32px;
+			background: url(../images/interface/bg-my-news.gif) left top no-repeat;
+		}
+	/* END Defining styles for the dropdown buttons themselves */
+		/* START Personalization Boxes inside links */
+		#personalization div {
+			display: none;
+			position: absolute;
+			top: 21px;
+			height: 200px;
+			width: 277px;
+			background: #004580;
+			border: 1px solid #5a80a3;
+			z-index: 4;
+			}
+			#personalization div div {
+				display: block;
+				position: static;
+				color: #fff;
+			}
+			#personalization div#myLinksBox {
+/* pkunte changing here to remove the myNewsBox Link */
+/*				right: 90px;*/
+				right: 0px;
+				padding: 4px 4px 3px 4px;
+				}
+				/* Styles for boxes inside dropdown boxes */
+				#personalization div div a {
+					float: none;
+					position: static;
+					display: inline;
+					font-weight: normal;
+					color: #fff;
+				}
+				#personalization div div h4 {
+					font: 10px Verdana, Arial, Helvetica, sans-serif;
+					font-weight: bold;
+					margin: 0 0 2px 0;
+				}
+				#personalization div#myLinksBox div {
+					width: 267px;
+					margin-bottom: 4px;
+					padding: 7px 7px 0 58px;
+					cursor: pointer;
+					*cursor: hand;
+				}
+				#personalization div#myLinksBox div#linkSupport {
+					background: url(../images/icons/icon-mylinks-support.gif) 9px 5px no-repeat;
+					height: 68px;
+					text-align: left;
+				}
+				#personalization div#myLinksBox div#linkHotel {
+					background: url(../images/icons/icon-mylinks-hotel.gif) 9px 6px no-repeat;
+					height: 60px;
+					text-align: left;
+				}
+				/* MR : 9175 Add ILS Link to my links */
+				#personalization div#myLinksBox div#LearningSystem {
+					background: url(../images/icons/lms-icon.gif) 1px 6px no-repeat;
+					height: 60px;
+					text-align: left;
+				}
+				#personalization div#myLinksBox div#linkPower {
+					background: url(../images/icons/icon-login-i.gif) 7px 8px no-repeat;
+					height: 56px;
+					text-align: left;
+				}
+				#personalization div#myLinksBox div#myLinkList {
+					background: #00325d;
+					color: #94A8BB;
+					height: 104px;
+					padding: 9px;
+					margin-bottom: 3px;
+					overflow-y: scroll;
+					cursor: default;
+					text-align: left;
+					}
+					/* Deal with browsers that display bottom scrollbar */
+					html>body #personalization div#myLinksBox div#myLinkList {
+						overflow: scroll;
+						height: 80px;
+					}
+					#personalization div#myLinksBox div#myLinkList a {font-weight: bold;}
+
+					a.personalLink {
+						float: right;
+						display: block;
+						height: 19px;
+						width: 127px;	/* 112 */
+						margin-top: 3px;
+						padding: 3px 0 0 0;
+						background: url(../images/forms/bg-setup.gif) right top no-repeat;
+						font-weight: bold;
+						text-align: center;
+						}
+						#personalization div a.personalLink:hover,
+						#personalization div a.personalLink:active {
+							text-decoration: none;
+						}
+		/* My News-specific styles */
+		#personalization div#myNewsBox {
+			right: 2px;
+			padding: 4px 4px 3px 4px;
+			}
+			#personalization div#myNewsBox div#news {
+				height: 297px;
+				width: 266px;
+				padding: 10px 9px 0 9px;
+				background: #00325d;
+				*overflow-y: scroll;
+				}
+				/* Deal with browsers that display bottom scrollbar */
+				html>body #personalization div#myNewsBox div#news {overflow: scroll;}
+				#personalization div#myNewsBox div#news p {
+					margin: 0;
+					padding: 10px 0 7px 0;
+					border-bottom: 1px solid #4a6d8c;
+				}
+/* END Personalization Boxes inside links */

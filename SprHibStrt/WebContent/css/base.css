@@ -1,0 +1,121 @@
+/* *************** Selector- Element ******** */
+body {
+	margin: 0;
+	padding: 0;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	color: #333;
+	background: #f5f2fd;
+	min-width: 1004px;
+}
+
+a {text-decoration: none;}
+	a:hover, a:active {text-decoration: underline;}
+
+img, a img {border: none;}
+
+input, select, textarea {
+	font: 12px Verdana, Arial, Helvetica, sans-serif;
+	color: #111;
+}
+
+table {
+	background-color: #CCCCFF;
+	border-spacing: 1;
+	cellpadding:3;
+	cellspacing:3;
+	border:1;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	}
+
+table tr td, table tr th {vertical-align: top;}
+
+
+tr.spaceUnderMedium > td
+{
+  padding-bottom: 6em;
+}
+
+tr.spaceUnderSmall > td
+{
+  padding-bottom: 3em;
+}
+
+/* *************** Selector- id (specific/unique element on a page) ******** */
+#formAction
+{
+text-align:center;
+color:red;
+align="left";
+}
+
+
+
+/* *************** Selector- class (The class selector is used to specify a style for a group of elements) ******** */
+
+.center {text-align:center;} 
+
+.calendarContentTable  {
+	width: 120;
+	align: CENTER; 
+	border:0;
+	cellpadding: 1;
+	cellspacing:0;
+	background-color: #00FF33;
+	}
+	
+.headerTable {
+	border:"0"; width:100%; cellpadding:0; cellspacing:0;
+	background-color:#fffbfd;
+}
+
+.headerTableRowData {
+	text-align: center;
+	background-color:#6699CC;
+	font: 15px Verdana, Arial, Helvetica, sans-serif;
+	color: black;
+	width: 25%;
+}
+
+.eventheaderTableRowData{
+	text-align: center;
+	background-color:#99CCCC;
+	font: 15px Verdana, Arial, Helvetica, sans-serif;
+	color: black;
+	width: 25%;
+}
+
+.headerTableRowDataLink {
+	color:black;
+	font: 15px Verdana, Arial, Helvetica, sans-serif;
+}
+
+.separatorThin {
+border-style:dotted solid dashed; 
+border-width:1px;
+border-color:#FFbf21;
+}
+.separatorMedium {
+border-style:dotted solid dashed; 
+border-width:3px;
+border-color:#98bf21;
+}
+.separatorThick {
+border-style:inset solid; 
+border-width:5px;
+border-color:#FF0000;
+}
+
+.locationLink {
+	background-color:#fffbfd;
+	font: 15px Verdana, Arial, Helvetica, sans-serif;
+	background-color:#FF9999;
+}
+
+.locationTableRow {
+	border-collapse: collapse;
+	background-color:#00FF99;
+	border-spacing: 0;
+	font: 12px Verdana, Arial, Helvetica, sans-serif;
+}
+
+

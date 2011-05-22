@@ -1,0 +1,65 @@
+// Pkunte for System Override
+
+/* START thick blue bar below L1 nav */
+#envRevertHeader {
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+	background: #00325d;
+	height: 45px;
+}
+#RevertHeader {
+	position: relative;
+	color: #e3e8ec;
+	z-index: 1;
+	}
+	#RevertHeader h1 {
+		font: 16px Verdana, Arial, Helvetica, sans-serif;
+		color: #fff;
+		font-weight: bold;
+		margin: 8px 0 2px 15px;
+	}
+	#RevertHeader p {margin: 0 0 5px 15px;}
+/* END thick blue bar below L1 nav */
+.RevertContext {
+	float: left;
+	margin-right: 5px;
+	padding-left: 3px;
+	background: url(../../images/forms/databutton-left.gif) left top no-repeat;
+	.RevertContext div.dummyClass{
+		display: block;
+		*float: left;
+		height: 17px;
+		margin: 0;
+		padding: 3px 12px 0 10px;
+		font: 10px Verdana, Arial, Helvetica, sans-serif;
+		font-weight: bold;
+		color: #002b50;
+		background: url(../../images/forms/bg-databutton.gif) right top no-repeat;
+		}
+	}
+}
+.RevertDropdown {
+	display: none;
+	position: absolute;
+	top: 0; 
+	left: 175px;
+	height: auto;
+	width: 120px;
+	padding: 0;
+	margin: 1px 0;
+	color: #4e4e4e;
+	background: #edeef0;
+	border: 1px solid #00325d;
+	border-top: 1px solid #00325d;
+	border-bottom:none;
+	scrollbar-arrow-color: #4e4e4e;
+	scrollbar-base-color: #d9dadc;
+	}
+div.MPdropdownitemC1 { 
+	height: 19px;	 
+	width: 100%; 
+	overflow: hidden; 
+	margin: 0; 
+	padding: 0;
+	text-align: left;  
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 07-Mar-2011 11:48:20 by Hibernate Tools 3.4.0.Beta1 -->
+<hibernate-mapping>
+    <class name="com.lbr.dao.hibernate.domain.Users" table="users" catalog="eyakshur_lbr">
+        <id name="userName" type="string">
+            <column name="userName" length="12" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="userpermissions" class="com.lbr.dao.hibernate.domain.Userpermissions" fetch="select" lazy="false">
+            <column name="userTypeID" />
+        </many-to-one>
+        <many-to-one name="locationsByCurrentLocationId" class="com.lbr.dao.hibernate.domain.Locations" 
+lazy="false"
+fetch="select">
+            <column name="currentLocationID" />
+        </many-to-one>
+        <many-to-one name="locationsByHomeLocationId" class="com.lbr.dao.hibernate.domain.Locations" 
+lazy="false"
+fetch="select">
+            <column name="homeLocationID" />
+        </many-to-one>
+        <property name="mobileNo" type="long">
+            <column name="mobileNo" not-null="true" unique="true" />
+        </property>
+        <property name="preferences" type="string">
+            <column name="preferences" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="40" not-null="true" />
+        </property>
+        <property name="vicinityPolicyPreference" type="java.lang.Integer">
+            <column name="vicinityPolicyPreference" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="30" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" length="60" />
+        </property>
+        <property name="preferencesLevels" type="string">
+            <column name="preferencesLevels" />
+        </property>
+        <property name="userId" type="int">
+            <column name="userID" not-null="true" unique="true" />
+        </property>
+    </class>
+</hibernate-mapping>

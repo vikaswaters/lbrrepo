@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-Mar-2011 20:54:26 by Hibernate Tools 3.4.0.Beta1 -->
+<hibernate-mapping>
+    <class name="com.lbr.dao.hibernate.domain.Missinglocations" table="missinglocations" catalog="eyakshur_lbr">
+        <composite-id name="id" class="com.lbr.dao.hibernate.domain.MissinglocationsId">
+            <key-property name="pincode" type="int">
+                <column name="pincode" />
+            </key-property>
+            <key-property name="locName" type="string">
+                <column name="locName" length="30" />
+            </key-property>
+            <key-property name="cityName" type="string">
+                <column name="cityName" length="30" />
+            </key-property>
+        </composite-id>
+        <property name="addedOn" type="timestamp">
+            <column name="addedOn" length="19" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

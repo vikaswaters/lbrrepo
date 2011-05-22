@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 07-Mar-2011 11:48:20 by Hibernate Tools 3.4.0.Beta1 -->
+<hibernate-mapping>
+    <class name="com.lbr.dao.hibernate.domain.Events" table="events" catalog="eyakshur_lbr">
+        <id name="eventId" type="java.lang.Integer">
+            <column name="eventID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="subcategory" class="com.lbr.dao.hibernate.domain.Subcategory" fetch="select" lazy="false">
+            <column name="subCatID" />
+        </many-to-one>
+        <many-to-one name="locations" class="com.lbr.dao.hibernate.domain.Locations" fetch="select" lazy="false">
+            <column name="locationID" />
+        </many-to-one>
+        <property name="startDate" type="timestamp">
+            <column name="startDate" length="19" />
+        </property>
+        <property name="endDate" type="timestamp">
+            <column name="endDate" length="19" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="50" />
+        </property>
+        <property name="contactNo" type="java.lang.Long">
+            <column name="contactNo" />
+        </property>
+        <property name="contactPerson" type="string">
+            <column name="contactPerson" length="20" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" length="200" />
+        </property>
+        <property name="details" type="string">
+            <column name="details" length="200" />
+        </property>
+        <property name="modifiedOn" type="timestamp">
+            <column name="modifiedOn" length="19" />
+        </property>
+        <property name="level" type="java.lang.Integer">
+            <column name="level">
+                <comment>Rates the event on a scale of [1-10], depending on the value, hotness, uniqueness of the event. A level of 10 is very special. A level of 1-2 is
+                cliched.</comment>
+            </column>
+        </property>
+        <property name="ownerId" type="java.lang.Integer">
+            <column name="ownerID" />
+        </property>
+        <property name="usp" type="string">
+            <column name="usp" length="60" />
+        </property>
+    </class>
+</hibernate-mapping>
