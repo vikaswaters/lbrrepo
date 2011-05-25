@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import org.apache.log4j.Logger;
+
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 
+import com.lbr.SubcategoryWrapper;
 import com.lbr.VICINITY_POLICY;
 import com.lbr.Vicinity;
 import com.lbr.core.EventRecommendationVO;
@@ -32,7 +33,8 @@ public class UserPreferenceForm extends ActionForm{
 	private List<Category> categoryList;
 	private List<Subcategory> subcategoryList;
 	//private Map<Integer, List<Subcategory>> cacheSubcategoryList;
-	private List<Subcategory> userPreferences;
+	//private List<Subcategory> userPreferences;
+	private List<SubcategoryWrapper> userPreferencesWithLevels;
 	private List<EventRecommendationVO> recommendations;
 	private String startDate;
 	private String endDate;
@@ -40,6 +42,11 @@ public class UserPreferenceForm extends ActionForm{
 
 	private int vicinitypolicyID;
 	private List<Vicinity> vicinityPolicyList;
+	
+	private String[] subcatLevels;
+	
+//	private List<List<EventLevel>> subcatLevelsList;
+	
 
 	@Override
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
@@ -63,8 +70,10 @@ public class UserPreferenceForm extends ActionForm{
 
         List<Subcategory> subcategoryList = DaoUtilities.getAllSubCategoryForCatID(new Integer(this.getCategory()));
         this.setSubcategoryList(subcategoryList);
+        
+        //subcatLevelsList = new ArrayList<List<EventLevel>>();   //new ArrayList<EventLevel>()
+        
 	}
-
 
 	public String getCurrentLocationStr() {
 		return currentLocationStr;
@@ -154,15 +163,6 @@ public class UserPreferenceForm extends ActionForm{
 	}
 
 
-	public List getStateList() {
-		return subcategoryList;
-	}
-
-
-	public void setStateList(List stateList) {
-		this.subcategoryList = stateList;
-	}
-
 	public List<Subcategory> getSubcategoryList() {
 		return subcategoryList;
 	}
@@ -179,16 +179,26 @@ public class UserPreferenceForm extends ActionForm{
 		this.cacheSubcategoryList = cacheSubcategoryList;
 	}*/
 
-	  public List<Subcategory> getUserPreferences() {
+/*	  public List<Subcategory> getUserPreferences() {
 		return userPreferences;
 	}
 
 	public void setUserPreferences(List<Subcategory> userPreferences) {
 		this.userPreferences = userPreferences;
-	}
+	}*/
 
+	
 	public int getVicinitypolicyID() {
 		return vicinitypolicyID;
+	}
+
+	public List<SubcategoryWrapper> getUserPreferencesWithLevels() {
+		return userPreferencesWithLevels;
+	}
+
+	public void setUserPreferencesWithLevels(
+			List<SubcategoryWrapper> userPreferencesWithLevels) {
+		this.userPreferencesWithLevels = userPreferencesWithLevels;
 	}
 
 	public void setVicinitypolicyID(int vicinitypolicyID) {
@@ -201,6 +211,14 @@ public class UserPreferenceForm extends ActionForm{
 
 	public void setVicinityPolicyList(List<Vicinity> vicinityPolicyList) {
 		this.vicinityPolicyList = vicinityPolicyList;
+	}
+
+	public String[] getSubcatLevels() {
+		return subcatLevels;
+	}
+
+	public void setSubcatLevels(String[] subcatLevels) {
+		this.subcatLevels = subcatLevels;
 	}
 
 	public String toXml() {
@@ -272,4 +290,5 @@ public class UserPreferenceForm extends ActionForm{
 		 this.setSubcategoryList(subcategoryList);
 		 this.setCategory(primarySelectionCatID);
 	 }
+	 
 }

@@ -17,7 +17,7 @@ public class EventRecommendationVO {
 	private List<String> finalUserIDsToBeInformed;
 	private Events event;
 	private List<Users> interminUsersToBeInformed;
-	Map<String, Users> usersToBeInformed ; // store userIds as key
+	private Map<String, Users> usersToBeInformed ; // store userIds as key
 	
 	public Events getEvent() {
 		return event;

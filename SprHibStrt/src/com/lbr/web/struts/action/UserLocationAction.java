@@ -35,7 +35,7 @@ public class UserLocationAction extends LbrAction {
 
         ActionMessages errors = new ActionMessages();
         UserLocationForm objForm = (UserLocationForm) form;
-        LbrAction.setThreadLocalValue(errors);
+        LbrAction.setThreadLocalErrosValue(errors);
 
         if(objForm.getFormAction()!=null && objForm.getFormAction().equalsIgnoreCase("locationSearch")){
         	String pincode = objForm.getPincode();

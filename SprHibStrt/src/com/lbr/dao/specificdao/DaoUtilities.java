@@ -3,6 +3,7 @@ package com.lbr.dao.specificdao;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,10 +12,13 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionMessage;
 
 import com.lbr.LbrUtility;
+import com.lbr.SubcategoryWrapper;
+import com.lbr.SubcategoryWrapperComparator;
 import com.lbr.dao.genericdao.GenericDao;
 import com.lbr.dao.hibernate.domain.Category;
 import com.lbr.dao.hibernate.domain.City;
@@ -28,6 +32,7 @@ import com.lbr.dao.hibernate.domain.Userpermissions;
 import com.lbr.dao.hibernate.domain.Users;
 import com.lbr.utils.ApplicationContextProvider;
 import com.lbr.web.struts.action.LbrAction;
+import com.lbr.web.struts.form.UserPreferenceForm;
 
 public class DaoUtilities {
 	private static final Logger logger = Logger.getLogger(DaoUtilities.class);
@@ -84,40 +89,84 @@ public class DaoUtilities {
 		 }
 
 	// ================================  User Specific DB operations =============================
-	 public static boolean[] saveUserPreference(String userId, String[] selectedUserPref, HttpServletRequest request){
-			GenericDao daoUsers = (GenericDao)ApplicationContextProvider.getApplicationContext().getBean("usersDao");
-			//Events ev = (Events)daoEvents.read(5);
-			//logger.debug("### EventName= "+ev.getName());
+ 
+	 public static boolean[] saveUserPreference(String userId, UserPreferenceForm objForm, HttpServletRequest request){
 			Users user = DaoUtilities.getUserByIDSmartCall(request, userId);
-			StringBuffer currentUserPref = new StringBuffer();
+			String[] selectedUserPref = objForm.getSubcategory();
+			List<SubcategoryWrapper> currUserPreferencesWithLevels = objForm.getUserPreferencesWithLevels();
+			
+			StringBuffer existingUserPref = new StringBuffer();
 			if(user.getPreferences()!=null)
-				currentUserPref.append(user.getPreferences());
+				existingUserPref.append(user.getPreferences());
 			else
-				currentUserPref.append(",");
-			logger.debug("Old User Preference= "+currentUserPref);
+				existingUserPref.append(",");
+			logger.debug("Old User Preference= "+existingUserPref);
 			boolean [] results = new boolean[selectedUserPref.length];
 			for (int i = 0; i < selectedUserPref.length; i++) {
 				String subCatID = ","+selectedUserPref[i]+",";
-				if(currentUserPref.indexOf(subCatID)== -1){
-					currentUserPref.append(subCatID);
-					currentUserPref.append(",");
-					results[i] = true;
+				if(existingUserPref.indexOf(subCatID)== -1){ // user selected NEW SubCategory as preference
+					String newsubCatID = selectedUserPref[i];
+					Subcategory subcat = (Subcategory)DaoUtilities.staticCache.get("SUBCAT_"+newsubCatID);
+					SubcategoryWrapper subcatWrap =  new SubcategoryWrapper(subcat);  // with default LEVEL
+					if(currUserPreferencesWithLevels == null){
+						currUserPreferencesWithLevels =  new ArrayList<SubcategoryWrapper>();
+						objForm.setUserPreferencesWithLevels(currUserPreferencesWithLevels);
+					}
+					currUserPreferencesWithLevels.add(subcatWrap);
+				}
+				else{
+					logger.debug("SAVE Preferences: User Preference "+subCatID+ " already exist. Ignoring SAVE!");
 				}
 			}
-			if(!currentUserPref.toString().equals(user.getPreferences())){
-				String newUserPref = LbrUtility.sortUserPreference(currentUserPref.toString());
-				user.setPreferences(newUserPref);
+			saveUserPreferenceToDBAndUpdateForm(userId, objForm, existingUserPref.toString(), request);
+			return results;
+		 }	 
+	 
+	 public static void saveUserPreferenceToDBAndUpdateForm(String userId, UserPreferenceForm objForm, String currentUserPref, HttpServletRequest request){
+		    List<SubcategoryWrapper> currUserPreferencesWithLevels = objForm.getUserPreferencesWithLevels();
+		    Users user = DaoUtilities.getUserByIDSmartCall(request, userId);
+			Collections.sort(currUserPreferencesWithLevels, new SubcategoryWrapperComparator());
+			String[] strArrUserPrefSubCatIDs = LbrUtility.createUserPrefSubCatIDsToStringArray(currUserPreferencesWithLevels);
+			String[] strArrUserPrefLevels = LbrUtility.createUserPrefLevelsToStringArray(currUserPreferencesWithLevels);
+			String newUserPrefSubCatIDs = LbrUtility.createStringArrayToString(strArrUserPrefSubCatIDs);
+			String newUserPrefLevels = LbrUtility.createStringArrayToString(strArrUserPrefLevels);
+			
+			if(!currentUserPref.equals(newUserPrefSubCatIDs)){
+				user.setPreferences(newUserPrefSubCatIDs);
+				user.setPreferencesLevels(newUserPrefLevels);
 				//daoUsers.update(user);
 				DaoUtilities.updateUserByIDSmartCall(request, user);
-				if (LbrUtility.isAllTrue(results))
-					logger.debug("ALL selected preferences saved successfully!!\t New UserPref= "+newUserPref);
+/*				if (LbrUtility.isAllTrue(results))
+					logger.debug("ALL selected preferences saved successfully!!\t New UserPref= "+newUserPrefSubCatIDs);
 				else
-					logger.debug("SOME of the selected preferences saved successfully. Others pre-existed \t New UserPref= "+newUserPref);
-			}
+					logger.debug("SOME of the selected preferences saved successfully. Others pre-existed \t New UserPref= "+newUserPrefSubCatIDs);
+*/			}
 			else
 				logger.debug("NO selected subcategories saved. Already existed. Ignored!! \t UserPref= "+currentUserPref);
-			return results;
-		 }
+			objForm.setUserPreferencesWithLevels(currUserPreferencesWithLevels);
+	 }
+	 
+	 public static void saveUserPreferenceLevelsONLY(String userId, UserPreferenceForm objForm, HttpServletRequest request){
+		 	String[] selectedUserPrefLevel = objForm.getSubcatLevels();
+		 	String currentUserPrefLevel = LbrUtility.createStringArrayToString(selectedUserPrefLevel);
+			GenericDao daoUsers = (GenericDao)ApplicationContextProvider.getApplicationContext().getBean("usersDao");
+			Users user = DaoUtilities.getUserByIDSmartCall(request, userId);
+			if(!user.getPreferencesLevels().equals(currentUserPrefLevel)){
+				//String newUserPref = LbrUtility.sortUserPreference(currentUserPref.toString());
+				user.setPreferencesLevels(currentUserPrefLevel);
+				DaoUtilities.updateUserByIDSmartCall(request, user);
+				logger.debug("User pref LEVELS saved");
+				//now  update the objForm.getUserPreferencesWithLevels
+				List<SubcategoryWrapper> currUserPreferencesWithLevels = objForm.getUserPreferencesWithLevels();
+				int count = 0;
+				for (Iterator iterator = currUserPreferencesWithLevels.iterator(); iterator.hasNext();) {
+					SubcategoryWrapper subcategoryWrapper = (SubcategoryWrapper) iterator.next();
+					subcategoryWrapper.setLevel(new Integer(selectedUserPrefLevel[count++]));
+				}
+			}
+			else
+				logger.debug("User pref LEVELS NOT modified ... old and new are same!!");
+		 }	 
 
 	 public static boolean createNewUser(Users user){
 		   GenericDao daoUsers = (GenericDao)ApplicationContextProvider.getApplicationContext().getBean("usersDao");
@@ -370,7 +419,7 @@ public static boolean updateUserByIDSmartCall(HttpServletRequest request, Users 
 			   }
 			   else if(!isPINProvided){ //if city does not exist in our DB
 				   //createNewMissingLocation(pincode, cityName, areaName, stateID);
-				   LbrAction.getThreadLocalValue().add("LocationErrorCity", new ActionMessage("Errors.UserLocationAction.City.absent"));
+				   LbrAction.getThreadLocalErrorsValue().add("LocationErrorCity", new ActionMessage("Errors.UserLocationAction.City.absent"));
 					   return null;
 			   }
 	     }
@@ -388,10 +437,10 @@ public static boolean updateUserByIDSmartCall(HttpServletRequest request, Users 
 				   createNewMissingLocation(pincode, cityName, areaName, stateID);
 
 			   if(!isAreaNameProvided && !isCityNameProvided){  // PIN only
-				   LbrAction.getThreadLocalValue().add("LocationErrorPIN", new ActionMessage("Errors.UserLocationAction.PIN.absent"));
+				   LbrAction.getThreadLocalErrorsValue().add("LocationErrorPIN", new ActionMessage("Errors.UserLocationAction.PIN.absent"));
 			   }
 			   else
-				   LbrAction.getThreadLocalValue().add("LocationErrorCombination", new ActionMessage("Errors.UserLocationAction.location.areaCity.combination.absent"));
+				   LbrAction.getThreadLocalErrorsValue().add("LocationErrorCombination", new ActionMessage("Errors.UserLocationAction.location.areaCity.combination.absent"));
 		   }
 		   else{
 
@@ -476,23 +525,35 @@ public static boolean updateUserByIDSmartCall(HttpServletRequest request, Users 
 	 }
 
 
-	 public static List<Integer> deleteSelectedUserPrefsForCatID(String userID, String[] selectedUserPrefForDeletion, HttpServletRequest request){
-		   String currUserPref = DaoUtilities.getUserByIDSmartCall(request, userID).getPreferences(); // from DB
-		   List<Integer> currUserPrefAsList = LbrUtility.convertUserPrefStringToList(currUserPref, true);
-		   List<Integer> tobeDeletedUserPrefAsList = new ArrayList();
+	 public static List<Integer> deleteSelectedUserPrefsForCatID(String userID, UserPreferenceForm objForm, HttpServletRequest request){
+		   Users user = getUserByIDSmartCall(request,userID);
+		   String currentUserPref = user.getPreferences();
+		   List<SubcategoryWrapper> currUserPreferencesWithLevels = objForm.getUserPreferencesWithLevels();
+		   String[] selectedUserPrefForDeletion = objForm.getSubcategory();
+		   int count = 0;
 		   for (int i = 0; i < selectedUserPrefForDeletion.length; i++) {
-			tobeDeletedUserPrefAsList.add(new Integer(selectedUserPrefForDeletion[i]));
+			   String userPrefForDeletion = selectedUserPrefForDeletion[i];
+			   if(currentUserPref.indexOf(","+userPrefForDeletion+",") != -1) {
+				   boolean delete = false;
+				   SubcategoryWrapper subcategoryWrapper =  null;
+				   for (Iterator iterator = currUserPreferencesWithLevels.iterator(); iterator.hasNext();) {
+						subcategoryWrapper = (SubcategoryWrapper) iterator.next();
+						if(subcategoryWrapper.getUserPreference().getSubCatId().equals(new Integer(userPrefForDeletion))){
+							delete = true;
+							break;
+						}
+				   }
+				   if(delete==true){
+					   currUserPreferencesWithLevels.remove(subcategoryWrapper);
+					   delete = false;
+				   }
+			   }
+			   else{
+				   logger.debug("Subcategory "+userPrefForDeletion+" is currently not in user preference. Ignored for deletion");
+			   }
 		   }
-		   for (Iterator iterator = tobeDeletedUserPrefAsList.iterator(); iterator.hasNext();) {
-			Integer integer = (Integer) iterator.next();
-			currUserPrefAsList.remove(integer);
-		   }
-		   String newUserPrefStr = LbrUtility.convertUserPrefListToString(currUserPrefAsList);
-			GenericDao daoUsers = (GenericDao)ApplicationContextProvider.getApplicationContext().getBean("usersDao");
-			Users user = getUserByIDSmartCall(request,userID);
-			user.setPreferences(newUserPrefStr);
-			daoUsers.update(user);
-			logger.debug("Deleted User Prefs: New Userpref= "+newUserPrefStr);
+		   List<Integer> currUserPrefAsList = LbrUtility.convertUserPrefStringToList(currentUserPref, true);
+		   saveUserPreferenceToDBAndUpdateForm(userID, objForm, currentUserPref, request);
 		   return currUserPrefAsList;
 	 }
 

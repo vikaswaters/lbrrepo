@@ -148,7 +148,9 @@ function limitText(limitField, limitCount, limitNum) {
 	    </tr> 
 	    <tr>
 	    	<td/>
-	        <td><b><bean:message key="label.events.level" /></b></td>
+	        <td><b><bean:message key="label.events.level" /></b>
+	        <img alt="help" height="16" width="16" src="../images/help.jpg" TITLE="For beginners/amateurs audience, choose Lower level. For very advanced(niche) audience, choose High level.">
+	        </td>
 	        <td>
 				<html:select property="eventLevel" onchange="">
 					<html:optionsCollection name="EventsForm" property="eventLevelList" label="levelName" value="levelId" />

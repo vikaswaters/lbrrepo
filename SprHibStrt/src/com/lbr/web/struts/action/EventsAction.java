@@ -40,7 +40,7 @@ public class EventsAction extends LbrAction {
         ActionMessages errors = new ActionMessages();
         EventsForm objForm = (EventsForm) form;
         MessageResources messageResources = getResources(request);
-        LbrAction.setThreadLocalValue(errors);
+        LbrAction.setThreadLocalErrosValue(errors);
 
         if(objForm.getFormAction()!=null && (objForm.getFormAction().equalsIgnoreCase(""))){
         	objForm.setUserEventEditWIP(false);
@@ -301,7 +301,7 @@ private ActionForward executeCommonEditSteps(Events event, EventsForm objForm,  
 			boolean cityError = hasCityError();
 			if(!cityError || (cityError && objForm.getPincode()!="")){
 				request.setAttribute("saveAddressCityAnyway", "true");  // so that the 'Shutup and save'  button is  displayed
-				 LbrAction.getThreadLocalValue().add("LocationErrorCity", new ActionMessage("Errors.EventsAction.location.shutupNsave"));
+				 LbrAction.getThreadLocalErrorsValue().add("LocationErrorCity", new ActionMessage("Errors.EventsAction.location.shutupNsave"));
 			}
 				// Store the Event temporarily. Persist it if the user propts to save Anyway. Performance benefits, otherwise, unnecessary repeat of 'populateEventData'
 			request.getSession().setAttribute("TEMPORARY_EVENT_TOBE _SAVED", event);
@@ -322,7 +322,7 @@ private ActionForward executeCommonEditSteps(Events event, EventsForm objForm,  
 	}
 
 private boolean hasCityError(){
-	Iterator it = LbrAction.getThreadLocalValue().get();
+	Iterator it = LbrAction.getThreadLocalErrorsValue().get();
 	boolean res = false;
 	for (Iterator iterator = it; it.hasNext();) {
 		ActionMessage type = (ActionMessage) iterator.next();

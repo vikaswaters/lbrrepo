@@ -35,6 +35,7 @@ public class UserLoginAction  extends Action{
 		      		   // ################  Store the user details in the session....it will be  used thruout  ##############
 		      		   HttpSession  session = request.getSession();
 		      		   Users user = DaoUtilities.getUserByIDSmartCall(request, strUserid);
+		      		   LbrAction.setThreadLocalUserValue(user);
 		  			   session.setAttribute("USERVO", user);
 		  			   logger.info("********* User logged in :"+user.getUserName());
 		  			 if(user.getUserpermissions().getBasicModulePermission().booleanValue())

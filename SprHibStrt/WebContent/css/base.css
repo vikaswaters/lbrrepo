@@ -13,8 +13,16 @@ a {text-decoration: none;}
 
 img, a img {border: none;}
 
-input, select, textarea {
-	font: 12px Verdana, Arial, Helvetica, sans-serif;
+input {
+	font: 13px Verdana, Arial, Helvetica, sans-serif;
+	color: navy;
+}
+select {
+	font: 11px Verdana, Arial, Helvetica, sans-serif;
+	color: #111;
+}
+textarea {
+	font: 11px Verdana, Arial, Helvetica, sans-serif;
 	color: #111;
 }
 
@@ -24,7 +32,7 @@ table {
 	cellpadding:3;
 	cellspacing:3;
 	border:1;
-	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	font: 11px Verdana, Arial, Helvetica, sans-serif;
 	}
 
 table tr td, table tr th {vertical-align: top;}
@@ -35,11 +43,23 @@ tr.spaceUnderMedium > td
   padding-bottom: 6em;
 }
 
+tr.spaceUnderSmallNoWrap > td
+{
+  padding-bottom: 2em;
+  white-space: nowrap;
+}
 tr.spaceUnderSmall > td
 {
-  padding-bottom: 3em;
+  padding-bottom: 2em;
 }
-
+tr.spaceTopSmall > td
+{
+  padding-top: 1em;
+}
+tr.nowrap > td
+{
+  white-space: nowrap;
+}
 /* *************** Selector- id (specific/unique element on a page) ******** */
 #formAction
 {
@@ -118,4 +138,15 @@ border-color:#FF0000;
 	font: 12px Verdana, Arial, Helvetica, sans-serif;
 }
 
+.locationData {
+	/* background-color: #229900; */
+	font: 13px Verdana, Helvetica, sans-serif;
+	}
+.mandatoryFields {
+	font: 13px Verdana,bold, Helvetica, sans-serif;
+	color: black;
+	}	
+.tablerowButton{
+	font: 13px Verdana, bold, Helvetica, sans-serif;
+	background-color:CornflowerBlue;
 

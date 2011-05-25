@@ -19,15 +19,13 @@
  		%>
  		<% if(user== null) {%>
           <tr>
-          <%-- 
                 <td class="headerTableRowData">
                        <html:link styleClass="headerTableRowDataLink" page="/pages/user/userRegister.jsp">Register</html:link>
 				</td>
-				--%>
 			    <td class="headerTableRowData" colspan="2">
                      <html:link styleClass="headerTableRowDataLink" page="/pages/user/forgetpassword.jsp">Forget Password</html:link>
 				</td>
-				<td class="headerTableRowData"  colspan="2">
+				<td class="headerTableRowData">
 					<html:link styleClass="headerTableRowDataLink" page="/pages/user/userlogin.jsp">Login</html:link>
 				</td>
         </tr>
@@ -37,12 +35,10 @@
 					    <td class="headerTableRowData">
 							<html:link styleClass="headerTableRowDataLink" page="/UserPreference.do">Home</html:link>
 						</td>
-			<%-- 			
 		                <td class="headerTableRowData">
 		                       <html:link styleClass="headerTableRowDataLink" page="/pages/user/userRegister.jsp">Register</html:link>
-						</td>
-			--%>									
-		                <td class="headerTableRowData" colspan="2">
+						</td>						
+		                <td class="headerTableRowData">
 							 	<html:link styleClass="headerTableRowDataLink" page="/UserRegister.do?action=update">Update Profile</html:link> 
 						</td>
 						<td class="headerTableRowData">

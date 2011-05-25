@@ -22,9 +22,9 @@
     logs for error messages.
   </font>
 </logic:notPresent>
-
+<!-- 
 <font color="red"><html:errors/></font>
-
+ -->
 <%@ include file="/pages/user/userPreferences.jsp"%>
 </body>
 </html:html>

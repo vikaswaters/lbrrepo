@@ -1,6 +1,5 @@
 package com.lbr;
 
-import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -10,8 +9,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -19,6 +20,7 @@ import java.util.StringTokenizer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMessage;
 
@@ -31,11 +33,66 @@ import com.lbr.dao.hibernate.domain.State;
 import com.lbr.dao.hibernate.domain.Subcategory;
 import com.lbr.dao.hibernate.domain.Users;
 import com.lbr.dao.specificdao.DaoUtilities;
+import com.lbr.web.struts.action.LbrAction;
 import com.lbr.web.struts.form.EventsForm;
 import com.lbr.web.struts.form.UserPreferenceForm;
 
 public class LbrUtility {
 private static final Logger logger = Logger.getLogger(LbrUtility.class);
+
+	  public static ArrayList<EventLevel> createSubCatPrefList(){
+		 ArrayList<EventLevel> eventLevelList = new ArrayList();
+			eventLevelList = new ArrayList<EventLevel>();
+			eventLevelList.add(new EventLevel(1, "Very Low"));
+			eventLevelList.add(new EventLevel(2, "Low"));
+			eventLevelList.add(new EventLevel(3, "Medium"));
+			eventLevelList.add(new EventLevel(4, "High"));
+			eventLevelList.add(new EventLevel(5, "Very High"));		
+			return eventLevelList;
+	}
+
+/*		
+		<option value="1">Very Low</option>
+		<option value="2">Low</option>
+		<option value="3" selected="selected">Medium</option>
+		<option value="4">High</option>
+		<option value="5">Very High</option></select>
+*/
+	  
+/*	  public static String createPrefLeveldropdownString(String[] userprefLevels){
+			 StringBuffer sb = new StringBuffer();
+			 sb.append(" <select name=/""subcatLevels/"" onchange=/""/""> ");
+		}*/
+	  public static String createStringArrayToString(String[] selectedUserPref){
+	    StringBuffer subCatID = new StringBuffer();
+		if(selectedUserPref.length > 0) 
+			subCatID.append(",");
+		for (int i = 0; i < selectedUserPref.length; i++) {
+			subCatID.append(selectedUserPref[i]+",");
+		}
+		return subCatID.toString();
+	  }
+	  
+	  public static String[] createUserPrefSubCatIDsToStringArray(List<SubcategoryWrapper> currUserPreferencesWithLevels){
+		  int count = 0 ;
+		  String[] strArr =  new String[currUserPreferencesWithLevels.size()];
+		  for (Iterator iterator = currUserPreferencesWithLevels.iterator(); iterator.hasNext();) {
+			SubcategoryWrapper subcategoryWrapper = (SubcategoryWrapper) iterator.next();
+			strArr[count++] = subcategoryWrapper.getUserPreference().getSubCatId().toString();
+		  }
+		  return strArr;
+	  }
+
+	  public static String[] createUserPrefLevelsToStringArray(List<SubcategoryWrapper> currUserPreferencesWithLevels){
+		  int count = 0 ;
+		  String[] strArr =  new String[currUserPreferencesWithLevels.size()];
+		  for (Iterator iterator = currUserPreferencesWithLevels.iterator(); iterator.hasNext();) {
+			SubcategoryWrapper subcategoryWrapper = (SubcategoryWrapper) iterator.next();
+			strArr[count++] = subcategoryWrapper.getLevel()+"";
+		  }
+		  return strArr;
+	  }
+	  
 	public static String getResourceBundleString(String key){
 		ResourceBundle resource = ResourceBundle.getBundle("MessageResources");
 		String val=resource.getString(key);
@@ -350,16 +407,33 @@ private static final Logger logger = Logger.getLogger(LbrUtility.class);
 	 }
 
 	 public static List<Integer> convertUserPrefStringToList(String origStrRaw, boolean cleanup){
-		 String origStrCleaned = origStrRaw;
-		 if(cleanup)
-			 origStrCleaned = cleanUserPrefences(origStrRaw);
 		 List<Integer> arr = new ArrayList<Integer>();
-		 StringTokenizer strtkn = new StringTokenizer(origStrCleaned);
-		 while(strtkn.hasMoreElements()){
-			 String str = strtkn.nextToken(",");
-			 arr.add(new Integer(str));
+		 if(origStrRaw!=null && !origStrRaw.equals("")){
+			 String origStrCleaned = origStrRaw;
+			 if(cleanup)
+				 origStrCleaned = cleanUserPrefences(origStrRaw);
+			 
+			 StringTokenizer strtkn = new StringTokenizer(origStrCleaned);
+			 while(strtkn.hasMoreElements()){
+				 String str = strtkn.nextToken(",");
+				 arr.add(new Integer(str));
+			 }
 		 }
 		return arr;
+	 }
+	 
+	 public static List<Integer> populateUserPrefLevels(String userId, List<Integer>  userPrefs, HttpServletRequest request){
+		 List<Integer> userPrefLevels = new ArrayList<Integer>();
+		 for (Iterator iterator = userPrefs.iterator(); iterator.hasNext();) {
+			Integer integer = (Integer) iterator.next();
+			userPrefLevels.add(LbrConstants.DEFAULT_PREFERENCES_LEVEL);
+		}
+		String strArrUserPrefLevels = LbrUtility.convertUserPrefListToString(userPrefLevels);
+		Users user = DaoUtilities.getUserByIDSmartCall(request, userId);
+		user.setPreferencesLevels(strArrUserPrefLevels);
+		//daoUsers.update(user);
+		DaoUtilities.updateUserByIDSmartCall(request, user);
+    	 return userPrefLevels;
 	 }
 
 	 public static String convertUserPrefListToString(List<Integer> userPrefList){
@@ -373,13 +447,30 @@ private static final Logger logger = Logger.getLogger(LbrUtility.class);
 		return userPrefStr.toString();
 	 }
 
+	 public static Map<Integer, Integer> mapUserPrefToLevels(Users user){	 
+		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		List<Integer> userPrefs = LbrUtility.convertUserPrefStringToList(user.getPreferences(), true);
+		List<Integer> userPrefsLevels = LbrUtility.convertUserPrefStringToList(user.getPreferencesLevels(), true);
+		for (int i = 0; i < userPrefs.size(); i++) {
+			try{
+				map.put(userPrefs.get(i), userPrefsLevels.get(i));
+			}catch (Exception e) {
+				map.put(userPrefs.get(i), LbrConstants.DEFAULT_PREFERENCES_LEVEL);
+			}
+		}
+		return map;
+	 }
+	 
 	 /**
 	  * Cleans user preference of the format ",2,3,7,8,9,"  by removing the firat and last comma
 	 * @param userPref
 	 * @return
 	 */
 	public static String cleanUserPrefences(String userPref){
-		 return  userPref.substring(1, userPref.length()-1);
+		if(userPref != null && userPref.length() >2)
+			return  userPref.substring(1, userPref.length()-1);
+		else 
+			return null;
 	 }
 
 	 public static boolean isAllTrue(boolean [] results){
@@ -435,6 +526,18 @@ private static final Logger logger = Logger.getLogger(LbrUtility.class);
 		 }
 	 }
 
+	 public static void printSubCategoriesWithLevels(List<SubcategoryWrapper> currUserPreferences){
+		 if(currUserPreferences!=null){
+		 logger.debug("Printing SubCategories...");
+			for (Iterator iterator2 = currUserPreferences.iterator(); iterator2.hasNext();) {
+				SubcategoryWrapper subcatwrap = (SubcategoryWrapper)iterator2.next();
+				Subcategory subcat = (Subcategory)subcatwrap.getUserPreference();
+				String subcatName = subcat.getSubCatName();
+				logger.debug("\tSubCatID:"+subcat.getSubCatId()+"\tSubCatName: "+subcatName+"\tLevel: "+subcatwrap.getLevel());
+			}
+		 }
+	 }
+	 
 	 public static String printEvent(Events event){
 		 StringBuffer sb = new StringBuffer();
 		 sb.append("EVENT ID= ");
@@ -459,18 +562,19 @@ private static final Logger logger = Logger.getLogger(LbrUtility.class);
 	 }
 
 	 public static String printEventForHTML(Events event){
+		 boolean fullDebugON = LbrConstants.LBR_DEBUG && (LbrAction.getThreadLocalUserValue().getUserpermissions().getUserTypeId() == LbrConstants.ADMIN_USERTYPE_ID);
 		 StringBuffer sb = new StringBuffer();
-		 if(LbrConstants.LBR_DEBUG){
+		 if(fullDebugON){
 			 sb.append("<b>EVENT ID= </b>");
 			 sb.append(event.getEventId()+"<br/>");
 		 }
 		 sb.append("<b>Category: </b>");
 		 sb.append(event.getSubcategory().getCategory().getCatName());
-		 if(LbrConstants.LBR_DEBUG)
+		 if(fullDebugON)
 			 sb.append(" ["+event.getSubcategory().getCategory().getCatId()+"]");
 		 sb.append("<b> SubCategory: </b>");
 		 sb.append(event.getSubcategory().getSubCatName());
-		 if(LbrConstants.LBR_DEBUG)
+		 if(fullDebugON)
 			 sb.append(" ["+event.getSubcategory().getSubCatId()+"]");
 		 sb.append("<br/><b>Name: </b>");
 		 sb.append(event.getName());
@@ -478,7 +582,9 @@ private static final Logger logger = Logger.getLogger(LbrUtility.class);
 		 sb.append(LbrUtility.formatDateToString(event.getStartDate()));
 		 sb.append("<br/><b>EndDate: </b>");
 		 sb.append(LbrUtility.formatDateToString(event.getEndDate()));
-		 if(LbrConstants.LBR_DEBUG){
+		 sb.append("<br/><b>Level: </b>");
+		 sb.append(event.getLevel());		 
+		 if(fullDebugON){
 			 sb.append("<br/><b>Location: </b>");
 			 String pincode = "Not specified";
 			 if(event.getLocations().getPincode()!=0)
@@ -492,6 +598,8 @@ private static final Logger logger = Logger.getLogger(LbrUtility.class);
 		 sb.append("<b>  Contact name: </b>");
 		 sb.append(event.getContactPerson());
 		 sb.append("<br/><b>Address: </b>");
+		 //String temp1 = event.getAddress().replaceAll("[|\\s]", ", ");
+		 //String temp2 = temp1.getAddress().replaceAll("[, ,\\s]", ", ");
 		 sb.append(event.getAddress());
 		 sb.append("<br/><b>Details: </b>");
 		 sb.append(event.getDetails());

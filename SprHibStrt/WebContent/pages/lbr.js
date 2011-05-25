@@ -148,12 +148,16 @@ function displayUserNameAvailability(lbrXML) {
 	 var answer = lbrXML.getElementsByTagName("usernameAvail")[0].getElementsByTagName("avail")[0];
 	 //alert('Answer= '+answer.firstChild.nodeValue);
 	  // var contents = document.getElementsByName("unameavailability")[0];
-	 
+	 var attr = document.createAttribute('src'); // for success failure ICON image (e.g <img height="15" width="15" src="/images/success.png">)
 	 // getElementById works in IE only if the name and id attribute of the element is the same. strange but thats  the way it works
 	 var contents = document.getElementById("unameavailability");
+	 //alert(document.getElementsByTagName("IMG").length);
+	if(document.getElementsByTagName("IMG")!=null && document.getElementsByTagName("IMG").length > 0)
+		 contents.removeChild(document.getElementsByTagName("IMG")[0]);
 	 //alert('index of NOT->'+answer.firstChild.nodeValue.indexOf("NOT"));
 	 if(answer.firstChild.nodeValue.indexOf("NOT") == -1){ // success
 		 //alert('make it red->'+ answer.firstChild.nodeValue.indexOf("NOT"));
+		 attr.nodeValue  = "/images/success.png";
 		 if(detectBrowser()==1) // IE special
 			 contents.style.setAttribute('cssText', "color:  #347C2C"); 
 		 else
@@ -161,6 +165,7 @@ function displayUserNameAvailability(lbrXML) {
 	 }
 	 else{ 
 		 //alert('make it green->'+ answer.firstChild.nodeValue.indexOf("NOT"));
+		 attr.nodeValue  = "/images/error.png";
 		 if(detectBrowser()==1)
 			 contents.style.setAttribute('cssText', "color:  #FF0000");
 		 else		 
@@ -168,8 +173,11 @@ function displayUserNameAvailability(lbrXML) {
 	 }
 	   //alert('contents= '+contents.nodeValue);
 	   //contents.innerHTML = "";
+		
+	  AddChild(document, contents, "IMG", null, attr);
 	   if(detectBrowser()==2)
 		   contents.firstChild.nodeValue=answer.firstChild.nodeValue;
+		   //contents.firstChild.nodeValue=" <img height=/"15/" width=/"15/" src=/"/images/success.png/">/" + answer.firstChild.nodeValue;
 	   else if(detectBrowser()==1){ // IE
 		   contents.innerHTML = answer.firstChild.nodeValue;
 	   }

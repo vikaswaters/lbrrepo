@@ -205,10 +205,12 @@ private static final Logger logger = Logger.getLogger(RecommendationEngine.class
 	private List<EventRecommendationVO> getInterestedUsersInVicinityOfTheseEvents(List<EventRecommendationVO> recommendationsList){
 		 int totalSMSToBeSent = 0;
 		 logger.debug( "\n-----  executing getInterestedUsersInVicinityOfTheseEvents() ------");
-			// chekc if the user is in the vicinity of the event
+			// check if the user is in the vicinity of the event
 			for (Iterator iterator2 = recommendationsList.iterator(); iterator2.hasNext();) {
 				EventRecommendationVO recoVO = (EventRecommendationVO) iterator2.next();
 				Events envtObject = recoVO.getEvent();
+				int eventLevel = envtObject.getLevel();
+				int subcatID = envtObject.getSubcategory().getSubCatId();
 				List<Users> interminUsers = recoVO.getInterminUsersToBeInformed();
 
 				List<String> userIDs = recoVO.getFinalUserIDsToBeInformed();
@@ -223,10 +225,19 @@ private static final Logger logger = Logger.getLogger(RecommendationEngine.class
 						//iterator3.remove();
 						System.out.print("\t\t\t---- NOTOK   EventID="+envtObject.getEventId()+" userName="+interimUser.getUserName()+ " User Removed since not in vicinity"+"\tUsersListSize="+interminUsers.size()+"\n");
 					}
-					else{
-						userIDs.add(interimUser.getUserName());
-						usersToBeInformed.put(interimUser.getUserName(), interimUser);
+					else{ // USER is in vicinity
+						boolean userPrefLevelFilter = true;
+						if(LbrConstants.PREFERENCES_LEVELS_ENABLED){ // filter by LEVEL
+							Map<Integer, Integer> map = LbrUtility.mapUserPrefToLevels(interimUser);
+							int userPrefLevelForSubCat = map.get(subcatID);
+							if(eventLevel < userPrefLevelForSubCat)
+								userPrefLevelFilter = false;
 						}
+						if(userPrefLevelFilter){
+							userIDs.add(interimUser.getUserName());
+							usersToBeInformed.put(interimUser.getUserName(), interimUser);
+						}
+					}
 				}
 				totalSMSToBeSent+= usersToBeInformed.size();
 				if(userIDs.size()==0){	 // no users in the vicinity for the event
@@ -247,18 +258,20 @@ private static final Logger logger = Logger.getLogger(RecommendationEngine.class
 	 private boolean isInterestedUserInVicinityOfTheEvent(Events envtObject, Users user){
 		 boolean decision = false;
 		 int evntLocID =  0;
-		int userCurrentLocID = user.getLocationsByCurrentLocationId().getLocationId();
-		if(envtObject.getLocations()!=null)
-			evntLocID = envtObject.getLocations().getLocationId();
-		else{ // try to create a Location object artificially from the address String
-			envtObject.setLocations(LbrUtility.createLocationObjectArtificially(envtObject.getAddress(), null));
-			logger.debug("Executed createLocationObjectArtificially()..EventID="+envtObject.getEventId()+"\t"+envtObject.getAddress() );
-		}
-		System.out.print("\t\tCalculating for UserName: "+user.getUserName() +" --> userCurrentLocID="+userCurrentLocID+"\tevntLocID="+evntLocID+"\tUserVicinityPref="+user.getVicinityPolicyPreference());
-		if(isUserLocationInVicinityOfEventLocation(envtObject, user)){
-			decision = true;
-			//System.out.print("\t\t ++++ OK, "+user.getUserName() +" is interested in EventID= "+envtObject.getEventId()+"\n");
-		}
+		 if(user.getLocationsByCurrentLocationId()!=null){
+				int userCurrentLocID = user.getLocationsByCurrentLocationId().getLocationId();
+				if(envtObject.getLocations()!=null)
+					evntLocID = envtObject.getLocations().getLocationId();
+				else{ // try to create a Location object artificially from the address String
+					envtObject.setLocations(LbrUtility.createLocationObjectArtificially(envtObject.getAddress(), null));
+					logger.debug("Executed createLocationObjectArtificially()..EventID="+envtObject.getEventId()+"\t"+envtObject.getAddress() );
+				}
+				System.out.print("\t\tCalculating for UserName: "+user.getUserName() +" --> userCurrentLocID="+userCurrentLocID+"\tevntLocID="+evntLocID+"\tUserVicinityPref="+user.getVicinityPolicyPreference());
+				if(isUserLocationInVicinityOfEventLocation(envtObject, user)){
+					decision = true;
+					//System.out.print("\t\t ++++ OK, "+user.getUserName() +" is interested in EventID= "+envtObject.getEventId()+"\n");
+				}
+		 }
 		return decision;
 	 }
 

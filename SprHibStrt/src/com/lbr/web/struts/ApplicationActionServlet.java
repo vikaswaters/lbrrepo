@@ -2,10 +2,12 @@ package com.lbr.web.struts;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -13,7 +15,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionServlet;
 
 import com.lbr.dao.hibernate.domain.Users;
-import org.apache.log4j.Logger;
+import com.lbr.web.struts.action.LbrAction;
 public class ApplicationActionServlet extends ActionServlet
 {
 	private static final Logger logger = Logger.getLogger(ApplicationActionServlet.class);
@@ -63,14 +65,18 @@ public class ApplicationActionServlet extends ActionServlet
 
 
 		Users currUserID = (Users)request.getSession().getAttribute("USERVO");
-		if(currUserID!=null)
+		if(currUserID!=null){
+			LbrAction.setThreadLocalUserValue(currUserID);
 			super.process(request, response);  ///UserLoginJsp.do
+		}
 		else {
 			String uri = request.getRequestURI();
 			if(uri.indexOf("UserLogin")!= -1 || uri.indexOf("UserRegister")!= -1)
 				super.process(request, response);
-			else
+			else{
 				logger.warn("======= Not authorized =====");
+				super.process(request, response);
+			}
 
 		}
 	}

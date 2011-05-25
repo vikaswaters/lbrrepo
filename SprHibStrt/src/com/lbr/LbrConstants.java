@@ -22,11 +22,13 @@ public class LbrConstants {
 	
 	public static final boolean SUBCATEGORY_TYPE_STATIC = false;  // 0: static , 1 : dynamic
 	public static final int RECCOMENDATION_THREAD_SLEEP_TIME_MINUTES= 5;
-	public static final boolean PREFERENCES_LEVELS_ENABLED = false;
+	public static final boolean PREFERENCES_LEVELS_ENABLED = true;
+	public static final int DEFAULT_PREFERENCES_LEVEL = 3;
 	
 	/*********************************  Debug/testing  params *********************/
 	public static final boolean LBR_TESTING = false;
 	public static final boolean LBR_DEBUG = true;
+	public static final int ADMIN_USERTYPE_ID = 10;
 	public static final boolean RECCOMENDATION_ENGINE_LIVE_ON_REQUEST = true;
 
 }

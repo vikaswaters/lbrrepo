@@ -27,7 +27,7 @@ public class UserRegisterAction extends LbrAction {
 		String strError = "";
 		ActionMessages errors = new ActionMessages();
 		String ajax = request.getParameter("ajax");
-		LbrAction.setThreadLocalValue(errors);
+		LbrAction.setThreadLocalErrosValue(errors);
         if(ajax!=null && ajax.equals("yes")){  // AJAX call ONLY
         	logger.debug("**** AJAX request received for name availability **********");
         	boolean ans = false;
@@ -60,7 +60,7 @@ public class UserRegisterAction extends LbrAction {
 				else{
 					//errors.add("invalidUsername", new ActionMessage("error.register.username.taken"));
 					saveErrors(request, errors);
-					LbrAction.getThreadLocalValue();
+					LbrAction.getThreadLocalErrorsValue();
 					return mapping.findForward("input");
 				}
 				objForm.setAction("update");

@@ -26,6 +26,7 @@ import org.springframework.context.ApplicationContext;
 import org.apache.log4j.Logger;
 import com.lbr.LbrConstants;
 import com.lbr.LbrUtility;
+import com.lbr.SubcategoryWrapper;
 import com.lbr.core.EventRecommendationVO;
 import com.lbr.core.Recommendable;
 import com.lbr.core.RecommendationEngine;
@@ -50,10 +51,10 @@ public class UserPreferenceAction extends Action {
 			    HttpServletResponse response) throws Exception{
 
 		 		ActionMessages errors = new ActionMessages();
+		 		UserPreferenceForm objForm = (UserPreferenceForm) form;
 		 		//Long currUserID = new Long("915648496385");
 			    //request.getSession().setAttribute("USERVO", currUserID);
 		 		//LbrUtility.populatePINCodeToDB();
-
 
 				if(request.getSession().getAttribute("USERVO")==null){
 					errors.add(ActionErrors.GLOBAL_MESSAGE, new ActionError("error.login.required"));
@@ -64,11 +65,23 @@ public class UserPreferenceAction extends Action {
 				Users user = ((Users)request.getSession().getAttribute("USERVO"));
 				String currUserID = ((Users)request.getSession().getAttribute("USERVO")).getUserName(); // MUST BE AVAIL  to proceed further
 
+		        String primarySelection = request.getParameter("category");
+		        if(primarySelection == null)
+		        	primarySelection = "1";
+		        logger.debug("User selected CatID="+primarySelection);
+
+		        String ajax = request.getParameter("ajax");
+		        if(ajax!=null && ajax.equals("yes")){  // =====================  AJAX call ONLY
+		        	logger.debug("**** AJAX request received for Subcategory change **********");
+		        	objForm.populateSecondaryDropdown(primarySelection);
+			        LbrUtility.sendAjaxResponse(objForm.toXml(), request, response);
+			        //logger.debug("AJAX response XML: "+objForm.toXml());
+		        	return null;
+		        }				
+				
 				if(!user.getUserpermissions().getBasicModulePermission().booleanValue())
 					return mapping.findForward("userLoginJsp");
-
-			  	ApplicationContext appContext = ApplicationContextProvider.getApplicationContext();
-		        UserPreferenceForm objForm = (UserPreferenceForm) form;
+			  	//ApplicationContext appContext = ApplicationContextProvider.getApplicationContext();
 
 		        if(objForm.getFormAction()!=null && objForm.getFormAction().equalsIgnoreCase("hideRecommend")) {
 		 			return mapping.findForward("userHomeJSP");
@@ -82,19 +95,7 @@ public class UserPreferenceAction extends Action {
 	        	else{
 	        		objForm.setCurrentLocationStr("Not specified");
 	        	}
-		        String primarySelection = request.getParameter("category");
-		        if(primarySelection == null)
-		        	primarySelection = "1";
-		        logger.debug("User selected CatID="+primarySelection);
 
-		        String ajax = request.getParameter("ajax");
-		        if(ajax!=null && ajax.equals("yes")){  // =====================  AJAX call ONLY
-		        	logger.debug("**** AJAX request received for Subcategory change **********");
-		        	objForm.populateSecondaryDropdown(primarySelection);
-			        LbrUtility.sendAjaxResponse(objForm.toXml(), request, response);
-			        //logger.debug("AJAX response XML: "+objForm.toXml());
-		        	return null;
-		        }
 		        String[] userSubCategorySelection = objForm.getSubcategory();
 		        LbrUtility.initializeDateRange(objForm);
 
@@ -102,7 +103,7 @@ public class UserPreferenceAction extends Action {
 		     // Delete selected userpreferences
 		        if(objForm.getFormAction()!=null && objForm.getFormAction().equalsIgnoreCase("delete")){
 		        	if(objForm.getSubcategory()!=null && objForm.getSubcategory().length>0){
-			        	DaoUtilities.deleteSelectedUserPrefsForCatID(currUserID, objForm.getSubcategory(), request);
+			        	DaoUtilities.deleteSelectedUserPrefsForCatID(currUserID, objForm, request);
 			        	objForm.setFormAction(null);
 		        	}
 		        	else{
@@ -119,7 +120,7 @@ public class UserPreferenceAction extends Action {
 
 		        else if(objForm.getFormAction()!=null && objForm.getFormAction().equalsIgnoreCase("save")) {
 			        if(userSubCategorySelection!=null && userSubCategorySelection.length>0){ //save user preference to DB
-			        	boolean[] result =DaoUtilities.saveUserPreference(currUserID, userSubCategorySelection, request);
+			        	boolean[] result =DaoUtilities.saveUserPreference(currUserID, objForm, request);
 			        	objForm.setFormAction(null);
 	/*		        	if(result)
 			        		logger.debug("User Preference updated successfully;");
@@ -164,13 +165,28 @@ public class UserPreferenceAction extends Action {
 			    else if(objForm.getFormAction()!=null && objForm.getFormAction().equalsIgnoreCase("location")){
 			    	return mapping.findForward("location");
 		        }
+			    else if(objForm.getFormAction()!=null && objForm.getFormAction().equalsIgnoreCase("saveLevels")){
+			    	DaoUtilities.saveUserPreferenceLevelsONLY(user.getUserId()+"", objForm, request);
+		        }		        
 
 		        //============================================ common code =======================
 		        // Load current user preferences in the form
 		        //List<Category> currUserPreferences = DaoUtilities.getUserPreferencesForDisplay(new Long("915648496385"));
-		        List<Subcategory> currUserPreferences = getUserPreferencesForDisplay(currUserID, request);
-		        objForm.setUserPreferences(currUserPreferences);
-		        LbrUtility.printSubCategories(currUserPreferences);
+		        //TODO ...  IS  IT NEEDED???
+		        if(objForm.getUserPreferencesWithLevels()== null){
+			        List<SubcategoryWrapper> currUserPreferencesWithLevels = getUserPreferencesForDisplay(currUserID, request);
+			        objForm.setUserPreferencesWithLevels(currUserPreferencesWithLevels);
+		        }
+		        //String[] userPrefLevels = getUserPreferenceLevelsForDisplay(currUserID, request);
+		        //objForm.setSubcatLevels(userPrefLevels);
+		       
+		        // Add the User levels for the subcategories (Amateur ...expert)
+		    //    int numUserPrefs = objForm.getUserPreferences().size();
+/*		        for (int i = 0; i < numUserPrefs; i++) {
+					objForm.getSubcatLevelsList().add(LbrUtility.createSubCatPrefList());
+				}*/
+		        
+		        //LbrUtility.printSubCategoriesWithLevels(currUserPreferencesWithLevels);
 		        if(user.getVicinityPolicyPreference()!=null)
 		        	objForm.setVicinitypolicyID(user.getVicinityPolicyPreference());
 
@@ -205,21 +221,43 @@ public class UserPreferenceAction extends Action {
 		    	}
 	 }
 
-	 private static List<Subcategory> getUserPreferencesForDisplay(String userID, HttpServletRequest request){
+	 private static List<SubcategoryWrapper> getUserPreferencesForDisplay(String userID, HttpServletRequest request){
 		 String  userPrefRaw = ((Users)DaoUtilities.getUserByIDSmartCall(request, userID)).getPreferences();
-		 List results = null;
+		 String  userPrefLevels = ((Users)DaoUtilities.getUserByIDSmartCall(request, userID)).getPreferencesLevels();
+		 List<SubcategoryWrapper> results = null;
+		 int count = 0;
 		 if(userPrefRaw!=null){
 			 results = new ArrayList();
 			 List<Integer> userPrefAsList = LbrUtility.convertUserPrefStringToList(userPrefRaw, true);
+			 List<Integer> userPrefLevelsAsList  = null;
+			 if(LbrConstants.PREFERENCES_LEVELS_ENABLED && (userPrefLevels==null || userPrefLevels.equals("")))
+				 userPrefLevelsAsList = LbrUtility.populateUserPrefLevels(userID, userPrefAsList, request);
+			 else
+				 userPrefLevelsAsList = LbrUtility.convertUserPrefStringToList(userPrefLevels, true);
 			 for (Iterator iterator = userPrefAsList.iterator(); iterator.hasNext();) {
 				Integer subcatID = (Integer) iterator.next();
 				Subcategory subcat = (Subcategory)DaoUtilities.staticCache.get("SUBCAT_"+subcatID);
-				results.add(subcat);
+				SubcategoryWrapper subcatWrap =  new SubcategoryWrapper(subcat);
+				subcatWrap.setLevel(userPrefLevelsAsList.get(count++));
+				results.add(subcatWrap);
 			}
 		 }
 		 return results;
 	 }
-
+	 
+	 private static String[] getUserPreferenceLevelsForDisplay(String userID, HttpServletRequest request){
+		 String  userPrefRaw = ((Users)DaoUtilities.getUserByIDSmartCall(request, userID)).getPreferencesLevels();
+		 String[] subCatLevels = null;
+		 if(userPrefRaw!=null){
+			 List<Integer> userPrefAsList = LbrUtility.convertUserPrefStringToList(userPrefRaw, true);
+			 subCatLevels = new String[userPrefAsList.size()];
+			 int i = 0;
+			 for (Iterator iterator = userPrefAsList.iterator(); iterator.hasNext();) {
+				 subCatLevels[i++] = ((Integer)iterator.next()).toString();
+			}
+		 }
+		 return subCatLevels;
+	 }
 
 }
 

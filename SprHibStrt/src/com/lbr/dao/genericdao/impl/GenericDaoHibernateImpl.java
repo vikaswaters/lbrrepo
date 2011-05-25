@@ -59,30 +59,30 @@ public class GenericDaoHibernateImpl<T, PK extends Serializable> implements Gene
 	    }catch (ConstraintViolationException e) {
 	    		logger.error(e);
 				e.printStackTrace();
-				LbrAction.getThreadLocalValue().add("DatabaseError", new ActionMessage("error.database.hibernate.constraint.violation"));
+				LbrAction.getThreadLocalErrorsValue().add("DatabaseError", new ActionMessage("error.database.hibernate.constraint.violation"));
 				throw e;
 	    }catch (DataException e) {
     		logger.error(e);
 			e.printStackTrace();
-			LbrAction.getThreadLocalValue().add("DatabaseError", new ActionMessage("error.database.hibernate.sqldata.exception"));
+			LbrAction.getThreadLocalErrorsValue().add("DatabaseError", new ActionMessage("error.database.hibernate.sqldata.exception"));
 			throw e;
 	    }
 	    catch (SQLGrammarException e) {
     		logger.error(e);
 			e.printStackTrace();
-			LbrAction.getThreadLocalValue().add("DatabaseError", new ActionMessage("error.database.hibernate.sqlgrammarexception"));
+			LbrAction.getThreadLocalErrorsValue().add("DatabaseError", new ActionMessage("error.database.hibernate.sqlgrammarexception"));
 			throw e;
 	    }
 	    catch (HibernateException e) {
     		logger.error(e);
 			e.printStackTrace();
-			LbrAction.getThreadLocalValue().add("DatabaseError", new ActionMessage("error.database.hibernate.exception"));
+			LbrAction.getThreadLocalErrorsValue().add("DatabaseError", new ActionMessage("error.database.hibernate.exception"));
 			throw e;
 	    }
 	    catch (Exception e) {
     		logger.error(e);
 			e.printStackTrace();
-			LbrAction.getThreadLocalValue().add("DatabaseError", new ActionMessage("error.database.hibernate.unknown.exception"));
+			LbrAction.getThreadLocalErrorsValue().add("DatabaseError", new ActionMessage("error.database.hibernate.unknown.exception"));
 			//throw e;
 	    }
 	    finally{
@@ -131,14 +131,14 @@ public class GenericDaoHibernateImpl<T, PK extends Serializable> implements Gene
 	    	tx.rollback();
 	    	logger.error(e);
 			e.printStackTrace();
-			LbrAction.getThreadLocalValue().add("DatabaseError", new ActionMessage("error.database.hibernate.constraint.violation"));
+			LbrAction.getThreadLocalErrorsValue().add("DatabaseError", new ActionMessage("error.database.hibernate.constraint.violation"));
 			//throw e;
 			return false;
 	    }catch (DataException e) {
     	    tx.rollback();
     	    logger.error(e);
 			e.printStackTrace();
-			LbrAction.getThreadLocalValue().add("DatabaseError", new ActionMessage("error.database.hibernate.sqldata.exception"));
+			LbrAction.getThreadLocalErrorsValue().add("DatabaseError", new ActionMessage("error.database.hibernate.sqldata.exception"));
 			//throw e;
 			return false;
 	    }
@@ -146,7 +146,7 @@ public class GenericDaoHibernateImpl<T, PK extends Serializable> implements Gene
 	    	tx.rollback();
 	    	logger.error(e);
 			e.printStackTrace();
-			LbrAction.getThreadLocalValue().add("DatabaseError", new ActionMessage("error.database.hibernate.sqlgrammarexception"));
+			LbrAction.getThreadLocalErrorsValue().add("DatabaseError", new ActionMessage("error.database.hibernate.sqlgrammarexception"));
 			//throw e;
 			return false;
 	    }
@@ -154,7 +154,7 @@ public class GenericDaoHibernateImpl<T, PK extends Serializable> implements Gene
 	    	tx.rollback();
 	    	logger.error(e);
 			e.printStackTrace();
-			LbrAction.getThreadLocalValue().add("DatabaseError", new ActionMessage("error.database.hibernate.exception"));
+			LbrAction.getThreadLocalErrorsValue().add("DatabaseError", new ActionMessage("error.database.hibernate.exception"));
 			//throw e;
 			return false;
 	    }
@@ -162,7 +162,7 @@ public class GenericDaoHibernateImpl<T, PK extends Serializable> implements Gene
 	    	tx.rollback();
 	    	logger.error(e);
 			e.printStackTrace();
-			LbrAction.getThreadLocalValue().add("DatabaseError", new ActionMessage("error.database.hibernate.unknown.exception"));
+			LbrAction.getThreadLocalErrorsValue().add("DatabaseError", new ActionMessage("error.database.hibernate.unknown.exception"));
 			return false;
 			//throw e;
 	    }
