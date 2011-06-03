@@ -5,6 +5,9 @@
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean2" %>
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html3" %> 
 
+<%@page import="com.lbr.LbrConstants"%>
+<%@page import="com.lbr.LbrUtility"%>
+<%@page import="com.lbr.web.struts.action.*"%>
 <%@page import="java.util.*"%>
 <%@page import="com.lbr.dao.hibernate.domain.*"%>
 <%@page import="com.lbr.web.struts.form.*"%>
@@ -18,8 +21,15 @@
 -->
 <html:base/>
 </head>
+<%
+	String userName = ((Users) request.getSession().getAttribute(
+			"USERVO")).getUserName();
+    Users curruser = LbrAction.getThreadLocalUserValue();
+    boolean fullDebugON = LbrConstants.LBR_DEBUG && (curruser.getUserpermissions().getUserTypeId() == LbrConstants.ADMIN_USERTYPE_ID);
+%>
 
 <body bgcolor="white">
+<%@ include file="../top.jsp"%>
 <h3><bean:message key="message.location.helper.heading"/></h3>
 <font color="red"><html:errors/></font>
 
@@ -116,7 +126,7 @@
  		int count =0;
  	%>
 	
- <div id="myDiv" style="position: absolute; left: 670px; top:80px;">
+ <div id="myDiv" style="position: absolute; left: 670px; top:-20px;">
 My potential Locations (total): <%=prefForm.getSuggestedLocations().size()%>
  	<table cellpadding="3" cellspacing="3" border="1">   
    <%   
@@ -162,16 +172,16 @@ My potential Locations (total): <%=prefForm.getSuggestedLocations().size()%>
 			<html:radio property="userSelectedCurrLocation" value="<%=lc.getLocationId().toString()%>"/>
     	</td>	    
     	<td>
-    	<%=lc.getPincode()%>[<%=lc.getLocationId()%>]
+    	<%=lc.getPincode()%><%if(fullDebugON) {%>[<%=lc.getLocationId()%>]<%}%>
     	</td>
         <td>
         <%=lc.getLocName()%>
         </td>
     	<td>
-    	<%=lc.getCity().getCityName()%>[<%=lc.getCity().getCityId()%>]
+    	<%=lc.getCity().getCityName()%><%if(fullDebugON) {%>[<%=lc.getCity().getCityId()%>]<%}%>
     	</td>
     	<td>
-    	<%=lc.getCity().getState().getStateName()%>[<%=lc.getCity().getState().getStateId()%>]
+    	<%=lc.getCity().getState().getStateName()%><%if(fullDebugON) {%>[<%=lc.getCity().getState().getStateId()%>]<%}%>
     	</td>
         </tr>
 	

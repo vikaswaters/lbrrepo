@@ -131,7 +131,7 @@ function limitText(limitField, limitCount, limitNum) {
 	    	<td/>
 	        <td><b><bean:message key="label.events.categoryName" /></b></td>
 	        <td>
-				<html:select property="category" onchange="loadSubCategoryData()">
+				<html:select property="category" onchange="loadSubCategoryData(this)">
 				    <html:option value="0">Select Category</html:option>
 					<html:optionsCollection name="UserPreferenceForm" property="categoryList" label="catName" value="catId" />
 				</html:select>	        

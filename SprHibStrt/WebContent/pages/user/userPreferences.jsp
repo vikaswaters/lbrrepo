@@ -49,7 +49,7 @@
 			label = attribute of ObjectType stored in the collection ...CategoryData here
 			value= attribute of ObjectType stored in the collection...CategoryData here
 			 --> <html:select property="category"
-				onchange="loadSubCategoryData()">
+				onchange="loadSubCategoryData(this)">
 				<html:option value="0">Select Category</html:option>
 				<html:optionsCollection name="UserPreferenceForm"
 					property="categoryList" label="catName" value="catId" />
@@ -82,8 +82,7 @@
 
 		<tr class="spaceUnderSmall">
 			<td width="50%"><b>Vicinity Policy : </b><img alt="help" height="16" width="16" src="../images/help.jpg" TITLE="Recommendations can be generated for events within the PINCode/City/District/State"></td>
-			<td><html:select property="vicinitypolicyID"
-				onchange="loadSubCategoryData()">
+			<td><html:select property="vicinitypolicyID">
 				<html:option value="0">Use System Default</html:option>
 				<html:optionsCollection name="UserPreferenceForm"
 					property="vicinityPolicyList" label="vicinityName"

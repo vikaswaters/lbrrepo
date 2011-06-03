@@ -27,6 +27,7 @@ import org.apache.log4j.Logger;
 import com.lbr.LbrConstants;
 import com.lbr.LbrUtility;
 import com.lbr.SubcategoryWrapper;
+import com.lbr.UserVO;
 import com.lbr.core.EventRecommendationVO;
 import com.lbr.core.Recommendable;
 import com.lbr.core.RecommendationEngine;
@@ -37,6 +38,7 @@ import com.lbr.dao.hibernate.domain.Locations;
 import com.lbr.dao.hibernate.domain.Subcategory;
 import com.lbr.dao.hibernate.domain.Users;
 import com.lbr.dao.specificdao.DaoUtilities;
+import com.lbr.services.WebServiceCall;
 import com.lbr.utils.ApplicationContextProvider;
 import com.lbr.web.struts.form.UserPreferenceForm;
 
@@ -50,7 +52,7 @@ public class UserPreferenceAction extends Action {
 			    HttpServletRequest request,
 			    HttpServletResponse response) throws Exception{
 
-		 		ActionMessages errors = new ActionMessages();
+		 ActionMessages errors = new ActionMessages();
 		 		UserPreferenceForm objForm = (UserPreferenceForm) form;
 		 		//Long currUserID = new Long("915648496385");
 			    //request.getSession().setAttribute("USERVO", currUserID);
@@ -89,11 +91,16 @@ public class UserPreferenceAction extends Action {
 
 	        	//Users user = DaoUtilities.getUserByID(((Users)request.getSession().getAttribute("USERVO")).getUserName());
 	        	if(user.getLocationsByCurrentLocationId()!= null){
-		        	int oldCurrLocID = user.getLocationsByCurrentLocationId().getLocationId();
+		        	//int oldCurrLocID = user.getLocationsByCurrentLocationId().getLocationId();
 		        	objForm.setCurrentLocationStr(LbrUtility.printLocationHTML(user.getLocationsByCurrentLocationId()));
 	        	}
 	        	else{
-	        		objForm.setCurrentLocationStr("Not specified");
+	        		UserVO uservo = (UserVO)request.getSession().getAttribute("USERVO_IPBASED");
+	        		if(uservo!=null && uservo.getUserIPLocation()!=null){
+	        			objForm.setCurrentLocationStr(LbrUtility.printLocationHTML(uservo.getUserIPLocation()));
+	        		}
+	        		else
+	        			objForm.setCurrentLocationStr("Not specified");
 	        	}
 
 		        String[] userSubCategorySelection = objForm.getSubcategory();
@@ -207,7 +214,8 @@ public class UserPreferenceAction extends Action {
 	    		errors.add("RecommendationErrors", new ActionMessage("Errors.UserPreferenceAction.Recommend.Preferences.unselected"));
 	    	}
 	    	// check if the current Location is set
-	    	if(user.getLocationsByCurrentLocationId()==null || (user.getLocationsByCurrentLocationId().getLocationId() == LbrConstants.UNSPECIFIED_LOCATION_ID)){
+	    	//if(user.getLocationsByCurrentLocationId()==null || (user.getLocationsByCurrentLocationId().getLocationId() == LbrConstants.UNSPECIFIED_LOCATION_ID)){
+		    if(user.getLocationsByCurrentLocationId()==null){
 	    		errors.add("RecommendationErrors", new ActionMessage("Errors.UserPreferenceAction.Recommend.Location.unspecified"));
 	    	}
 	    	saveErrors(request, errors);

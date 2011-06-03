@@ -128,7 +128,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write("<table class=\"headerTable\"> \r\n");
           out.write("\t\t<tr>\r\n");
           out.write("\t\t\t<td align=\"left\" colspan=\"4\" width=\"100%\">\r\n");
-          out.write("\t\t\t\t\t<h1 style=\"color: #660033\"><font size=\"4\" face=\"Monotype Corsiva\">Location Based Recommendation System</font></h1>\t\r\n");
+          out.write("\t\t\t\t\t<h1 style=\"color: #660033\"><font size=\"6\" face=\"Monotype Corsiva\">LBRS</font></h1>\t\r\n");
           out.write("\t\t\t\t\t<!--  \r\n");
           out.write("\t\t\t\t\t<p style=\"color: #660033\"><font size=\"8\" face=\"Monotype Corsiva\">Location Based Recommendation System</font></p>\r\n");
           out.write("\t\t\t\t\t-->\t\r\n");
@@ -143,21 +143,17 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
  if(user== null) {
           out.write("\r\n");
           out.write("          <tr>\r\n");
-          out.write("                <td class=\"headerTableRowData\">\r\n");
-          out.write("                       ");
+          out.write("          ");
+          out.write("\r\n");
+          out.write("\t\t\t    <td class=\"headerTableRowData\" colspan=\"2\">\r\n");
+          out.write("                     ");
           if (_jspx_meth_html_005flink_005f0(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
             return;
           out.write("\r\n");
           out.write("\t\t\t\t</td>\r\n");
-          out.write("\t\t\t    <td class=\"headerTableRowData\" colspan=\"2\">\r\n");
-          out.write("                     ");
-          if (_jspx_meth_html_005flink_005f1(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
-            return;
-          out.write("\r\n");
-          out.write("\t\t\t\t</td>\r\n");
-          out.write("\t\t\t\t<td class=\"headerTableRowData\">\r\n");
+          out.write("\t\t\t\t<td class=\"headerTableRowData\"  colspan=\"2\">\r\n");
           out.write("\t\t\t\t\t");
-          if (_jspx_meth_html_005flink_005f2(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
+          if (_jspx_meth_html_005flink_005f1(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
             return;
           out.write("\r\n");
           out.write("\t\t\t\t</td>\r\n");
@@ -171,25 +167,21 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write("\r\n");
           out.write("\t\t\t\t\t    <td class=\"headerTableRowData\">\r\n");
           out.write("\t\t\t\t\t\t\t");
-          if (_jspx_meth_html_005flink_005f3(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
+          if (_jspx_meth_html_005flink_005f2(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
             return;
           out.write("\r\n");
           out.write("\t\t\t\t\t\t</td>\r\n");
-          out.write("\t\t                <td class=\"headerTableRowData\">\r\n");
-          out.write("\t\t                       ");
-          if (_jspx_meth_html_005flink_005f4(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
-            return;
-          out.write("\r\n");
-          out.write("\t\t\t\t\t\t</td>\t\t\t\t\t\t\r\n");
-          out.write("\t\t                <td class=\"headerTableRowData\">\r\n");
+          out.write("\t\t\t");
+          out.write("\t\t\t\t\t\t\t\t\t\r\n");
+          out.write("\t\t                <td class=\"headerTableRowData\" colspan=\"2\">\r\n");
           out.write("\t\t\t\t\t\t\t \t");
-          if (_jspx_meth_html_005flink_005f5(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
+          if (_jspx_meth_html_005flink_005f3(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
             return;
           out.write(" \r\n");
           out.write("\t\t\t\t\t\t</td>\r\n");
           out.write("\t\t\t\t\t\t<td class=\"headerTableRowData\">\r\n");
           out.write("\t\t                      \t\t");
-          if (_jspx_meth_html_005flink_005f6(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
+          if (_jspx_meth_html_005flink_005f4(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
             return;
           out.write(" \r\n");
           out.write("\t\t\t\t\t\t</td>\t\t\t\t\t\t\r\n");
@@ -198,13 +190,13 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write("\t\t\r\n");
           out.write("\t\t                <td class=\"headerTableRowData\"  colspan=\"2\">\r\n");
           out.write("\t\t\t\t\t\t\t \t");
-          if (_jspx_meth_html_005flink_005f7(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
+          if (_jspx_meth_html_005flink_005f5(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
             return;
           out.write(" \r\n");
           out.write("\t\t\t\t\t\t</td>\r\n");
           out.write("\t\t\t\t\t\t<td class=\"headerTableRowData\" colspan=\"2\">\r\n");
           out.write("\t\t                      \t\t");
-          if (_jspx_meth_html_005flink_005f8(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
+          if (_jspx_meth_html_005flink_005f6(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
             return;
           out.write(" \r\n");
           out.write("\t\t\t\t\t\t</td>\r\n");
@@ -222,7 +214,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write("\t\t\t <tr> \t\t\r\n");
           out.write("\t\t\t\t<td class=\"eventheaderTableRowData\" colspan=\"2\">\r\n");
           out.write("\t\t\t\t\t");
-          if (_jspx_meth_html_005flink_005f9(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
+          if (_jspx_meth_html_005flink_005f7(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
             return;
           out.write("\r\n");
           out.write("\t\t\t\t</td>\r\n");
@@ -230,7 +222,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write("\t\t\t\t");
           out.write("\r\n");
           out.write("\t\t\t\t\t");
-          if (_jspx_meth_html_005flink_005f10(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
+          if (_jspx_meth_html_005flink_005f8(_jspx_th_html_005fhtml_005f0, _jspx_page_context))
             return;
           out.write("\r\n");
           out.write("\t\t\t\t</td>\t\r\n");
@@ -391,7 +383,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
     _jspx_th_html_005flink_005f0.setPageContext(_jspx_page_context);
     _jspx_th_html_005flink_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_html_005fhtml_005f0);
     _jspx_th_html_005flink_005f0.setStyleClass("headerTableRowDataLink");
-    _jspx_th_html_005flink_005f0.setPage("/pages/user/userRegister.jsp");
+    _jspx_th_html_005flink_005f0.setPage("/pages/user/forgetpassword.jsp");
     int _jspx_eval_html_005flink_005f0 = _jspx_th_html_005flink_005f0.doStartTag();
     if (_jspx_eval_html_005flink_005f0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       if (_jspx_eval_html_005flink_005f0 != javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE) {
@@ -400,7 +392,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
         _jspx_th_html_005flink_005f0.doInitBody();
       }
       do {
-        out.write("Register");
+        out.write("Forget Password");
         int evalDoAfterBody = _jspx_th_html_005flink_005f0.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
@@ -426,7 +418,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
     _jspx_th_html_005flink_005f1.setPageContext(_jspx_page_context);
     _jspx_th_html_005flink_005f1.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_html_005fhtml_005f0);
     _jspx_th_html_005flink_005f1.setStyleClass("headerTableRowDataLink");
-    _jspx_th_html_005flink_005f1.setPage("/pages/user/forgetpassword.jsp");
+    _jspx_th_html_005flink_005f1.setPage("/pages/user/userlogin.jsp");
     int _jspx_eval_html_005flink_005f1 = _jspx_th_html_005flink_005f1.doStartTag();
     if (_jspx_eval_html_005flink_005f1 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       if (_jspx_eval_html_005flink_005f1 != javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE) {
@@ -435,7 +427,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
         _jspx_th_html_005flink_005f1.doInitBody();
       }
       do {
-        out.write("Forget Password");
+        out.write("Login");
         int evalDoAfterBody = _jspx_th_html_005flink_005f1.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
@@ -461,7 +453,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
     _jspx_th_html_005flink_005f2.setPageContext(_jspx_page_context);
     _jspx_th_html_005flink_005f2.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_html_005fhtml_005f0);
     _jspx_th_html_005flink_005f2.setStyleClass("headerTableRowDataLink");
-    _jspx_th_html_005flink_005f2.setPage("/pages/user/userlogin.jsp");
+    _jspx_th_html_005flink_005f2.setPage("/UserPreference.do");
     int _jspx_eval_html_005flink_005f2 = _jspx_th_html_005flink_005f2.doStartTag();
     if (_jspx_eval_html_005flink_005f2 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       if (_jspx_eval_html_005flink_005f2 != javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE) {
@@ -470,7 +462,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
         _jspx_th_html_005flink_005f2.doInitBody();
       }
       do {
-        out.write("Login");
+        out.write("Home");
         int evalDoAfterBody = _jspx_th_html_005flink_005f2.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
@@ -496,7 +488,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
     _jspx_th_html_005flink_005f3.setPageContext(_jspx_page_context);
     _jspx_th_html_005flink_005f3.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_html_005fhtml_005f0);
     _jspx_th_html_005flink_005f3.setStyleClass("headerTableRowDataLink");
-    _jspx_th_html_005flink_005f3.setPage("/UserPreference.do");
+    _jspx_th_html_005flink_005f3.setPage("/UserRegister.do?action=update");
     int _jspx_eval_html_005flink_005f3 = _jspx_th_html_005flink_005f3.doStartTag();
     if (_jspx_eval_html_005flink_005f3 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       if (_jspx_eval_html_005flink_005f3 != javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE) {
@@ -505,7 +497,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
         _jspx_th_html_005flink_005f3.doInitBody();
       }
       do {
-        out.write("Home");
+        out.write("Update Profile");
         int evalDoAfterBody = _jspx_th_html_005flink_005f3.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
@@ -531,7 +523,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
     _jspx_th_html_005flink_005f4.setPageContext(_jspx_page_context);
     _jspx_th_html_005flink_005f4.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_html_005fhtml_005f0);
     _jspx_th_html_005flink_005f4.setStyleClass("headerTableRowDataLink");
-    _jspx_th_html_005flink_005f4.setPage("/pages/user/userRegister.jsp");
+    _jspx_th_html_005flink_005f4.setPage("/Logout.do");
     int _jspx_eval_html_005flink_005f4 = _jspx_th_html_005flink_005f4.doStartTag();
     if (_jspx_eval_html_005flink_005f4 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       if (_jspx_eval_html_005flink_005f4 != javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE) {
@@ -540,7 +532,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
         _jspx_th_html_005flink_005f4.doInitBody();
       }
       do {
-        out.write("Register");
+        out.write("Logout");
         int evalDoAfterBody = _jspx_th_html_005flink_005f4.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
@@ -636,7 +628,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
     _jspx_th_html_005flink_005f7.setPageContext(_jspx_page_context);
     _jspx_th_html_005flink_005f7.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_html_005fhtml_005f0);
     _jspx_th_html_005flink_005f7.setStyleClass("headerTableRowDataLink");
-    _jspx_th_html_005flink_005f7.setPage("/UserRegister.do?action=update");
+    _jspx_th_html_005flink_005f7.setPage("/Events.do");
     int _jspx_eval_html_005flink_005f7 = _jspx_th_html_005flink_005f7.doStartTag();
     if (_jspx_eval_html_005flink_005f7 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       if (_jspx_eval_html_005flink_005f7 != javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE) {
@@ -645,7 +637,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
         _jspx_th_html_005flink_005f7.doInitBody();
       }
       do {
-        out.write("Update Profile");
+        out.write("Add Events");
         int evalDoAfterBody = _jspx_th_html_005flink_005f7.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
@@ -671,7 +663,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
     _jspx_th_html_005flink_005f8.setPageContext(_jspx_page_context);
     _jspx_th_html_005flink_005f8.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_html_005fhtml_005f0);
     _jspx_th_html_005flink_005f8.setStyleClass("headerTableRowDataLink");
-    _jspx_th_html_005flink_005f8.setPage("/Logout.do");
+    _jspx_th_html_005flink_005f8.setPage("/Events.do?modifyEvent=true");
     int _jspx_eval_html_005flink_005f8 = _jspx_th_html_005flink_005f8.doStartTag();
     if (_jspx_eval_html_005flink_005f8 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       if (_jspx_eval_html_005flink_005f8 != javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE) {
@@ -680,7 +672,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
         _jspx_th_html_005flink_005f8.doInitBody();
       }
       do {
-        out.write("Logout");
+        out.write("Modify Events");
         int evalDoAfterBody = _jspx_th_html_005flink_005f8.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
@@ -694,76 +686,6 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
       return true;
     }
     _005fjspx_005ftagPool_005fhtml_005flink_005fstyleClass_005fpage.reuse(_jspx_th_html_005flink_005f8);
-    return false;
-  }
-
-  private boolean _jspx_meth_html_005flink_005f9(javax.servlet.jsp.tagext.JspTag _jspx_th_html_005fhtml_005f0, PageContext _jspx_page_context)
-          throws Throwable {
-    PageContext pageContext = _jspx_page_context;
-    JspWriter out = _jspx_page_context.getOut();
-    //  html:link
-    org.apache.struts.taglib.html.LinkTag _jspx_th_html_005flink_005f9 = (org.apache.struts.taglib.html.LinkTag) _005fjspx_005ftagPool_005fhtml_005flink_005fstyleClass_005fpage.get(org.apache.struts.taglib.html.LinkTag.class);
-    _jspx_th_html_005flink_005f9.setPageContext(_jspx_page_context);
-    _jspx_th_html_005flink_005f9.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_html_005fhtml_005f0);
-    _jspx_th_html_005flink_005f9.setStyleClass("headerTableRowDataLink");
-    _jspx_th_html_005flink_005f9.setPage("/Events.do");
-    int _jspx_eval_html_005flink_005f9 = _jspx_th_html_005flink_005f9.doStartTag();
-    if (_jspx_eval_html_005flink_005f9 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
-      if (_jspx_eval_html_005flink_005f9 != javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE) {
-        out = _jspx_page_context.pushBody();
-        _jspx_th_html_005flink_005f9.setBodyContent((javax.servlet.jsp.tagext.BodyContent) out);
-        _jspx_th_html_005flink_005f9.doInitBody();
-      }
-      do {
-        out.write("Add Events");
-        int evalDoAfterBody = _jspx_th_html_005flink_005f9.doAfterBody();
-        if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
-          break;
-      } while (true);
-      if (_jspx_eval_html_005flink_005f9 != javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE) {
-        out = _jspx_page_context.popBody();
-      }
-    }
-    if (_jspx_th_html_005flink_005f9.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _005fjspx_005ftagPool_005fhtml_005flink_005fstyleClass_005fpage.reuse(_jspx_th_html_005flink_005f9);
-      return true;
-    }
-    _005fjspx_005ftagPool_005fhtml_005flink_005fstyleClass_005fpage.reuse(_jspx_th_html_005flink_005f9);
-    return false;
-  }
-
-  private boolean _jspx_meth_html_005flink_005f10(javax.servlet.jsp.tagext.JspTag _jspx_th_html_005fhtml_005f0, PageContext _jspx_page_context)
-          throws Throwable {
-    PageContext pageContext = _jspx_page_context;
-    JspWriter out = _jspx_page_context.getOut();
-    //  html:link
-    org.apache.struts.taglib.html.LinkTag _jspx_th_html_005flink_005f10 = (org.apache.struts.taglib.html.LinkTag) _005fjspx_005ftagPool_005fhtml_005flink_005fstyleClass_005fpage.get(org.apache.struts.taglib.html.LinkTag.class);
-    _jspx_th_html_005flink_005f10.setPageContext(_jspx_page_context);
-    _jspx_th_html_005flink_005f10.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_html_005fhtml_005f0);
-    _jspx_th_html_005flink_005f10.setStyleClass("headerTableRowDataLink");
-    _jspx_th_html_005flink_005f10.setPage("/Events.do?modifyEvent=true");
-    int _jspx_eval_html_005flink_005f10 = _jspx_th_html_005flink_005f10.doStartTag();
-    if (_jspx_eval_html_005flink_005f10 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
-      if (_jspx_eval_html_005flink_005f10 != javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE) {
-        out = _jspx_page_context.pushBody();
-        _jspx_th_html_005flink_005f10.setBodyContent((javax.servlet.jsp.tagext.BodyContent) out);
-        _jspx_th_html_005flink_005f10.doInitBody();
-      }
-      do {
-        out.write("Modify Events");
-        int evalDoAfterBody = _jspx_th_html_005flink_005f10.doAfterBody();
-        if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
-          break;
-      } while (true);
-      if (_jspx_eval_html_005flink_005f10 != javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE) {
-        out = _jspx_page_context.popBody();
-      }
-    }
-    if (_jspx_th_html_005flink_005f10.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _005fjspx_005ftagPool_005fhtml_005flink_005fstyleClass_005fpage.reuse(_jspx_th_html_005flink_005f10);
-      return true;
-    }
-    _005fjspx_005ftagPool_005fhtml_005flink_005fstyleClass_005fpage.reuse(_jspx_th_html_005flink_005f10);
     return false;
   }
 

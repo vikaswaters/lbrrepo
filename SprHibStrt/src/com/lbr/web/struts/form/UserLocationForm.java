@@ -11,6 +11,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.log4j.Logger;
+
+import com.lbr.UserVO;
 import com.lbr.VICINITY_POLICY;
 import com.lbr.Vicinity;
 import com.lbr.dao.hibernate.domain.Locations;
@@ -37,7 +39,7 @@ public class UserLocationForm extends ActionForm {
 
 		List<State> stateList = DaoUtilities.getAllStates();
         this.setStateList(stateList);
-        this.setStateID(17);
+        //this.setStateID(17);
 	}
 
 

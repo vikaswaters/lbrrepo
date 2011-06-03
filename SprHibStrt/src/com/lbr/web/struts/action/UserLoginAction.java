@@ -11,9 +11,13 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.log4j.Logger;
+
+import com.lbr.LbrConstants;
 import com.lbr.LbrUtility;
+import com.lbr.UserVO;
 import com.lbr.dao.hibernate.domain.Users;
 import com.lbr.dao.specificdao.DaoUtilities;
+import com.lbr.services.WebServiceCall;
 import com.lbr.web.struts.form.UserLoginForm;
 
 
@@ -35,6 +39,8 @@ public class UserLoginAction  extends Action{
 		      		   // ################  Store the user details in the session....it will be  used thruout  ##############
 		      		   HttpSession  session = request.getSession();
 		      		   Users user = DaoUtilities.getUserByIDSmartCall(request, strUserid);
+		      		   if(LbrConstants.IP_BASED_LOCATION_ENABLED)
+		      			   LbrUtility.initIPBasedLocation(request, user);
 		      		   LbrAction.setThreadLocalUserValue(user);
 		  			   session.setAttribute("USERVO", user);
 		  			   logger.info("********* User logged in :"+user.getUserName());

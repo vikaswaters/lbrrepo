@@ -89,12 +89,12 @@ public class DaoUtilities {
 		 }
 
 	// ================================  User Specific DB operations =============================
- 
+
 	 public static boolean[] saveUserPreference(String userId, UserPreferenceForm objForm, HttpServletRequest request){
 			Users user = DaoUtilities.getUserByIDSmartCall(request, userId);
 			String[] selectedUserPref = objForm.getSubcategory();
 			List<SubcategoryWrapper> currUserPreferencesWithLevels = objForm.getUserPreferencesWithLevels();
-			
+
 			StringBuffer existingUserPref = new StringBuffer();
 			if(user.getPreferences()!=null)
 				existingUserPref.append(user.getPreferences());
@@ -120,8 +120,8 @@ public class DaoUtilities {
 			}
 			saveUserPreferenceToDBAndUpdateForm(userId, objForm, existingUserPref.toString(), request);
 			return results;
-		 }	 
-	 
+		 }
+
 	 public static void saveUserPreferenceToDBAndUpdateForm(String userId, UserPreferenceForm objForm, String currentUserPref, HttpServletRequest request){
 		    List<SubcategoryWrapper> currUserPreferencesWithLevels = objForm.getUserPreferencesWithLevels();
 		    Users user = DaoUtilities.getUserByIDSmartCall(request, userId);
@@ -130,7 +130,7 @@ public class DaoUtilities {
 			String[] strArrUserPrefLevels = LbrUtility.createUserPrefLevelsToStringArray(currUserPreferencesWithLevels);
 			String newUserPrefSubCatIDs = LbrUtility.createStringArrayToString(strArrUserPrefSubCatIDs);
 			String newUserPrefLevels = LbrUtility.createStringArrayToString(strArrUserPrefLevels);
-			
+
 			if(!currentUserPref.equals(newUserPrefSubCatIDs)){
 				user.setPreferences(newUserPrefSubCatIDs);
 				user.setPreferencesLevels(newUserPrefLevels);
@@ -145,7 +145,7 @@ public class DaoUtilities {
 				logger.debug("NO selected subcategories saved. Already existed. Ignored!! \t UserPref= "+currentUserPref);
 			objForm.setUserPreferencesWithLevels(currUserPreferencesWithLevels);
 	 }
-	 
+
 	 public static void saveUserPreferenceLevelsONLY(String userId, UserPreferenceForm objForm, HttpServletRequest request){
 		 	String[] selectedUserPrefLevel = objForm.getSubcatLevels();
 		 	String currentUserPrefLevel = LbrUtility.createStringArrayToString(selectedUserPrefLevel);
@@ -166,7 +166,7 @@ public class DaoUtilities {
 			}
 			else
 				logger.debug("User pref LEVELS NOT modified ... old and new are same!!");
-		 }	 
+		 }
 
 	 public static boolean createNewUser(Users user){
 		   GenericDao daoUsers = (GenericDao)ApplicationContextProvider.getApplicationContext().getBean("usersDao");
@@ -216,8 +216,8 @@ public class DaoUtilities {
 		 String  userPref = DaoUtilities.getUserPreferences(userID);
 		 List results = null;
 		 String  userPrefCleaned = userPref.substring(1, userPref.length()-1);
-		 String HQL_QUERY = "from Category cat where cat.subcategories.subCatId IN ("+userPrefCleaned+")";
-		 //String HQL_QUERY = "from Category c inner join SubCategory s on c.catID=s.catID where s.subCatID IN ("+userPrefCleaned+")";
+		 String HQL_QUERY = "from category cat where cat.subcategories.subCatId IN ("+userPrefCleaned+")";
+		 //String HQL_QUERY = "from category c inner join SubCategory s on c.catID=s.catID where s.subCatID IN ("+userPrefCleaned+")";
 	    *//** Getting the Session Factory and session *//*
 	    SessionFactory factory = ApplicationContextProvider.getSessionFactory();
 	    Session session = factory.openSession();
@@ -333,7 +333,7 @@ public static boolean updateUserByIDSmartCall(HttpServletRequest request, Users 
 	 public static State getStateByName(String stateName){
 		   String HQL_QUERY = "from State e where e.stateName='"+stateName+"'";
 		   List<State> states = executeCustomHQLQuery("stateDao", HQL_QUERY, null, null);
-		   if(states!=null)
+		   if(states!=null && states.size()>0)
 			   return states.get(0);
 		   else
 			   return null;
@@ -385,7 +385,7 @@ public static boolean updateUserByIDSmartCall(HttpServletRequest request, Users 
 		 boolean isAreaNameProvided = false;
 		 String HQL_QUERY = "select * from locations loc where ";
 
-		 if(pincode!=null && pincode!=""){ // if PIN is provided
+		 if(pincode!=null && pincode!="" && !pincode.equals("-")){ // if PIN is provided
 			 isPINProvided = true;
 			 HQL_QUERY+="loc.pincode";
 			 boolean useLikePre = false;
@@ -476,7 +476,7 @@ public static boolean updateUserByIDSmartCall(HttpServletRequest request, Users 
 		   List<City> cityIDs = getCityIDsForGivenCityName(cityName, stateID);
 		   if(cityIDs!=null && cityIDs.size() > 0){
 			   String cityIDsStr = "";
-			   String HQL_QUERY = "from Locations e where e.locName like '%"+areaName+"%' ";
+			   String HQL_QUERY = "from locations e where e.locName like '%"+areaName+"%' ";
 			   if(stateID>0){
 				   cityIDsStr = convertCityIDsToString(cityIDs);
 				   HQL_QUERY+="and e.city IN("+cityIDsStr+")";
@@ -495,11 +495,22 @@ public static boolean updateUserByIDSmartCall(HttpServletRequest request, Users 
 			 if(listCities!=null && listCities.size()==1){
 				 return listCities;
 			 }
-			 else if(listCities!=null && listCities.size()==0){ // broaden the search ...use FULL TEXT search
-				 	String SQL_QUERY_FULLTEXT = "select * from City c where MATCH(c.cityName) AGAINST('+"+cityName+"' IN BOOLEAN MODE) and c.stateID="+stateID;
+			 if(listCities!=null && listCities.size()==0){ // broaden the search ...use FULL TEXT search (for partial cityname that ends with *)
+				 	String SQL_QUERY_FULLTEXT = "select * from city c where MATCH(c.cityName) AGAINST('+"+cityName+"' IN BOOLEAN MODE) and c.stateID="+stateID;
 				   //return executeCustomHQLQuery("cityDao", HQL_QUERY, null, null);
-					 return executeCustomSQLQuery("cityDao", SQL_QUERY_FULLTEXT,  "c", City.class);
-
+				 	listCities =  executeCustomSQLQuery("cityDao", SQL_QUERY_FULLTEXT,  "c", City.class);
+				 	logger.info("getCityIDsForGivenCityName : executing "+SQL_QUERY_FULLTEXT);
+			 }
+			 if(listCities!=null && listCities.size()==0){ // broaden the search ...use FULL TEXT search (for partial cityname that does NOT end with *)
+				 	String SQL_QUERY_FULLTEXT = "select * from city c where MATCH(c.cityName) AGAINST('+"+cityName+"*' IN BOOLEAN MODE) and c.stateID="+stateID;
+				   //return executeCustomHQLQuery("cityDao", HQL_QUERY, null, null);
+				 	listCities =  executeCustomSQLQuery("cityDao", SQL_QUERY_FULLTEXT,  "c", City.class);
+				 	logger.info("getCityIDsForGivenCityName : executing "+SQL_QUERY_FULLTEXT);
+			 }
+			 if(listCities!=null && listCities.size()==0){  //if TEXT search is not supported/or user has provided....use LIKE ...but at performance cost
+				 	String SQL_QUERY_FULLTEXT = "select * from city c where c.cityName LIKE '"+cityName+"%' and c.stateID="+stateID;
+				 	listCities =  executeCustomSQLQuery("cityDao", SQL_QUERY_FULLTEXT,  "c", City.class);
+				 	logger.info("getCityIDsForGivenCityName : executing "+SQL_QUERY_FULLTEXT);
 			 }
 			 return listCities;
 	    	//    results = session.createSQLQuery("select * from city c where MATCH(c.cityName) AGAINST('+Bangalore' IN BOOLEAN MODE)").addEntity("c", City.class).list();

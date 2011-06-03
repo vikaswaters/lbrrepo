@@ -33,6 +33,7 @@ import com.lbr.dao.hibernate.domain.State;
 import com.lbr.dao.hibernate.domain.Subcategory;
 import com.lbr.dao.hibernate.domain.Users;
 import com.lbr.dao.specificdao.DaoUtilities;
+import com.lbr.services.WebServiceCall;
 import com.lbr.web.struts.action.LbrAction;
 import com.lbr.web.struts.form.EventsForm;
 import com.lbr.web.struts.form.UserPreferenceForm;
@@ -40,6 +41,57 @@ import com.lbr.web.struts.form.UserPreferenceForm;
 public class LbrUtility {
 private static final Logger logger = Logger.getLogger(LbrUtility.class);
 
+		public static String getIPOfRequest(HttpServletRequest req){
+			String ip = req.getRemoteAddr();
+			return ip;
+		}
+
+		public static void initIPBasedLocation(HttpServletRequest request, Users user){
+		   UserVO uservo = new UserVO();
+		   //List<String> locationElements =  null;
+  		   String ip = LbrUtility.getIPOfRequest(request);
+  		   //if(ip.equals("127.0.0.1"))
+  			//   ip = "122.163.220.255";
+  			//   ip = "121.243.179.109";
+  			   
+           String geoLocationIPBased = WebServiceCall.callWebServiceGET("http://api.ipinfodb.com/v3/ip-city/?key=9ca459dc56d2414fd4f37638da6a5f808f089f3fb97568b214b0150f91b570d4&ip="+ip);
+           //String geoLocationIPBased = "OK;;121.243.179.109;IN;INDIA;KARNATAKA;BANGALORE;-;12.983;77.583;+05:30";
+  		   //String geoLocationIPBased = "OK;;59.99.144.9;IN;INDIA;GUJARAT;AHMEDABAD;-;23.033;72.617;+05:30";
+          // String geoLocationIPBased = "OK;;122.163.220.255;IN;INDIA;DELHI;NEW DELHI;-;28.6328;77.2195;+05:30";
+           if(geoLocationIPBased!=null){
+        	   logger.info("IP: "+ip+"\tLocation: "+geoLocationIPBased);
+        	   List<String> locationElementsTemp =  parseStringWithTokenDelimiters(geoLocationIPBased, ";");
+        	   Locations IPlocation = null;
+           //  OK;;121.243.179.109;IN;INDIA;KARNATAKA;BANGALORE;-;12.983;77.583;+05:30
+        	   String countryCode = locationElementsTemp.get(2);
+        	   String countryName = locationElementsTemp.get(3);
+        	   String stateName = locationElementsTemp.get(4);
+        	   String cityName = locationElementsTemp.get(5);
+        	   String pincode = locationElementsTemp.get(6);
+        	   if(!locationElementsTemp.get(5).equals("-")){ // city is MUST
+	        	   State st = DaoUtilities.getStateByName(stateName);
+	        	   List<Locations> locs = DaoUtilities.getAllLocationIDsForGivenParameters(pincode, cityName, null, st.getStateId());
+	        	   if(locs!=null && locs.size()>0){
+	        		   IPlocation = locs.get(0);
+	        	   }else{
+	        		   StringBuffer sb = new StringBuffer();
+		        	   sb.append(" |");//line1
+		        	   sb.append(" |");//line2
+		        	   sb.append(" |"); // areaname
+		        	   sb.append(cityName+"|");
+		        	   sb.append(pincode+"|");
+		        	   sb.append(stateName+"|");
+		           	   IPlocation = createLocationObjectArtificially(sb.toString(), null);
+	        	   }
+	           	   uservo.setUserIPLocation(IPlocation);
+	           	   user.setLocationsByCurrentLocationId(IPlocation);
+	               uservo.setUser(user);
+	               request.getSession().setAttribute("USERVO_IPBASED", uservo);
+        	   }
+           }
+
+		}
+		
 	  public static ArrayList<EventLevel> createSubCatPrefList(){
 		 ArrayList<EventLevel> eventLevelList = new ArrayList();
 			eventLevelList = new ArrayList<EventLevel>();
@@ -292,17 +344,18 @@ private static final Logger logger = Logger.getLogger(LbrUtility.class);
         	String stateName = "";
 
         	if(addressComponents!=null && addressComponents.size()>0){
-	        	if(addressComponents.get(0)!=null)	line1= addressComponents.get(0);
+	        	if(addressComponents.get(0)!=null && !addressComponents.get(0).equals("") && !addressComponents.get(0).equals("-"))	line1= addressComponents.get(0);
 	        	if(form!=null) form.setLine1(line1);
-	        	if(addressComponents.get(1)!=null)	line2= addressComponents.get(1);
+	        	if(addressComponents.get(1)!=null && !addressComponents.get(1).equals("") && !addressComponents.get(1).equals("-"))	line2= addressComponents.get(1);
 	        	if(form!=null) form.setLine2(line2);
-	        	if(addressComponents.get(2)!=null)	areaName= addressComponents.get(2);
-	        	if(addressComponents.get(3)!=null)	cityName= addressComponents.get(3).trim();
-	        	if(addressComponents.get(4)!=null)	pincode= addressComponents.get(4);
-	        	if(addressComponents.get(5)!=null)	stateName= addressComponents.get(5);
+	        	if(addressComponents.get(2)!=null && !addressComponents.get(2).equals("") && !addressComponents.get(2).equals("-"))	areaName= addressComponents.get(2);
+	        	if(addressComponents.get(3)!=null && !addressComponents.get(3).equals("") && !addressComponents.get(3).equals("-"))	cityName= addressComponents.get(3).trim();
+	        	if(addressComponents.get(4)!=null && !addressComponents.get(4).equals("") && !addressComponents.get(4).equals("-"))	pincode= addressComponents.get(4);
+	        	if(addressComponents.get(5)!=null && !addressComponents.get(5).equals("") && !addressComponents.get(5).equals("-"))	stateName= addressComponents.get(5);
         	}
-        	state = DaoUtilities.getStateByName(addressComponents.get(5));  // state is mandatory
-        	if(addressComponents.size()>2){
+        	if(!stateName.equals(""))
+        		state = DaoUtilities.getStateByName(addressComponents.get(5));  // state is mandatory
+        	if(addressComponents.size()>2 && !cityName.equals("")){
         		newloc = new Locations();
         		newloc.setLocName(areaName);  //this areaName is user provided. Not verified.
         		List<City> cities = DaoUtilities.getCityIDsForGivenCityName(cityName, state.getStateId());
@@ -320,8 +373,7 @@ private static final Logger logger = Logger.getLogger(LbrUtility.class);
 					}
         		}
         		else{ // null .. city name does not exist in System
-
-        			if(!pincode.equals("0")){   // see if u can still find the city if it has the PINCode
+        			if(!pincode.equals("0") && !pincode.equals("")){   // see if u can still find the city if it has the PINCode
         				city = DaoUtilities.getCityForGivenPincode(pincode);
         			}
         			else{ // u r fucked
@@ -332,22 +384,27 @@ private static final Logger logger = Logger.getLogger(LbrUtility.class);
         		}
         		city.setState(state);
         		newloc.setCity(city);
-        		newloc.setPincode(new Integer(addressComponents.get(4).trim()));
+        		if(!pincode.equals("") && !pincode.equals("-"))
+        			newloc.setPincode(new Integer(addressComponents.get(4).trim()));
         		newloc.setLocationId(0);
         	}
         	return newloc;
 	 }
 
 	 public static List<String> parseAddress(String address){
+		 return parseStringWithTokenDelimiters(address, "|");
+	 }
+
+	 public static List<String> parseStringWithTokenDelimiters(String address, String token){
 		 List<String> addressComponents = new ArrayList<String>();
-		 StringTokenizer strtkn = new StringTokenizer(address, "|");
+		 StringTokenizer strtkn = new StringTokenizer(address, token);
 		 while(strtkn.hasMoreElements()){
 			 String str = strtkn.nextToken();
 			 addressComponents.add(str);
 		 }
 		 return addressComponents;
 	 }
-
+	 
 	 public static void printEvents(List results){
 		 System.out.print("\tEventIDs= ");
 		 for (Iterator iterator = results.iterator(); iterator.hasNext();) {
@@ -377,7 +434,7 @@ private static final Logger logger = Logger.getLogger(LbrUtility.class);
 	 public static String printLocationHTML(Locations loc){
 		 StringBuffer sb = new StringBuffer();
 		 if(loc!=null){
-			 String pincode = "Not specified";
+			 String pincode = "PIN: Unavailable";
 			 if(loc.getPincode()!=0)
 				 pincode = loc.getPincode()+"";
 			 sb.append(loc.getLocName()+"<br/>"+loc.getCity().getCityName()+"<br/>"+pincode+"<br/>"+loc.getCity().getState().getStateName());

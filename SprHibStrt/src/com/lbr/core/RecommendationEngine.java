@@ -147,7 +147,7 @@ private static final Logger logger = Logger.getLogger(RecommendationEngine.class
 			//if(this.userID==null)
 			HQL_QUERY = "from Users u where preferences like '%,"+subCatID+",%'";
 			//else
-			//	HQL_QUERY = "from Users u where u.userId="+this.userID+" and preferences like '%,"+subCatID+",%'";
+			//	HQL_QUERY = "from users u where u.userId="+this.userID+" and preferences like '%,"+subCatID+",%'";
 			//List paramsValues = new ArrayList();
 			//paramsValues.add('%'+object+'%');
 			GenericDao daoUsers = (GenericDao)ApplicationContextProvider.getApplicationContext().getBean("usersDao");

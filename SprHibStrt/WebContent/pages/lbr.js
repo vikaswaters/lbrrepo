@@ -59,8 +59,12 @@ function SetActionSubmitForm(formName, action){
 	oForm.submit();
 }
 
-function loadSubCategoryData() {
+function loadSubCategoryData(elem) {
 	//alert('loadSubCategoryData  called....');
+	if(elem.value ==6){
+		//document.forms['EventsForm'].endDate.
+		setElementValue('endDate', '3000-01-01 20:00');
+	}
 	var index = document.getElementsByName('category')[0].value;
 	if(index>0){
 		url = ajaxURL+"/UserPreference.do?action=add&ajax=yes&category="+index;
