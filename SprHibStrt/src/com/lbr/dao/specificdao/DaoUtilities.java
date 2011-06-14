@@ -637,23 +637,23 @@ public static boolean updateUserByIDSmartCall(HttpServletRequest request, Users 
 	   return executeCustomHQLQuery("eventsDao", HQL_QUERY, null, null);
 	}
 
-	public static List<Events> getEventsForSearchCustom(Date startDate, Date endDate, String userSelectedCurrLocID, String evntName, int subCatID, long contactNo){
+	public static List<Events> getEventsForSearchCustomXXX(Date startDate, Date endDate, Users currUser, String evntName, int subCatID, long contactNo){
 
 		StringBuffer buffer = new StringBuffer("from Events e where (((:windowEndDate < e.startDate) OR (e.startDate between :windowStartDate and :windowEndDate) OR (e.endDate between :windowStartDate and :windowEndDate) or (e.startDate< :windowStartDate and e.endDate >:windowEndDate))");
-	    if(evntName!=null && !evntName.equals("")){
-	    	buffer.append(" and e.name like '%"+evntName+"%'");
-	    }
-	    if(userSelectedCurrLocID!=null && userSelectedCurrLocID!=""){
-	    	buffer.append(" and e.locations="+userSelectedCurrLocID);
+	    if(!(currUser.getUserpermissions().getBasicModulePermission().booleanValue() && currUser.getUserpermissions().getEventsModulePermission().booleanValue())){
+	    	buffer.append(" and e.ownerId="+currUser.getUserId());
 	    }
 	    if(subCatID!=0){
 	    	Subcategory subcat = DaoUtilities.getSubCategoryByID(subCatID);
 	    	buffer.append(" and e.subcategory="+subcat.getSubCatId());
 	    }
-	    if(contactNo!=0L){
+	    if(evntName!=null && !evntName.equals("")){
+	    	buffer.append(" and e.name like '%"+evntName+"%'");
+	    	//buffer.append(" and MATCH(e.name) AGAINST('+"+evntName+"' IN BOOLEAN MODE)");  // need to make it SQL query for TEXT search  to work
+	    }	    
+	    if(contactNo!=0L && contactNo!=91){
 	    	buffer.append(" and e.contactNo like '%"+contactNo+"%'");
 	    }
-
 	    buffer.append(")");
 		String HQL_QUERY = buffer.toString();
     	Timestamp ts1 = new Timestamp(startDate.getTime());
@@ -674,6 +674,49 @@ public static boolean updateUserByIDSmartCall(HttpServletRequest request, Users 
 		}
 		return results;
  }
+	public static List<Events> getEventsForSearchCustom(Date startDate, Date endDate, Users currUser, String evntName, int subCatID, long contactNo){
+    	Timestamp ts1 = new Timestamp(startDate.getTime());
+    	Timestamp ts2 = new Timestamp(endDate.getTime());
+		//String HQL_QUERY = "from City c where c.cityName = '"+cityName+"' and c.state="+stateID;
+		//StringBuffer buffer = new StringBuffer("from Events e where (((:windowEndDate < e.startDate) OR (e.startDate between :windowStartDate and :windowEndDate) OR (e.endDate between :windowStartDate and :windowEndDate) or (e.startDate< :windowStartDate and e.endDate >:windowEndDate))");
+		StringBuffer buffer = new StringBuffer("select * from events e where ");
+		buffer.append(" ((('"+ts1+"' < e.startDate) OR (e.startDate between '"+ts1+"' and '"+ts2+"') OR (e.endDate between '"+ts1+"' and '"+ts2+"') or (e.startDate< '"+ts1+"' and e.endDate >'"+ts2+"'))");
+		
+	    if(subCatID!=0){
+	    	Subcategory subcat = DaoUtilities.getSubCategoryByID(subCatID);
+	    	buffer.append("and e.subcatID="+subcat.getSubCatId());
+	    }		
+		if(!(currUser.getUserpermissions().getBasicModulePermission().booleanValue() && currUser.getUserpermissions().getEventsModulePermission().booleanValue())){
+	    	buffer.append(" and e.ownerId="+currUser.getUserId());
+	    }
+	    if(evntName!=null && !evntName.equals("")){
+	    	//buffer.append(" and e.name like '%"+evntName+"%'");
+	    	buffer.append(" and MATCH(e.name) AGAINST('+"+evntName+"' IN BOOLEAN MODE)");  // need to make it SQL query for TEXT search  to work
+	    }	    
+	    if(contactNo!=0L && contactNo!=91){
+	    	buffer.append(" and e.contactNo like '%"+contactNo+"%'");
+	    }
+	    buffer.append(")");
+		String SQL_QUERY = buffer.toString();
+		List results  =  executeCustomSQLQuery("eventsDao", SQL_QUERY,  "e", Events.class);
+	 	logger.info("getCityIDsForGivenCityName : executing "+SQL_QUERY);
+	 	
+/*    	List paramsValues = new ArrayList();
+    	List paramsNames = new ArrayList();
+    	paramsValues.add(ts1);
+    	paramsValues.add(ts2);
+
+    	paramsNames.add("windowStartDate");
+    	paramsNames.add("windowEndDate");*/
+
+		//GenericDao daoEvents = (GenericDao)ApplicationContextProvider.getApplicationContext().getBean("eventsDao");
+		//List results = daoEvents.customHibernateQuery(HQL_QUERY, paramsNames, paramsValues);
+		if(results!=null){
+			logger.debug("\n######## Total Events(custome search) in dateRange["+startDate+","+endDate+"] = "+results.size());
+			LbrUtility.printEvents(results);
+		}
+		return results;
+ }	
 
 public static String convertCityIDsToString(List<City> listCityIDs){
 	StringBuffer sb =null;

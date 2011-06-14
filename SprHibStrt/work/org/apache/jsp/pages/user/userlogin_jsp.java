@@ -26,7 +26,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fhtml_005ferrors_005fnobody;
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fhtml_005ftext_005fsize_005fproperty_005fmaxlength_005fnobody;
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fhtml_005fpassword_005fsize_005fproperty_005fmaxlength_005fnobody;
-  private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fhtml_005fsubmit;
+  private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fhtml_005fsubmit_005fstyleClass;
 
   public Object getDependants() {
     return _jspx_dependants;
@@ -42,7 +42,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
     _005fjspx_005ftagPool_005fhtml_005ferrors_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _005fjspx_005ftagPool_005fhtml_005ftext_005fsize_005fproperty_005fmaxlength_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _005fjspx_005ftagPool_005fhtml_005fpassword_005fsize_005fproperty_005fmaxlength_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
-    _005fjspx_005ftagPool_005fhtml_005fsubmit = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
+    _005fjspx_005ftagPool_005fhtml_005fsubmit_005fstyleClass = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
   }
 
   public void _jspDestroy() {
@@ -55,7 +55,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
     _005fjspx_005ftagPool_005fhtml_005ferrors_005fnobody.release();
     _005fjspx_005ftagPool_005fhtml_005ftext_005fsize_005fproperty_005fmaxlength_005fnobody.release();
     _005fjspx_005ftagPool_005fhtml_005fpassword_005fsize_005fproperty_005fmaxlength_005fnobody.release();
-    _005fjspx_005ftagPool_005fhtml_005fsubmit.release();
+    _005fjspx_005ftagPool_005fhtml_005fsubmit_005fstyleClass.release();
   }
 
   public void _jspService(HttpServletRequest request, HttpServletResponse response)
@@ -127,12 +127,12 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write("\r\n");
           out.write("<table class=\"headerTable\"> \r\n");
           out.write("\t\t<tr>\r\n");
-          out.write("\t\t\t<td align=\"left\" colspan=\"4\" width=\"100%\">\r\n");
-          out.write("\t\t\t\t\t<h1 style=\"color: #660033\"><font size=\"6\" face=\"Monotype Corsiva\">LBRS</font></h1>\t\r\n");
+          out.write("\t\t\t<td align=\"left\" colspan=\"4\" width=\"100%\" style=\"white-space: nowrap\">\r\n");
+          out.write("\t\t\t\t\t<h1 style=\"color: #660033\"><font size=\"6\" face=\"Monotype Corsiva\">LBRS</font></h1><img alt=\"help\" height=\"60\" width=\"80\" src=\"../../images/tyyy.JPG\">\r\n");
           out.write("\t\t\t\t\t<!--  \r\n");
           out.write("\t\t\t\t\t<p style=\"color: #660033\"><font size=\"8\" face=\"Monotype Corsiva\">Location Based Recommendation System</font></p>\r\n");
           out.write("\t\t\t\t\t-->\t\r\n");
-          out.write("\t\t\t</td>\t\t\t     \r\n");
+          out.write("\t\t\t</td>\r\n");
           out.write(" \t\t</tr>\r\n");
           out.write(" \t\t");
  
@@ -244,7 +244,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write("   <!--\r\n");
           out.write("     <td colspan=\"5\">\r\n");
           out.write("\t\r\n");
-          out.write("\t\t\t<table width=\"400\" border=\"1\"  cellpadding=\"0\" cellspacing=\"0\" align=\"center\" >\r\n");
+          out.write("\t\t\t<table  border=\"12\" width=\"400\" border=\"1\"  cellpadding=\"0\" cellspacing=\"0\" align=\"center\" >\r\n");
           out.write("\t\t\t\t<tr>\r\n");
           out.write("\t\t\t\t\t\t  \r\n");
           out.write("\t\t\t\t-->\t\t <td>\r\n");
@@ -705,9 +705,9 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
     if (_jspx_eval_html_005fform_005f0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
         out.write("\r\n");
-        out.write("\t\t\t\t\t\t\t  <table border=\"1\" cellspacing=\"2\" cellpadding=\"1\" width=\"100%\" class=\"signup\">\r\n");
+        out.write("\t\t\t\t\t\t\t  <table border=\"12\" cellspacing=\"2\" cellpadding=\"1\" width=\"100%\" class=\"signup\">\r\n");
         out.write("\t\t\t\t\t\t\t\t  <tr>\r\n");
-        out.write("\t\t\t\t\t\t\t\t\t <td align=\"center\" colspan=\"2\" ><font size=\"4\" color=\"blue\">User Login</font><br>\r\n");
+        out.write("\t\t\t\t\t\t\t\t\t <td align=\"center\" colspan=\"2\" ><font size=\"5\" color=\"blue\">User Login</font><br>\r\n");
         out.write("\t\t\t\t\t\t\t\t\t \t<font color=\"red\">");
         if (_jspx_meth_html_005ferrors_005f0(_jspx_th_html_005fform_005f0, _jspx_page_context))
           return true;
@@ -819,9 +819,10 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  html:submit
-    org.apache.struts.taglib.html.SubmitTag _jspx_th_html_005fsubmit_005f0 = (org.apache.struts.taglib.html.SubmitTag) _005fjspx_005ftagPool_005fhtml_005fsubmit.get(org.apache.struts.taglib.html.SubmitTag.class);
+    org.apache.struts.taglib.html.SubmitTag _jspx_th_html_005fsubmit_005f0 = (org.apache.struts.taglib.html.SubmitTag) _005fjspx_005ftagPool_005fhtml_005fsubmit_005fstyleClass.get(org.apache.struts.taglib.html.SubmitTag.class);
     _jspx_th_html_005fsubmit_005f0.setPageContext(_jspx_page_context);
     _jspx_th_html_005fsubmit_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_html_005fform_005f0);
+    _jspx_th_html_005fsubmit_005f0.setStyleClass("btn");
     int _jspx_eval_html_005fsubmit_005f0 = _jspx_th_html_005fsubmit_005f0.doStartTag();
     if (_jspx_eval_html_005fsubmit_005f0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       if (_jspx_eval_html_005fsubmit_005f0 != javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE) {
@@ -840,10 +841,10 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
       }
     }
     if (_jspx_th_html_005fsubmit_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _005fjspx_005ftagPool_005fhtml_005fsubmit.reuse(_jspx_th_html_005fsubmit_005f0);
+      _005fjspx_005ftagPool_005fhtml_005fsubmit_005fstyleClass.reuse(_jspx_th_html_005fsubmit_005f0);
       return true;
     }
-    _005fjspx_005ftagPool_005fhtml_005fsubmit.reuse(_jspx_th_html_005fsubmit_005f0);
+    _005fjspx_005ftagPool_005fhtml_005fsubmit_005fstyleClass.reuse(_jspx_th_html_005fsubmit_005f0);
     return false;
   }
 }

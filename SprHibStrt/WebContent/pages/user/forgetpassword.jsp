@@ -49,7 +49,7 @@
 						 </tr> 
 						  <tr><td colspan="2"><p>&nbsp;</p></td></tr>              
 						  <tr>
-							  <td  align="center" colspan="2"><html:submit>Send Me My Username and Password</html:submit></td>
+							  <td  align="center" colspan="2"><html:submit styleClass="btn">Send Me My Username and Password</html:submit></td>
 						 </tr> 
 						 <!-- <tr><td colspan="2"><p>&nbsp;</p></td></tr> --> 
 				   

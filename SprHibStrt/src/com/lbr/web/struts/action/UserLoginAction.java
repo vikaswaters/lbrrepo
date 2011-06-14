@@ -34,7 +34,7 @@ public class UserLoginAction  extends Action{
 		        UserLoginForm objForm = (UserLoginForm) form;
 		        String strUserid=objForm.getUserid();
 		      	String strPassword=objForm.getPassword();
-		      	boolean loginStatus = DaoUtilities.checkUserLogin(strUserid, LbrUtility.generaPassword(objForm.getPassword()));
+		      	boolean loginStatus = DaoUtilities.checkUserLogin(strUserid, LbrUtility.generatePassword(objForm.getPassword()));
 		      	   if(loginStatus==true){
 		      		   // ################  Store the user details in the session....it will be  used thruout  ##############
 		      		   HttpSession  session = request.getSession();

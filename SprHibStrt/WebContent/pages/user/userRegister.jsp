@@ -105,7 +105,7 @@ if(prefForm!=null){
 	   
 	   
 	   
-	   <table border="1" class="signup"  align="center">
+	   <table  class="signup" border="10" align="center">
 <%if(!updateProfile) {%>
 	<tr> 
 		  <td colspan="2" align="center">
@@ -188,11 +188,11 @@ if(prefForm!=null){
 	   <tr>
 	   <%if(!updateProfile) {%>
 		  <td align="center" colspan="2">
-			  <html:submit property="action" value="Create User">Create User</html:submit>
+			  <html:submit styleClass="btn" property="action" value="Create User">Create User</html:submit>
 		  </td>
 		<% }else{ %>	  
 		  <td align="center" colspan="2">
-			  <html:submit property="action" value="Update User">Update User</html:submit>
+			  <html:submit styleClass="btn" property="action" value="Update User">Update User</html:submit>
 		  </td>
 		  <% } %>	
 	 </tr>

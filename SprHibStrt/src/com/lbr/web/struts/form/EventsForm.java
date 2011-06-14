@@ -114,7 +114,7 @@ public class EventsForm extends ActionForm{
 			if (category==null  || category.equals("0")) {
 				actionErrors.add(eventName, new ActionMessage("Errors.event.category.blank"));
 			}
-			if (stateID==0) {
+			if (stateID==0 && !this.formAction.equals("retrieveEvent")) {
 				actionErrors.add(stateID+"", new ActionMessage("Errors.event.state.blank"));
 			}
 

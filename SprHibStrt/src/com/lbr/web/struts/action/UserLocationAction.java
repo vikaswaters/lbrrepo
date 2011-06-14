@@ -38,11 +38,6 @@ public class UserLocationAction extends LbrAction {
         ActionMessages errors = new ActionMessages();
         UserLocationForm objForm = (UserLocationForm) form;
         LbrAction.setThreadLocalErrosValue(errors);
-        UserVO uservo = (UserVO)request.getSession().getAttribute("USERVO_IPBASED");
-        if(request.getSession().getAttribute("IP_HOMESTATE_SET")==null && uservo!=null && uservo.getUserIPLocation()!=null && uservo.getUserIPLocation().getCity()!=null && uservo.getUserIPLocation().getCity().getState()!=null){
-        	objForm.setStateID(uservo.getUserIPLocation().getCity().getState().getStateId());
-        	request.getSession().setAttribute("IP_HOMESTATE_SET", "YES");
-        }
         if(objForm.getFormAction()!=null && objForm.getFormAction().equalsIgnoreCase("locationSearch")){
         	String pincode = objForm.getPincode();
         	String areaName = objForm.getAreaName();

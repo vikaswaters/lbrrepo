@@ -11,6 +11,7 @@
 <%@page import="java.util.*"%>
 <%@page import="com.lbr.dao.hibernate.domain.*"%>
 <%@page import="com.lbr.web.struts.form.*"%>
+<%@page import="com.lbr.UserVO"%>
 
 <LINK rel="stylesheet" type="text/css" name="style" href="<html:rewrite page='/css/style.css'/>">
 <LINK rel="stylesheet" type="text/css" name="base" href="<html:rewrite page='/css/base.css'/>">
@@ -22,10 +23,15 @@
 <html:base/>
 </head>
 <%
-	String userName = ((Users) request.getSession().getAttribute(
-			"USERVO")).getUserName();
+UserLocationForm objForm = (UserLocationForm) session.getAttribute("UserLocationForm");
+	String userName = ((Users) request.getSession().getAttribute("USERVO")).getUserName();
     Users curruser = LbrAction.getThreadLocalUserValue();
     boolean fullDebugON = LbrConstants.LBR_DEBUG && (curruser.getUserpermissions().getUserTypeId() == LbrConstants.ADMIN_USERTYPE_ID);
+    UserVO uservo = (UserVO)request.getSession().getAttribute("USERVO_IPBASED");
+    if(request.getSession().getAttribute("IP_HOMESTATE_SET")==null && uservo!=null && uservo.getUserIPLocation()!=null && uservo.getUserIPLocation().getCity()!=null && uservo.getUserIPLocation().getCity().getState()!=null){
+    	objForm.setStateID(uservo.getUserIPLocation().getCity().getState().getStateId());
+    	request.getSession().setAttribute("IP_HOMESTATE_SET", "YES");
+    }    
 %>
 
 <body bgcolor="white">
@@ -58,7 +64,7 @@
     <%! String prefStatus; %> 
     <bean:message key="message.location.header.help" />
     <br/><br/>
-	<table style=""position: relative; left: 5px; top: 40px;>
+	<table style="position: relative; left: 5px; top: 40px;">
 		<tr>
 	        <td colspan="2"><b>Use either of the OPTIONS below to search the location:</b></td>
 	    </tr>
@@ -102,7 +108,7 @@
         <tr> 
             <td/>  
 	    	<td>
-	           	<html:submit onclick="SetActionSubmitForm('UserLocationForm', 'locationSearch')">
+	           	<html:submit styleClass="btn" onclick="SetActionSubmitForm('UserLocationForm', 'locationSearch')">
 	                     <bean:message key="label.common.html.select.button.locate" />
 		        </html:submit>
 	        </td>
@@ -110,11 +116,11 @@
 		if(request.getParameter("fromEvents")!=null && ((String)request.getParameter("fromEvents")).equals("true")){
 		%> 		    
 		    <td>
-		       	<html:cancel onclick="SetActionSubmitForm('UserLocationForm', 'eventLocationSelectionCancel')">Cancel</html:cancel>
+		       	<html:cancel styleClass="btn" onclick="SetActionSubmitForm('UserLocationForm', 'eventLocationSelectionCancel')">Cancel</html:cancel>
 		    </td> 
 	  <% }  else{ %>  
 	    <td>
-	       	<html:cancel onclick="SetActionSubmitForm('UserLocationForm', 'locationPreferenceCancel')">Cancel</html:cancel>
+	       	<html:cancel styleClass="btn" onclick="SetActionSubmitForm('UserLocationForm', 'locationPreferenceCancel')">Cancel</html:cancel>
 	    </td> 
 	     <% } %>  
 	    </tr>
@@ -126,7 +132,7 @@
  		int count =0;
  	%>
 	
- <div id="myDiv" style="position: absolute; left: 670px; top:-20px;">
+ <div id="myDiv" style="position: absolute; left: 750px; top:-20px;">
 My potential Locations (total): <%=prefForm.getSuggestedLocations().size()%>
  	<table cellpadding="3" cellspacing="3" border="1">   
    <%   
@@ -134,7 +140,7 @@ My potential Locations (total): <%=prefForm.getSuggestedLocations().size()%>
 		%> 	
  	    <tr> 
 		<td>
-	       	<html:submit onclick="SetActionSubmitForm('UserLocationForm', 'locationPreferenceConfirm')">
+	       	<html:submit styleClass="btn" onclick="SetActionSubmitForm('UserLocationForm', 'locationPreferenceConfirm')">
 	                 <bean:message key="label.common.html.select.button.locate.confirm" />
 	        </html:submit>
 	    </td>
@@ -190,7 +196,7 @@ My potential Locations (total): <%=prefForm.getSuggestedLocations().size()%>
 		%> 
 	    <tr> 
 			<td>
-		       	<html:submit onclick="SetActionSubmitForm('UserLocationForm', 'locationPreferenceConfirm')">
+		       	<html:submit styleClass="btn" onclick="SetActionSubmitForm('UserLocationForm', 'locationPreferenceConfirm')">
 		                 <bean:message key="label.common.html.select.button.locate.confirm" />
 		        </html:submit>
 		    </td>

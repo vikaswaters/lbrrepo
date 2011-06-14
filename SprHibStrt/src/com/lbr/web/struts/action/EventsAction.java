@@ -19,6 +19,7 @@ import org.apache.struts.util.MessageResources;
 
 import com.lbr.LbrConstants;
 import com.lbr.LbrUtility;
+import com.lbr.UserVO;
 import com.lbr.dao.hibernate.domain.City;
 import com.lbr.dao.hibernate.domain.Events;
 import com.lbr.dao.hibernate.domain.Locations;
@@ -41,6 +42,12 @@ public class EventsAction extends LbrAction {
         EventsForm objForm = (EventsForm) form;
         MessageResources messageResources = getResources(request);
         LbrAction.setThreadLocalErrosValue(errors);
+        Users user = ((Users)request.getSession().getAttribute("USERVO"));
+        UserVO uservo = (UserVO)request.getSession().getAttribute("USERVO_IPBASED");
+        if(request.getSession().getAttribute("IP_HOMESTATE_SET_EVENTS")==null && uservo!=null && uservo.getUserIPLocation()!=null && uservo.getUserIPLocation().getCity()!=null && uservo.getUserIPLocation().getCity().getState()!=null){
+        	objForm.setStateID(uservo.getUserIPLocation().getCity().getState().getStateId());
+        	request.getSession().setAttribute("IP_HOMESTATE_SET_EVENTS", "YES");
+        }       
 
         if(objForm.getFormAction()!=null && (objForm.getFormAction().equalsIgnoreCase(""))){
         	objForm.setUserEventEditWIP(false);
@@ -127,7 +134,7 @@ public class EventsAction extends LbrAction {
         	else if (objForm.getFormAction().equalsIgnoreCase("retrieveEvent")){
         		List<Date> dateRange = LbrUtility.getDateRange(startDateStr, endDateStr);
         		if(contactPhone=="")  contactPhone="0";
-        		objForm.setSearchEvents(DaoUtilities.getEventsForSearchCustom(dateRange.get(0), dateRange.get(1), userSelectedCurrLocID, evntName, new Integer(subcatID).intValue(), new Long(contactPhone)));
+        		objForm.setSearchEvents(DaoUtilities.getEventsForSearchCustom(dateRange.get(0), dateRange.get(1), user, evntName, new Integer(subcatID).intValue(), new Long(contactPhone)));
         		objForm.setFormAction("");
         		return mapping.findForward("retrieveEvent");
         	}

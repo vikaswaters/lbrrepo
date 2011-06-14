@@ -1,4 +1,6 @@
 <%@page import="com.lbr.LbrUtility"%>
+<%@page import="com.lbr.LbrConstants"%>
+<%@page import="com.lbr.web.struts.action.LbrAction"%>
 <%@ taglib uri="/tags/struts-bean" prefix="bean" %>
 <%@ taglib uri="/tags/struts-html" prefix="html" %>
 <%@ taglib uri="/tags/struts-logic" prefix="logic" %>
@@ -32,12 +34,16 @@ function limitText(limitField, limitCount, limitNum) {
    boolean showEditButtons = false;
    boolean eventRetrieved = false;
  	EventsForm prefForm =(EventsForm)session.getAttribute("EventsForm");
+    Users curruser = LbrAction.getThreadLocalUserValue();
+    boolean fullDebugON = LbrConstants.LBR_DEBUG && (curruser.getUserpermissions().getUserTypeId() == LbrConstants.ADMIN_USERTYPE_ID); 	
+    boolean userIsAdmin = (curruser.getUserpermissions().getUserTypeId() == LbrConstants.ADMIN_USERTYPE_ID); 
 	if(prefForm==null){
 		prefForm =  new EventsForm();
 		session.setAttribute("EventsForm", prefForm);
 	}
     if(request.getParameter("modifyEvent")!=null && ((String)request.getParameter("modifyEvent")).equals("true")){
     	prefForm.setUserEventEditWIP(true);
+    	prefForm.setUserSelectedEventIDForEdit("");
     }	
     if(prefForm.isUserEventEditWIP()){
     	showEditButtons = true;
@@ -74,9 +80,9 @@ function limitText(limitField, limitCount, limitNum) {
     logs for error messages.
   </font>
 </logic:notPresent>
-
+<!-- 
 <h3><bean:message key="label.events.entrypage.welcome.title"/></h3>
-
+ -->
 <font color="red"><html:errors/></font> 
 
 
@@ -90,7 +96,7 @@ function limitText(limitField, limitCount, limitNum) {
 	    <%  
 		if(request.getAttribute("saveAddressCityAnyway")!=null && ((String)request.getAttribute("saveAddressCityAnyway")).equals("true")){
 		%> 
-           	<html:submit onclick="SetActionSubmitForm('EventsForm', 'saveAddressCityAnyway')">
+           	<html:submit styleClass="btn" onclick="SetActionSubmitForm('EventsForm', 'saveAddressCityAnyway')">
                      <bean:message key="label.common.html.event.button.saveAnyway" />
 	        </html:submit>
 	  <% } %>  
@@ -123,6 +129,7 @@ function limitText(limitField, limitCount, limitNum) {
 			You have <input readonly type="text" name="countdown" size="3" value="300"> characters left.</font></td>
 		<tr>	    
 	    <tr/>
+	    <tr class="separatorThick"> <td colspan="3"/> 
 	    				<!-- Event Category Details -->	     	    
 		<tr>
 	        <td><b><bean:message key="label.events.category" /></b></td>
@@ -156,7 +163,8 @@ function limitText(limitField, limitCount, limitNum) {
 					<html:optionsCollection name="EventsForm" property="eventLevelList" label="levelName" value="levelId" />
 				</html:select>
 	        </td>
-	    </tr> 	    	    
+	    </tr> 	 
+	    <tr class="separatorThick"> <td colspan="3"/>  	    
 						<!-- Event Dates -->
 		<tr>
 	        <td><b><bean:message key="label.events.Dates" /></b></td>
@@ -166,17 +174,17 @@ function limitText(limitField, limitCount, limitNum) {
 	        <td><b><bean:message key="label.events.startDate"/></b><br/>e.g 2011-01-28 10:00:00</td>
 	        <td><html:text property="startDate" size="17" maxlength="16" altKey="startDate.format" ></html:text> 
 	        	<a onclick="InitiateCalendar('startDate', 'anchor18', 'endDate', true);" name="anchor18" id="anchor18"><img src="../images/calendar.jpg"  height="20" width="30"/></a>
-	        </td></td>
+	        </td>
 	    </tr>
 	    <tr>
 	    	<td/>
 	        <td><b><bean:message key="label.events.endDate" /></b></td>
 	        <td><html:text property="endDate" size="17" maxlength="16"></html:text> 
 	        	<a onclick="InitiateCalendar('endDate', 'anchor19', null);" name="anchor19" id="anchor19"><img src="../images/calendar.jpg"  height="20" width="30"/></a>
-	        </td></td>
+	        </td>
 	    </tr>  
 	    
-	    <tr/><tr/><tr/>
+<tr class="separatorThick"> <td colspan="3"/> 
 	    				<!-- Event Contact Details -->
 		<tr>
 	        <td><b><bean:message key="label.events.contactDetails" /></b></td>
@@ -191,12 +199,8 @@ function limitText(limitField, limitCount, limitNum) {
 	        <td><b><bean:message key="label.events.contactPhone" /></b></td>
 	        <td><html:text property="contactPhone" size="20" maxlength="20"></html:text> </td>
 	    </tr> 
-	    <tr/><tr/><tr/>
-
 			    
-	    <%-- 
-		<tr class= "separatorThick"/>
-		--%>
+<tr class="separatorThick"> <td colspan="3"/> 
 	    				<!-- Event Venue Details -->	    
 	    <tr>
 	        <td><b><bean:message key="label.events.address" /></b></td>
@@ -237,106 +241,74 @@ function limitText(limitField, limitCount, limitNum) {
 				</html:select>	 
 			</td>       
 	    </tr>
-	    
-	    <%-- 
-		<tr class= "separatorThick"/>
-		--%>
-	    <tr class="locationTableRow">
+<tr class="separatorThick"> <td colspan="3"/> 
+<tr/><tr/><tr/><tr/><tr/><tr/><tr/>
+	    <tr>
+	    	<!--  
 	        <td><b><bean:message key="label.events.locationID" /></b><br/>
 	        	<% if (prefForm != null && prefForm.getCurrentLocationStr()!=null){ %>
 	        		<%=prefForm.getCurrentLocationStr()	%> 
 	        	<% } %>	
 	        </td>
+	        -->
 	        <td>	
-	           	<html:submit onclick="SetActionSubmitForm('EventsForm', 'Help Location')">
+	           	<html:submit styleClass="btn" onclick="SetActionSubmitForm('EventsForm', 'Help Location')">
 	                     <bean:message key="label.events.location.help" />
 		        </html:submit>	
-
-		        <%-- 
-	           	<html:link styleClass="locationLink" onclick="SetActionSubmitForm('EventsForm', 'Help Location')">
-	                     <bean:message key="label.events.location.help" />
-		        </html:link>		        
-
-		        --%>		     
 		    </td>
-		    <td/> 
+	        <td>	
+	           	<html:submit styleClass="btn"  onclick="SetActionSubmitForm('EventsForm', 'resetForm')">
+	                      <bean:message key="label.events.form.reset" />
+		        </html:submit>		        
+		    </td>		    
+	        <td>	
+	        
+	           	<html:submit styleClass="btn"  onclick="SetActionSubmitForm('EventsForm', 'clearEventLocation')">
+	                     <bean:message key="label.events.location.clear" />
+		        </html:submit>	
+		    </td>
 	    </tr> 
     
 	    <%-- 
 		<tr class= "separatorThick"/>
 		--%>    
-	    <tr class="locationTableRow">
-	        <td/> 
-	        <td>	
-	        
-	           	<html:submit onclick="SetActionSubmitForm('EventsForm', 'clearEventLocation')">
-	                     <bean:message key="label.events.location.clear" />
-		        </html:submit>	
-		        <%-- 	        
-	           	<html:link styleClass="locationLink" action="Events.do?formAction=clearEventLocation">
-	                     <bean:message key="label.events.location.clear" />
-		        </html:link>	
-		        --%>     
-		    </td>
-	        <td>	
-	        
-	           	<html:submit onclick="SetActionSubmitForm('EventsForm', 'resetForm')">
-	                      <bean:message key="label.events.form.reset" />
-		        </html:submit>		        
-	        <%-- 
-	           	<html:reset>
-	                     <bean:message key="label.events.form.reset" />
-		        </html:reset>	
-		    --%>
-		    </td>
-	    </tr> 	    
- 
-		
-	    
+	    <tr class="tablerowButton"><td/></tr> 	    
 	    <%-- 
 		<tr class= "separatorThick"/>
 		--%>
 <% if(showEditButtons) {%>		
-        <tr> 
-            <td/>  
+     <tr> 
+	<% if (eventRetrieved){ %>
 	    	<td>
-	           	<html:submit onclick="SetActionSubmitForm('EventsForm', 'retrieveEvent')">
+	           	<html:submit styleClass="btn"  onclick="SetActionSubmitForm('EventsForm', 'deleteEvent')">
+	                     <bean:message key="label.common.html.event.button.delete" />
+		        </html:submit>
+	        </td>
+	        <td/>
+	    	<td>
+	           	<html:submit styleClass="btn"  onclick="SetActionSubmitForm('EventsForm', 'updateEvent')">
+	                     <bean:message key="label.common.html.event.button.update" />
+		        </html:submit>
+	        </td>
+	<% } else{ %>
+			<td/>
+	    	<td>
+	           	<html:submit styleClass="btn"  onclick="SetActionSubmitForm('EventsForm', 'retrieveEvent')">
 	                     <bean:message key="label.common.html.event.button.retrieve" />
 		        </html:submit>
 	        </td>
-	        
-	    </tr>
-	<% if (eventRetrieved){ %>
-	        <tr> 
-	            <td/>  
-		    	<td>
-		           	<html:submit onclick="SetActionSubmitForm('EventsForm', 'deleteEvent')">
-		                     <bean:message key="label.common.html.event.button.delete" />
-			        </html:submit>
-		        </td>
-		    </tr>	    
-	        <tr> 
-	            <td/>  
-		    	<td>
-		           	<html:submit onclick="SetActionSubmitForm('EventsForm', 'updateEvent')">
-		                     <bean:message key="label.common.html.event.button.update" />
-			        </html:submit>
-		        </td>
-		    </tr>
-	<% } 
-} else{ %>	    		
+	        <td/>	
+	<% } %>
+	</tr>
+<% } else{ %>	    		
         <tr> 
             <td/>  
 	    	<td>
-	           	<html:submit onclick="SetActionSubmitForm('EventsForm', 'saveEvent')">
+	           	<html:submit styleClass="btn"  onclick="SetActionSubmitForm('EventsForm', 'saveEvent')">
 	                     <bean:message key="label.common.html.event.button.save" />
 		        </html:submit>
 	        </td>
-	        <%-- 
-	    <td>
-	       	<html:cancel onclick="SetActionSubmitForm('UserLocationForm', 'locationPreferenceCancel')">Cancel</html:cancel>
-	    </td>  
-	    --%>	        
+	        <td/>
 	    </tr>
  <% } %>
 	</table>
@@ -347,26 +319,27 @@ function limitText(limitField, limitCount, limitNum) {
 if(prefForm!=null && prefForm.getSearchEvents()!=null){
 %>
 	
- <div id="myDiv" style="position: absolute; left: 600px; top:200px;">
+ <div id="myDiv" style="width: 400; position: absolute; left: 720px; top:0px;">
 Searched Events (total): <%=prefForm.getSearchEvents().size()%>
- 	<table cellpadding="3" cellspacing="3" border="1">   
+ 	<table cellpadding="3" cellspacing="3" border="1" width: "400";>   
    <%   
 		if(prefForm.getSearchEvents().size()>20){
 		%> 	
  	    <tr> 
 			<td>
-		       	<html:submit onclick="SetActionSubmitForm('EventsForm', 'eventsConfirm')">
+		       	<html:submit styleClass="btn"  onclick="SetActionSubmitForm('EventsForm', 'eventsConfirm')">
 		                 <bean:message key="label.common.html.select.button.edit.confirm" />
 		        </html:submit>
 		    </td>
 		    <td>
-		       	<html:cancel onclick="SetActionSubmitForm('EventsForm', 'eventsCancel')">Cancel</html:cancel>
+		       	<html:cancel styleClass="btn"  onclick="SetActionSubmitForm('EventsForm', 'eventsCancel')">Cancel</html:cancel>
 		    </td>   
 		</tr> 
 	<% 		}   %>
  		<tr>
  			<th>Select</th>
  		    <th>Name</th>
+ 		    <%if(fullDebugON) {%> <th>Owner</th> <%}%>
  		    <th>SubCategory</th>
 	    	<th>Start Date</th>
 	        <th>End Date</th>
@@ -390,8 +363,9 @@ Searched Events (total): <%=prefForm.getSearchEvents().size()%>
     	<td>
     	<%=lc.getName()%>
     	</td>
+    	<%if(fullDebugON) {%><td><%=lc.getOwnerId()%></td> <%}%>
         <td>
-		<%=lc.getSubcategory().getSubCatName() %>
+		<%=lc.getSubcategory().getSubCatName() %><%if(fullDebugON) {%>[<%=lc.getSubcategory().getSubCatId()%>] <%}%>
         </td>
     	<td>
     	<%=lc.getStartDate()%>
@@ -415,12 +389,12 @@ Searched Events (total): <%=prefForm.getSearchEvents().size()%>
 		%> 
  	    <tr> 
 			<td>
-		       	<html:submit onclick="SetActionSubmitForm('EventsForm', 'eventsConfirm')">
+		       	<html:submit styleClass="btn"  onclick="SetActionSubmitForm('EventsForm', 'eventsConfirm')">
 		                 <bean:message key="label.html.select.button.event.confirm" />
 		        </html:submit>
 		    </td>
 		    <td>
-		       	<html:cancel onclick="SetActionSubmitForm('EventsForm', 'eventsCancel')">Cancel</html:cancel>
+		       	<html:cancel styleClass="btn" onclick="SetActionSubmitForm('EventsForm', 'eventsCancel')">Cancel</html:cancel>
 		    </td>   
 		</tr> 
 	   <%

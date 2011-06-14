@@ -7,12 +7,12 @@
 
 <table class="headerTable"> 
 		<tr>
-			<td align="left" colspan="4" width="100%">
-					<h1 style="color: #660033"><font size="6" face="Monotype Corsiva">LBRS</font></h1>	
+			<td align="left" colspan="4" width="100%" style="white-space: nowrap">
+					<h1 style="color: #660033"><font size="6" face="Monotype Corsiva">LBRS</font><img alt="help" height="60" width="80" src="../../images/tyyy.JPG"></h1>
 					<!--  
 					<p style="color: #660033"><font size="8" face="Monotype Corsiva">Location Based Recommendation System</font></p>
 					-->	
-			</td>			     
+			</td>
  		</tr>
  		<% 
  		Users user =(Users)session.getAttribute("USERVO");

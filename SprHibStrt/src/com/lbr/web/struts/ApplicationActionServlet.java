@@ -63,7 +63,7 @@ public class ApplicationActionServlet extends ActionServlet
 			HttpServletResponse response) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 
-
+		
 		Users currUserID = (Users)request.getSession().getAttribute("USERVO");
 		if(currUserID!=null){
 			LbrAction.setThreadLocalUserValue(currUserID);
@@ -73,9 +73,11 @@ public class ApplicationActionServlet extends ActionServlet
 			String uri = request.getRequestURI();
 			if(uri.indexOf("UserLogin")!= -1 || uri.indexOf("UserRegister")!= -1)
 				super.process(request, response);
-			else{
+			else{ // force it to /SprHibStrt/UserLoginJsp.do
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/UserLoginJsp.do");
+				rd.forward(request, response);				
 				logger.warn("======= Not authorized =====");
-				super.process(request, response);
+				//super.process(request, response);
 			}
 
 		}

@@ -36,11 +36,11 @@
 			.getAttribute("UserPreferenceForm");
 %>
 <html:form action="/UserPreference" method="post">
-<div style="width: 100; position: relative; left: 5px; top: 10px;">
+<div style="width: 400px; position: relative; left: 5px; top: 10px;">
 
 	<input type="hidden" name="formAction" value="" />
 	<%!String prefStatus;%>
-	<table>
+	<table style="width: 400px;">
 		<tr class="spaceUnderSmallNoWrap">
 			<td><b>Select Category :</b></td>
 			<td><!-- 
@@ -58,7 +58,7 @@
 		<tr>
 			<td width="50%"><b>Select SubCategory :</b></td>
 			<td><html:select property="subcategory" onchange=""
-				multiple="true">
+				multiple="true" size="5">
 				<!-- <html:option value="0">Select SubCategories</html:option>  -->
 				<html:optionsCollection name="UserPreferenceForm"
 					property="subcategoryList" label="subCatName" value="subCatId" />
@@ -67,19 +67,19 @@
 		<tr />
 		<tr>
 			<td />
-			<td><html:submit
+			<td><html:submit styleClass="btn"
 				onclick="SetActionSubmitForm('UserPreferenceForm', 'save')">
 				<bean:message key="label.common.html.select.button.savePreference" />
 			</html:submit></td>
 		</tr>
-		<tr class="spaceUnderSmall">
+		<tr>
 			<td />
-			<td><html:submit
+			<td><html:submit styleClass="btn"
 				onclick="SetActionSubmitForm('UserPreferenceForm', 'delete')">
 				<bean:message key="label.common.html.select.button.deletePreference" />
 			</html:submit></td>
 		</tr>
-
+<tr class="separatorThick"> <td colspan="2"/> 
 		<tr class="spaceUnderSmall">
 			<td width="50%"><b>Vicinity Policy : </b><img alt="help" height="16" width="16" src="../images/help.jpg" TITLE="Recommendations can be generated for events within the PINCode/City/District/State"></td>
 			<td><html:select property="vicinitypolicyID">
@@ -106,6 +106,7 @@
 				name="anchor19" id="anchor19"><img src="../images/calendar.jpg"
 				height="20" width="30" /></a></td>
 		</tr>
+<tr class="separatorThick"> <td colspan="2"/> 		
 		<!-- 
 	     <tr class="spaceUnderSmall">   
 	        <td><b>My Current Location :</b><br/>(recommendations will be<br/>generated in the vicinity of<br/>this location:) <%if (prefForm != null) {%>
@@ -121,10 +122,8 @@
 	      -->
 
 
-		<tr class="spaceUnderSmall">
-			<td><b>My Current Location :</b><img alt="help" height="16" width="16" 
-				src="../images/help.jpg"
-				TITLE="Recommendations will be generated in the vicinity of this location">
+		<tr class="spaceUnderSmallNoWrap">
+			<td><b>My Current Location :</b><img alt="help" height="16" width="16" src="../images/help.jpg" TITLE="Recommendations will be generated in the vicinity of this location">
 			</td>
 			<td class="locationData">
 			<%
@@ -135,15 +134,26 @@
 			</td>
 		</tr>
 		<tr class="nowrap">
-			<td>
-			    <html:link action="UserLocation.do?formActionOriginatedFrom=UserPreferenceModule">
-				<h3><bean:message key="label.common.html.select.button.location" /></h3>
+			<td colspan="2">
+			    <html:link styleClass="btnFeel" action="UserLocation.do?formActionOriginatedFrom=UserPreferenceModule">
+				<b><bean:message key="label.common.html.select.button.location" /></b>
 				</html:link>
+			<!--  
+			<html:submit styleClass="btn" onclick="openInNewWindow('/SprHibStrt/UserLocation.do?formActionOriginatedFrom=UserPreferenceModule')">
+				<bean:message key="label.common.html.select.button.location" />
+			</html:submit>				
+			<html:submit styleClass="btn" onclick="UserLocation.do?formActionOriginatedFrom=UserPreferenceModule">
+				<bean:message key="label.common.html.select.button.location" />
+			</html:submit>		
+			-->		
+				<img alt="help" height="16" width="16" src="../images/help.jpg" TITLE="Use the location helper to select your location. Recommendation for events will be generated in this location's vicinity.">
 			</td>
 			<td>
-			<img alt="help" height="16" width="16" src="../images/help.jpg" TITLE="Use the location helper to select your location. Recommendation for events will be generated in this location's vicinity.">
+			
 			</td>			
 		</tr>
+<tr class="separatorThick"> <td colspan="2"/> 
+<tr class="spaceUnderSmall"> <td colspan="2"/> 		
 		<tr>
 			<%
 				if (request.getParameter("formAction") != null
@@ -153,12 +163,12 @@
 									&& prefForm.getRecommendations() != null && prefForm
 									.getRecommendations().size() > 0)) {
 			%>
-			<td colspan="1"><html:submit onclick="SetActionSubmitForm('UserPreferenceForm', 'recommend')">
+			<td colspan="2"><html:submit styleClass="btn" onclick="SetActionSubmitForm('UserPreferenceForm', 'recommend')">
 				<bean:message key="label.common.html.select.button.recommend" />
 			</html:submit></td>
 		</tr>
 		<tr class="spaceUnderSmall">
-			<td colspan="1"><html:submit
+			<td colspan="2"><html:submit styleClass="btn"
 				onclick="SetActionSubmitForm('UserPreferenceForm', 'hideRecommend')">
 				<bean:message key="label.common.html.select.button.recommend.hide" />
 			</html:submit>
@@ -168,7 +178,7 @@
 			} else {
 		%>
 		<tr class="spaceUnderSmall">
-			<td colspan="1"><html:submit
+			<td colspan="2"><html:submit styleClass="btn"
 				onclick="SetActionSubmitForm('UserPreferenceForm', 'recommend')">
 				<bean:message key="label.common.html.select.button.recommend" />
 			</html:submit></td>
@@ -179,16 +189,14 @@
 	</table>
 </div>
 
-<div id="myDiv"
-	style="position: absolute; width: 300px; height: 150px; top: 140px; left: 500px;"
-	type="hidden">
+<div id="myDiv"	style="position: absolute; width: 300px; height: 150px; top: 140px; left: 480px;" type="hidden">
 <%
 	if (prefForm != null && prefForm.getUserPreferencesWithLevels() != null) {
 %>
 <h3><bean:message
 	key="label.UserPreferenceAction.message.preferences.list" /><%=prefForm.getUserPreferencesWithLevels().size()%>
 </h3>
-<table cellpadding="3" cellspacing="3" border="1" width="300">
+<table cellpadding="1" cellspacing="0" border="8" width="300">
 	
 	<tr>
 		<th>Category</th>
@@ -227,8 +235,8 @@
 	<tr class="tablerowButton">
 	<td/><td/>
 		<td>
-		<table>
-			<html:submit
+		<table cellpadding="1" cellspacing="2" border="8">
+			<html:submit styleClass="btn"
 				onclick="SetActionSubmitForm('UserPreferenceForm', 'saveLevels')">
 				<bean:message key="label.common.html.select.button.save.levels" />
 			</html:submit>
@@ -246,7 +254,7 @@
 </html:form>
 </div>
 
-<div id="recoDiv" style="position: absolute; left: 850px; top: 130px;">
+<div id="recoDiv" style="position: absolute; left: 900px; top: 130px;">
 
 <%
 	if (prefForm != null
@@ -262,7 +270,7 @@
 						.getGeneratedOn()%>) <%
 	if (prefForm.getRecommendations().size() > 0) {
 %>
-<table cellpadding="3" cellspacing="3" border="1" width="510">
+<table cellpadding="5" cellspacing="2" border="8" width="510">
 	<tr>
 		<th>#</th>
 		<th>Recommended Event</th>

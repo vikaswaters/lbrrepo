@@ -3,6 +3,18 @@
 var ajaxURL='http://eyaksh.com/SprHibStrt';
 var lastUpdate = 0;
 
+
+function resumeParentWindow()
+{
+	//alert(url);
+}
+
+function openInNewWindow(url)
+{
+	//finalurl="/UserLocation.do?operation";
+	//alert(url);
+	window.showModalDialog(url, "Search Location", "width=1050,height=600,left=100,top=100,location=no,menubar=no,titlebar=no,toolbar=no,directories=no,resizable=yes,scrollbars=yes,status=no");
+}
 function detectBrowser(){  // 
 	var browserName=navigator.appName; 
 	if (browserName.indexOf("Microsoft")!= -1)
@@ -13,7 +25,7 @@ function detectBrowser(){  //
 	{
 		return 2; //alert("Hi, Explorer User!");
 	}	
-	else if (browserName.indexOf("Netscape")!= -1)
+	else if (browserName.indexOf("Netscape")!=d -1)
 	{
 		return 2; //alert("Hi, Explorer User!");
 	}

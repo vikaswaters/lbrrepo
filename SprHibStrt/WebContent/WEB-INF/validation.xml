@@ -119,9 +119,11 @@
         </form>
  
 		 <form name="EventsForm">
+		 <!-- 
 		    <field  property="contactPhone" depends="required,long">
 		         <arg key="label.events.contactPhone"/>
 		    </field>
+		     -->
 		    <field  property="eventDetails"
 		          depends="maxlength">
 		         <arg key="label.events.contactPhone"/>

@@ -47,7 +47,7 @@ public class UserRegisterAction extends LbrAction {
 				Users newUser = new Users();
 				newUser.setAddress(objForm.getAddress());
 				newUser.setEmail(objForm.getEmail());
-				newUser.setPassword(LbrUtility.generaPassword(objForm.getPassword()));
+				newUser.setPassword(LbrUtility.generatePassword(objForm.getPassword()));
 				if(objForm.getPhno()!="")
 					newUser.setMobileNo(new Long(objForm.getPhno()));
 				newUser.setUserName(objForm.getUserid());
@@ -73,7 +73,7 @@ public class UserRegisterAction extends LbrAction {
 				if(objForm.getEmail()!="" && !objForm.getEmail().equals(curruser.getEmail()))
 					curruser.setEmail(objForm.getEmail());
 				if(objForm.getPassword()!="" && !objForm.getPassword().equals(curruser.getPassword()))
-					curruser.setPassword(objForm.getPasswordCopy());
+					curruser.setPassword(LbrUtility.generatePassword(objForm.getPasswordCopy()));
 				if(objForm.getPhno()!="" && !objForm.getPhno().equals(curruser.getMobileNo()))
 					curruser.setMobileNo(new Long(objForm.getPhno()));
 

@@ -53,11 +53,12 @@ private static final Logger logger = Logger.getLogger(LbrUtility.class);
   		   //if(ip.equals("127.0.0.1"))
   			//   ip = "122.163.220.255";
   			//   ip = "121.243.179.109";
-  			   
-           String geoLocationIPBased = WebServiceCall.callWebServiceGET("http://api.ipinfodb.com/v3/ip-city/?key=9ca459dc56d2414fd4f37638da6a5f808f089f3fb97568b214b0150f91b570d4&ip="+ip);
+  		   String url ="http://api.ipinfodb.com/v3/ip-city/?key=9ca459dc56d2414fd4f37638da6a5f808f089f3fb97568b214b0150f91b570d4&ip="+ip;
+           String geoLocationIPBased = WebServiceCall.callWebServiceGET(url);
+           logger.info("URL : "+url);
            //String geoLocationIPBased = "OK;;121.243.179.109;IN;INDIA;KARNATAKA;BANGALORE;-;12.983;77.583;+05:30";
   		   //String geoLocationIPBased = "OK;;59.99.144.9;IN;INDIA;GUJARAT;AHMEDABAD;-;23.033;72.617;+05:30";
-          // String geoLocationIPBased = "OK;;122.163.220.255;IN;INDIA;DELHI;NEW DELHI;-;28.6328;77.2195;+05:30";
+           //String geoLocationIPBased = "OK;;122.163.220.255;IN;INDIA;DELHI;NEW DELHI;-;28.6328;77.2195;+05:30";
            if(geoLocationIPBased!=null){
         	   logger.info("IP: "+ip+"\tLocation: "+geoLocationIPBased);
         	   List<String> locationElementsTemp =  parseStringWithTokenDelimiters(geoLocationIPBased, ";");
@@ -175,7 +176,7 @@ private static final Logger logger = Logger.getLogger(LbrUtility.class);
 		logger.debug("MD5 str: "+password.toString());
 		return password.toString();
 	}
-	public static String generaPassword(String pass) {
+	public static String generatePassword(String pass) {
 	MessageDigest m  = null;
 	try {
 		m = MessageDigest.getInstance("MD5");

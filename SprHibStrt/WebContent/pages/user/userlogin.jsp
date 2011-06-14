@@ -18,14 +18,14 @@
    <!--
      <td colspan="5">
 	
-			<table width="400" border="1"  cellpadding="0" cellspacing="0" align="center" >
+			<table  border="12" width="400" border="1"  cellpadding="0" cellspacing="0" align="center" >
 				<tr>
 						  
 				-->		 <td>
 						  <html:form action="/UserLogin" method="post" focus="userid" onreset="setFocus()">
-							  <table border="1" cellspacing="2" cellpadding="1" width="100%" class="signup">
+							  <table border="12" cellspacing="2" cellpadding="1" width="100%" class="signup">
 								  <tr>
-									 <td align="center" colspan="2" ><font size="4" color="blue">User Login</font><br>
+									 <td align="center" colspan="2" ><font size="5" color="blue">User Login</font><br>
 									 	<font color="red"><html:errors/>
 									 </td>
 								  </tr> 
@@ -43,7 +43,7 @@
 								 </tr> 
 												
 								  <tr>
-									  <td  align="center" colspan="2"><html:submit>Sign-In !</html:submit></td>
+									  <td  align="center" colspan="2"><html:submit styleClass="btn">Sign-In !</html:submit></td>
 								 </tr> 
 								  
 								 

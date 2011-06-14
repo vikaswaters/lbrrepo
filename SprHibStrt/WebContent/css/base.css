@@ -16,11 +16,12 @@ img, a img {border: none;}
 input {
 	font: 13px Verdana, Arial, Helvetica, sans-serif;
 	color: navy;
-}
+}/*
 select {
 	font: 11px Verdana, Arial, Helvetica, sans-serif;
 	color: #111;
 }
+*/
 textarea {
 	font: 11px Verdana, Arial, Helvetica, sans-serif;
 	color: #111;
@@ -30,13 +31,28 @@ table {
 	background-color: #CCCCFF;
 	border-spacing: 1;
 	cellpadding:3;
-	cellspacing:3;
-	border:1;
+	cellspacing:1;
+	border:8;
+	color : #000000;
 	font: 11px Verdana, Arial, Helvetica, sans-serif;
 	}
-
-table tr td, table tr th {vertical-align: top;}
-
+table tr th {
+	vertical-align: top;
+	text-align: center;
+	font: 14px Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	}
+table tr td {
+	vertical-align: top;
+	text-align: center;
+	font: 12px Verdana, Arial, Helvetica, sans-serif;
+	}
+.tableLastRow {
+	border-collapse: collapse;
+	background-color:#D8BFD8;
+	font: 14px Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+}
 
 tr.spaceUnderMedium > td
 {
@@ -59,6 +75,22 @@ tr.spaceTopSmall > td
 tr.nowrap > td
 {
   white-space: nowrap;
+}
+select {
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 12px; 
+color : #000000;
+background-color : #F0F8FF;
+font-weight: normal; 
+background: #F0F8FF; 
+scrollbar-base-color: Cyan; 
+scrollbar-face-color:577C9E; 
+scrollbar-shadow-color:#E5DFBF; 
+scrollbar-highlight-color:#E5DFBF; 
+scrollbar-3dlight-color:#336699; 
+scrollbar-darkshadow-color:DarkBlue; 
+scrollbar-track-color:#E5DFBF; 
+scrollbar-arrow-color:#E5DFBF; 
 }
 /* *************** Selector- id (specific/unique element on a page) ******** */
 #formAction
@@ -105,8 +137,9 @@ align="left";
 }
 
 .headerTableRowDataLink {
-	color:black;
-	font: 15px Verdana, Arial, Helvetica, sans-serif;
+	color: black;
+	font: 16px Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
 }
 
 .separatorThin {
@@ -119,10 +152,12 @@ border-style:dotted solid dashed;
 border-width:3px;
 border-color:#98bf21;
 }
-.separatorThick {
-border-style:inset solid; 
-border-width:5px;
-border-color:#FF0000;
+tr.separatorThick  > td {
+	border-style: dotted; 
+	border-color: #98bf21;
+	border-width: 1px;
+	background-color: #FFFFFF;
+	padding-bottom: 0em;
 }
 
 .locationLink {
@@ -138,6 +173,7 @@ border-color:#FF0000;
 	font: 12px Verdana, Arial, Helvetica, sans-serif;
 }
 
+
 .locationData {
 	/* background-color: #229900; */
 	font: 13px Verdana, Helvetica, sans-serif;
@@ -149,4 +185,51 @@ border-color:#FF0000;
 .tablerowButton{
 	font: 13px Verdana, bold, Helvetica, sans-serif;
 	background-color:CornflowerBlue;
+	border-spacing: 0;
+}
+.tableDataEdit{
+    background-color: #FFFFFF;
+    border-spacing: 1px;
+    font: 11px Verdana,Arial,Helvetica,sans-serif;
+    border-style:solid; 
+	border-width:0px;
+	border-color:#005655;
+	cellpadding:3;
+	cellspacing:3;
+}
+.tableSplBorder {
+	border-width: 8px;
+	cellpadding: 5px;
+	cellspacing: 2px;
+	border: 8px
+}
 
+.button{
+     padding-top: 0;
+         margin-right: 3px;
+    vertical-align: bottom;
+   color: #FFFFFF;
+   font-size: 0.9em;
+   font-family: Arial,Helvetica,sans-serif;
+}
+
+input.btn, select.btn {
+	/*
+    color: #005500;
+    font: 14px Verdana,bold, Helvetica, sans-serif;
+    background-color: #FFEEDD;
+    border: 1px solid #FFFFFF;  
+    */
+	color: #000000;
+	font: 14px Verdana, Helvetica, sans-serif;
+	font-style: normal;
+	font-weight: bold;
+    background: url(../images/bg-month-name1.jpg);
+}
+.btnFeel{
+	color: #000000;
+	font: 14px Verdana, Helvetica, sans-serif;
+	font-style: normal;
+	font-weight: bold;
+    background: url(../images/bg-month-name1.jpg);
+}
