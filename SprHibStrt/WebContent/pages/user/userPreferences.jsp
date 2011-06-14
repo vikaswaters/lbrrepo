@@ -36,7 +36,7 @@
 			.getAttribute("UserPreferenceForm");
 %>
 <html:form action="/UserPreference" method="post">
-<div style="width: 400px; position: relative; left: 5px; top: 10px;">
+<div style="width: 400px; position: relative; left: 5px; top: 0px;">
 
 	<input type="hidden" name="formAction" value="" />
 	<%!String prefStatus;%>
@@ -189,7 +189,7 @@
 	</table>
 </div>
 
-<div id="myDiv"	style="position: absolute; width: 300px; height: 150px; top: 140px; left: 480px;" type="hidden">
+<div id="myDiv"	style="position: absolute; width: 300px; height: 150px; top: 150px; left: 480px;" type="hidden">
 <%
 	if (prefForm != null && prefForm.getUserPreferencesWithLevels() != null) {
 %>
@@ -254,7 +254,7 @@
 </html:form>
 </div>
 
-<div id="recoDiv" style="position: absolute; left: 900px; top: 130px;">
+<div id="recoDiv" style="position: absolute; left: 900px; top: 150px;">
 
 <%
 	if (prefForm != null

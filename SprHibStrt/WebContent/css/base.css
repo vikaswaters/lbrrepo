@@ -221,14 +221,14 @@ input.btn, select.btn {
     border: 1px solid #FFFFFF;  
     */
 	color: #000000;
-	font: 14px Verdana, Helvetica, sans-serif;
+	font: 13px Verdana, Helvetica, sans-serif;
 	font-style: normal;
 	font-weight: bold;
     background: url(../images/bg-month-name1.jpg);
 }
 .btnFeel{
 	color: #000000;
-	font: 14px Verdana, Helvetica, sans-serif;
+	font: 13px Verdana, Helvetica, sans-serif;
 	font-style: normal;
 	font-weight: bold;
     background: url(../images/bg-month-name1.jpg);

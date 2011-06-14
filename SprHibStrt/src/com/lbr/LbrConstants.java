@@ -23,7 +23,7 @@ public class LbrConstants {
 	public static final boolean SUBCATEGORY_TYPE_STATIC = false;  // 0: static , 1 : dynamic
 	public static final int RECCOMENDATION_THREAD_SLEEP_TIME_MINUTES= 5;
 	public static final boolean PREFERENCES_LEVELS_ENABLED = true;
-	public static final boolean IP_BASED_LOCATION_ENABLED = true;  // To find out the IP based loacationof the user
+	public static final boolean IP_BASED_LOCATION_ENABLED = false;  // To find out the IP based loacationof the user
 	public static final int DEFAULT_PREFERENCES_LEVEL = 3;
 	
 	/*********************************  Debug/testing  params *********************/

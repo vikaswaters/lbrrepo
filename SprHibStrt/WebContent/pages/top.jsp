@@ -8,7 +8,7 @@
 <table class="headerTable"> 
 		<tr>
 			<td align="left" colspan="4" width="100%" style="white-space: nowrap">
-					<h1 style="color: #660033"><font size="6" face="Monotype Corsiva">LBRS</font><img alt="help" height="60" width="80" src="../../images/tyyy.JPG"></h1>
+					<h1 style="color: #660033"><font size="6" face="Monotype Corsiva">Location Based Recommendation System</font><img height="60" width="80" src="../../tyyy.JPG"></h1>
 					<!--  
 					<p style="color: #660033"><font size="8" face="Monotype Corsiva">Location Based Recommendation System</font></p>
 					-->	

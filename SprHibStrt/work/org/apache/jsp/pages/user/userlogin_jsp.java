@@ -128,7 +128,7 @@ public final class userlogin_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write("<table class=\"headerTable\"> \r\n");
           out.write("\t\t<tr>\r\n");
           out.write("\t\t\t<td align=\"left\" colspan=\"4\" width=\"100%\" style=\"white-space: nowrap\">\r\n");
-          out.write("\t\t\t\t\t<h1 style=\"color: #660033\"><font size=\"6\" face=\"Monotype Corsiva\">LBRS</font></h1><img alt=\"help\" height=\"60\" width=\"80\" src=\"../../images/tyyy.JPG\">\r\n");
+          out.write("\t\t\t\t\t<h1 style=\"color: #660033\"><font size=\"6\" face=\"Monotype Corsiva\">Location Based Recommendation System</font><img height=\"60\" width=\"80\" src=\"../../tyyy.JPG\"></h1>\r\n");
           out.write("\t\t\t\t\t<!--  \r\n");
           out.write("\t\t\t\t\t<p style=\"color: #660033\"><font size=\"8\" face=\"Monotype Corsiva\">Location Based Recommendation System</font></p>\r\n");
           out.write("\t\t\t\t\t-->\t\r\n");
